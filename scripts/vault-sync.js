@@ -152,7 +152,7 @@ function parseProjects() {
 
   return fs
     .readdirSync(projectsDir, { withFileTypes: true })
-    .filter((entry) => entry.isDirectory())
+    .filter((entry) => entry.isDirectory() && !entry.name.startsWith("."))
     .map((entry) => parseProject(entry.name))
     .filter(Boolean)
     .sort((a, b) => {
@@ -262,7 +262,12 @@ function generateKnowledgeGraph(cards) {
 function readMarkdown(filePath) {
   if (!fs.existsSync(filePath)) return null;
   const fileContent = fs.readFileSync(filePath, "utf8");
-  return matter(fileContent);
+  try {
+    return matter(fileContent);
+  } catch (error) {
+    console.warn(`Frontmatter parse warning in ${filePath}: ${error.message}`);
+    return parseFrontmatter(fileContent);
+  }
 }
 
 function normalizeArray(value) {

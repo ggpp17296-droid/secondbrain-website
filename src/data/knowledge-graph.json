@@ -1,39 +1,6 @@
 {
   "nodes": [
     {
-      "id": "insight_AI工作流落地的核心难点",
-      "label": "insight_AI工作流落地的核心难点",
-      "type": "card",
-      "tags": [
-        "card",
-        "insight",
-        "AI工作流",
-        "AI开发"
-      ]
-    },
-    {
-      "id": "tip_如何让AI真正参与工作流",
-      "label": "tip_如何让AI真正参与工作流",
-      "type": "card",
-      "tags": [
-        "card",
-        "tip",
-        "AI工作流",
-        "最佳实践"
-      ]
-    },
-    {
-      "id": "_EXAMPLE_book_卡片笔记写作法",
-      "label": "_EXAMPLE_book_卡片笔记写作法",
-      "type": "card",
-      "tags": [
-        "card",
-        "book",
-        "知识管理",
-        "写作"
-      ]
-    },
-    {
       "id": "_EXAMPLE_insight_记录是思考的外部硬盘",
       "label": "_EXAMPLE_insight_记录是思考的外部硬盘",
       "type": "card",
@@ -86,6 +53,39 @@
         "tool",
         "知识管理",
         "笔记"
+      ]
+    },
+    {
+      "id": "insight_AI工作流落地的核心难点",
+      "label": "insight_AI工作流落地的核心难点",
+      "type": "card",
+      "tags": [
+        "card",
+        "insight",
+        "AI工作流",
+        "AI开发"
+      ]
+    },
+    {
+      "id": "tip_如何让AI真正参与工作流",
+      "label": "tip_如何让AI真正参与工作流",
+      "type": "card",
+      "tags": [
+        "card",
+        "tip",
+        "AI工作流",
+        "最佳实践"
+      ]
+    },
+    {
+      "id": "_EXAMPLE_book_卡片笔记写作法",
+      "label": "_EXAMPLE_book_卡片笔记写作法",
+      "type": "card",
+      "tags": [
+        "card",
+        "book",
+        "知识管理",
+        "写作"
       ]
     },
     {
