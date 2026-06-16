@@ -1,0 +1,47 @@
+@import "tailwindcss";
+@config "../../tailwind.config.js";
+@import "./design-system.css";
+
+@theme inline {
+  --color-background: var(--bg-base);
+  --color-foreground: var(--text-primary);
+  --color-primary: var(--primary);
+  --color-primary-light: var(--primary-light);
+  --color-primary-dark: var(--primary-dark);
+  --color-accent: var(--accent);
+  --color-accent-light: var(--accent-light);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-error: var(--error);
+  --color-info: var(--info);
+  --color-pending: var(--pending);
+  --color-dark-bg: var(--bg-base);
+  --color-dark-elevated: var(--bg-elevated);
+  --color-dark-hover: var(--bg-hover);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-tertiary: var(--text-tertiary);
+  --color-border-default: var(--border-default);
+  --color-border-strong: var(--border-strong);
+  --color-border-subtle: var(--border-subtle);
+  --color-glass-bg: var(--glass-bg);
+  --color-glass-border: var(--glass-border);
+  --font-sans: var(--font-inter);
+  --font-mono: var(--font-geist-mono);
+  --radius-card: var(--radius-lg);
+  --shadow-card: var(--shadow-md);
+  --shadow-card-hover: var(--shadow-lg);
+  --shadow-primary: var(--shadow-primary);
+  --blur-glass: var(--blur-lg);
+}
+
+body {
+  background:
+    radial-gradient(circle at top left, rgba(var(--primary-rgb), 0.18), transparent 34rem),
+    var(--bg-base);
+  color: var(--text-primary);
+}
+
+a {
+  text-decoration: none;
+}

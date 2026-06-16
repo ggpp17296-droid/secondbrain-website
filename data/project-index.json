@@ -1,0 +1,145 @@
+[
+  {
+    "id": "AI学习资源库",
+    "name": "AI 学习资源库",
+    "status": "in_progress",
+    "startDate": "2026-06-12",
+    "progress": 0,
+    "tags": [
+      "project",
+      "AI学习",
+      "资源库"
+    ],
+    "description": "系统整理 AI 学习相关的资源、笔记和实践经验",
+    "content": "81\n# AI 学习资源库\n\n## 项目概述\n\n这是一个持续积累的知识库，用于系统整理 AI 学习过程中的资源、笔记、工具使用经验和实践案例。\n\n**核心目标**：\n- 从碎片化学习转向系统化知识体系\n- 建立可复用的工具使用指南\n- 沉淀实践经验和问题解决方案\n- 为职业转型打下知识基础\n\n---\n\n## 项目结构\n\n### 1. 工具使用指南\n位置：`工具使用指南/`\n\n**包含内容**：\n- [[03_Projects/AI学习资源库/工具使用指南/Claude_Code使用指南.md|Claude Code 使用指南]]\n- [[03_Projects/AI学习资源库/工具使用指南/Codex使用指南.md|Codex 使用指南]]\n- [[03_Projects/AI学习资源库/工具使用指南/NotebookLM使用指南.md|NotebookLM 使用指南]]\n- [[03_Projects/AI学习资源库/工具使用指南/Obsidian使用指南.md|Obsidian 使用指南]]\n\n每个指南包含：\n- 工具简介\n- 核心功能\n- 使用场景\n- 最佳实践\n- 常见问题\n- 实战案例\n\n---\n\n### 2. 学习资源收集\n位置：`学习资源/`\n\n**按类型分类**：\n- 文章收藏（精选的优质文章）\n- 视频课程（在线课程、教程视频）\n- 书籍清单（推荐阅读）\n- 社区资源（Discord、Reddit、GitHub）\n\n**收集原则**：\n- 质量优于数量\n- 注明推荐理由\n- 标记学习状态（待学、学习中、已完成）\n\n---\n\n### 3. 实践案例库\n位置：`实践案例/`\n\n**记录内容**：\n- 我做了什么项目/任务\n- 使用了哪些工具\n- 遇到了什么问题\n- 如何解决的\n- 可复用的经验\n\n**案例来源**：\n- [[03_Projects/学习_Claude_Code/学习日志.md|Claude Code 学习日志]]\n- 其他工具的使用记录\n- 日常工作中的 AI 应用\n\n---\n\n### 4. 问题解决方案库\n位置：`问题解决方案/`\n\n**问题分类**：\n- 工具使用问题\n- 环境配置问题\n- 工作流设计问题\n- 学习方法问题\n\n**记录格式**：\n- 问题描述\n- 解决方案\n- 参考资料\n- 适用场景\n\n---\n\n### 5. 学习笔记\n位置：`学习笔记/`\n\n**笔记类型**：\n- 主题学习笔记（如\"AI 工作流设计\"）\n- 工具对比笔记（如\"Claude Code vs Codex\"）\n- 方法论笔记（如\"如何系统化学习 AI 工具\"）\n\n**笔记要求**：\n- 结构化\n- 有实例\n- 可操作\n\n---\n\n## 当前状态\n\n### 已完成\n- [x] 创建项目结构\n- [x] 设计内容框架\n- [x] 建立 Claude Code 使用指南\n- [x] 整理学习资源清单（文章类）\n- [x] 创建第一批实践案例（3 个）\n\n### 进行中\n- [ ] 持续更新 Claude Code 使用指南\n- [ ] 继续收集和整理学习资源\n\n### 待开始\n- [ ] Codex 使用指南\n- [ ] NotebookLM 使用指南\n- [ ] Obsidian 使用指南\n\n---\n\n## 第一阶段任务（本周）\n\n### 任务 1：建立 Claude Code 使用指南\n**目标**：把学习 Claude Code 的经验整理成系统指南\n\n**内容来源**：\n- [[03_Projects/学习_Claude_Code/学习日志.md]]\n- [[03_Projects/学习_Claude_Code/最佳实践.md]]\n- [[03_Projects/学习_Claude_Code/2026-06-12_学习复盘.md]]\n\n**输出**：\n- 一份完整的 Claude Code 使用指南\n- 包含：简介、核心功能、使用场景、最佳实践、常见问题、实战案例\n\n---\n\n### 任务 2：整理已收藏的学习资源\n**目标**：把已保存的文章整理成资源清单\n\n**内容来源**：\n- [[05_References/01_Inbox/]] 中的文章\n- [[04_Knowledge/00_Cards/]] 中提炼的卡片\n\n**输出**：\n- 学习资源清单（文章类）\n- 每个资源标注：主题、推荐理由、学习状态\n\n---\n\n### 任务 3：创建第一批实践案例\n**目标**：把已完成的任务整理成实践案例\n\n**内容来源**：\n- 任务 1：补齐 Context\n- 任务 2：从文章提取知识卡片\n- 任务 3：规划小项目（正在进行）\n\n**输出**：\n- 3 个实践案例文档\n- 每个案例包含：背景、过程、工具、经验、可复用模式\n\n---\n\n## 项目文件\n\n- [[03_Projects/AI学习资源库/00_Overview.md|00_Overview]] — 本文件，项目总览\n- [[03_Projects/AI学习资源库/工作日志.md|工作日志]] — 项目推进记录\n- [[03_Projects/AI学习资源库/待办事项.md|待办事项]] — 任务清单\n\n---\n\n**最近更新**：2026-06-12  \n**项目负责人**：努力学习的勇者\n",
+    "tasks": [
+      {
+        "title": "创建项目结构",
+        "completed": true
+      },
+      {
+        "title": "设计内容框架",
+        "completed": true
+      },
+      {
+        "title": "建立 Claude Code 使用指南",
+        "completed": true
+      },
+      {
+        "title": "整理学习资源清单（文章类）",
+        "completed": true
+      },
+      {
+        "title": "创建第一批实践案例（3 个）",
+        "completed": true
+      },
+      {
+        "title": "持续更新 Claude Code 使用指南",
+        "completed": false
+      },
+      {
+        "title": "继续收集和整理学习资源",
+        "completed": false
+      },
+      {
+        "title": "Codex 使用指南",
+        "completed": false
+      },
+      {
+        "title": "NotebookLM 使用指南",
+        "completed": false
+      },
+      {
+        "title": "Obsidian 使用指南",
+        "completed": false
+      }
+    ],
+    "tasksCompleted": 5,
+    "totalTasks": 10
+  },
+  {
+    "id": "学习_Claude_Code",
+    "name": "学习 Claude Code",
+    "status": "in_progress",
+    "startDate": "2026-06-12",
+    "progress": 0,
+    "tags": [
+      "project",
+      "learning",
+      "claude-code"
+    ],
+    "description": "通过任务驱动 + 案例模仿的方式系统化学习 Claude Code",
+    "content": "# 学习 Claude Code\n\n## 项目概述\n\n通过 **任务驱动 + 案例模仿** 的方式，在 30 天内系统化掌握 Claude Code 的使用。\n\n**核心理念**：\n- 边做边学，从真实问题出发\n- 每个任务都有案例参考\n- 每次完成后立即记录经验\n- 不追求完整理论，先解决实际问题\n\n## 学习目标\n\n### 核心里程碑\n- **里程碑 3**：能在遇到问题时调整提示词，引导 AI 给出更好的结果\n- **里程碑 4**：能总结出 3-5 条\"最佳实践\"并应用到新任务\n- **里程碑 5**：能设计一个完整的工作流，让 Claude Code 融入日常工作\n\n### 30 天学习路径\n\n#### 第 1 周：基础操作 + 第一个完整任务\n**目标**：通过 1-2 个真实任务，掌握 Claude Code 的基本操作\n\n- [ ] **任务 1**：整理一个混乱的文件夹（✅ 已完成：补齐 Context）\n- [ ] **任务 2**：从网上的文章提取信息并整理成知识卡片\n- [ ] **任务 3**：规划一个小项目\n\n**里程碑检查**：能独立完成文件的读、写、编辑\n\n---\n\n#### 第 2-3 周：深度使用 + 调整技巧\n**目标**：在遇到问题时，学会调整提示词，引导 AI 给出更好结果\n\n- [ ] **任务 4**：整理房地产工作经验，写成系统化的知识文档\n- [ ] **任务 5**：设计一个网页（静态页面）\n- [ ] **任务 6**：用 Claude Code 帮你分析\"如何从房地产转型到 AI\"\n\n**里程碑检查**：\n- 能调整提示词，引导 AI 给出更好的结果\n- 能总结出 3-5 条\"最佳实践\"\n\n---\n\n#### 第 4 周：建立工作流 + 沉淀模式\n**目标**：设计一个完整的工作流，让 Claude Code 融入日常\n\n- [ ] **任务 7**：建立\"每日信息处理流程\"\n- [ ] **任务 8**：用 Claude Code 帮你做一个 PPT 大纲\n- [ ] **任务 9**：总结\"我的 Claude Code 使用手册\"\n\n**里程碑检查**：能设计完整工作流，让 Claude Code 融入日常\n\n---\n\n## 学习资料来源（按优先级）\n\n1. **你自己的使用记录**（最重要）\n   - 每次完成任务后，立即记录到 `学习日志.md`\n   \n2. **今天的对话**（2026-06-12）\n   - 这是一个完整的案例：头脑风暴 → 信息收集 → 结构化整理 → 迭代打磨\n   \n3. **Claude 自己的回答**\n   - 随时问 Claude：\"这个任务你有什么建议？\"\"我这样提问对吗？\"\n   \n4. **社区案例**（可选）\n   - 如果卡住了，再去找别人怎么做的\n\n---\n\n## 项目文件\n\n- [[03_Projects/学习_Claude_Code/00_Overview.md|00_Overview]] — 本文件，项目概览\n- [[03_Projects/学习_Claude_Code/学习日志.md|学习日志]] — 每个任务的完成记录\n- [[03_Projects/学习_Claude_Code/最佳实践.md|最佳实践]] — 总结的使用技巧和经验\n- [[03_Projects/学习_Claude_Code/问题记录.md|问题记录]] — 遇到的问题和解决方案\n\n---\n\n## 当前状态\n\n**当前阶段**：第 1 周 - 基础操作  \n**已完成任务**：任务 1（补齐 Context）  \n**下一步**：任务 2 或任务 3\n\n**最近更新**：2026-06-12\n",
+    "tasks": [
+      {
+        "title": "**任务 1**：整理一个混乱的文件夹（✅ 已完成：补齐 Context）",
+        "completed": false
+      },
+      {
+        "title": "**任务 2**：从网上的文章提取信息并整理成知识卡片",
+        "completed": false
+      },
+      {
+        "title": "**任务 3**：规划一个小项目",
+        "completed": false
+      },
+      {
+        "title": "**任务 4**：整理房地产工作经验，写成系统化的知识文档",
+        "completed": false
+      },
+      {
+        "title": "**任务 5**：设计一个网页（静态页面）",
+        "completed": false
+      },
+      {
+        "title": "**任务 6**：用 Claude Code 帮你分析\"如何从房地产转型到 AI\"",
+        "completed": false
+      },
+      {
+        "title": "**任务 7**：建立\"每日信息处理流程\"",
+        "completed": false
+      },
+      {
+        "title": "**任务 8**：用 Claude Code 帮你做一个 PPT 大纲",
+        "completed": false
+      },
+      {
+        "title": "**任务 9**：总结\"我的 Claude Code 使用手册\"",
+        "completed": false
+      }
+    ],
+    "tasksCompleted": 0,
+    "totalTasks": 9
+  },
+  {
+    "id": ".templates",
+    "name": "{{ProjectName}}",
+    "status": "{{planning|active|paused|completed|archived}}",
+    "startDate": "{{YYYY-MM-DD}}",
+    "progress": 0,
+    "tags": [
+      "{{topic}}"
+    ],
+    "description": "{{Brief project description}}",
+    "content": "# Overview\n\n## 项目名称\n{{ProjectName}}\n\n## 项目定义\n> 一句话说明这个项目是什么、要解决什么问题\n\n{{一句话项目定义}}\n\n## 项目背景\n> 为什么要做这个项目？当前状况如何？\n\n-\n\n## 当前阶段\n{{planning|active|paused|completed|archived}}\n\n## 成功标准\n> 如何判断这个项目完成了、做好了？\n\n-\n\n## 关键约束\n> 时间、资源、范围等方面的限制\n\n-\n\n---\n\n## 相关资源\n- 相关知识文件：\n- 相关项目：\n- 外部参考：\n",
+    "tasks": [],
+    "tasksCompleted": 0,
+    "totalTasks": 0
+  },
+  {
+    "id": "_Example_Project",
+    "name": "Example Project",
+    "status": "active",
+    "startDate": "2025-01-01",
+    "progress": 0,
+    "tags": [
+      "example",
+      "learning"
+    ],
+    "description": "A sample project illustrating the 03_Projects/ structure",
+    "content": "# Overview\n\n> 这是一个**示例项目**，展示 `03_Projects/` 下一个完整项目是什么样子。\n> 新建真实项目时，请复制 `.templates/` 里的骨架并删掉本示例。\n\n## 项目名称\nExample Project — 一个用来演示目录结构的样板项目\n\n## 项目定义\n> 一句话说明这个项目是什么、要解决什么问题\n\n帮助新用户在 30 分钟内看懂：一个项目应该包含哪些文件、文件之间怎么流转。\n\n## 项目背景\n> 为什么要做这个项目？当前状况如何？\n\n- 许多新用户拿到模板后不知道每个文件该写什么\n- 纯文字说明不够直观，需要一个完整的实例做参考\n- 本示例刻意保持简洁，突出流程而非内容\n\n## 当前阶段\nactive\n\n## 成功标准\n> 如何判断这个项目完成了、做好了？\n\n- 新用户看完 8 个文件后能独立新建自己的项目\n- 项目下的任务可以在 `03_Backlog` → `04_Next` → `05_Doing` → `06_Testing` → `07_Done` 之间流转\n- 项目的目标、决策、下一步清晰可查\n\n## 关键约束\n> 时间、资源、范围等方面的限制\n\n- 仅用于演示，不承载任何真实工作\n\n---\n\n## 相关资源\n- 相关知识文件：[[../../04_Knowledge/README]]\n- 相关项目：（无）\n- 外部参考：[[../../00_System/Vault_Map]]\n",
+    "tasks": [],
+    "tasksCompleted": 0,
+    "totalTasks": 0
+  }
+]

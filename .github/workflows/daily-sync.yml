@@ -1,0 +1,87 @@
+name: Daily Vault Sync and Deploy
+
+on:
+  schedule:
+    # Beijing 10:00 = UTC 02:00
+    - cron: "0 2 * * *"
+  workflow_dispatch:
+  repository_dispatch:
+    types: [vault-updated]
+
+permissions:
+  contents: write
+
+jobs:
+  sync-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout website repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+
+      - name: Checkout vault repository
+        uses: actions/checkout@v4
+        with:
+          repository: ggpp17296-droid/my-brain
+          path: vault
+          token: ${{ secrets.VAULT_ACCESS_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install sync dependencies
+        run: npm install --prefix scripts
+
+      - name: Sync vault data
+        run: node scripts/vault-sync.js
+        env:
+          VAULT_PATH: ./vault
+          OUTPUT_PATH: ./data
+
+      - name: Validate website build
+        run: |
+          npm ci --prefix src
+          npm run build --prefix src
+
+      - name: Check data changes
+        id: changes
+        run: |
+          if [[ -n "$(git status --short data/)" ]]; then
+            echo "has_changes=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "has_changes=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Commit synced data
+        if: steps.changes.outputs.has_changes == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/
+          git commit -m "chore: sync vault data $(date -u +'%Y-%m-%d %H:%M UTC')"
+          git push
+
+      - name: Trigger Vercel deploy hook
+        if: steps.changes.outputs.has_changes == 'true'
+        env:
+          VERCEL_DEPLOY_HOOK_URL: ${{ secrets.VERCEL_DEPLOY_HOOK_URL || secrets.VERCEL_DEPLOY_HOOK }}
+        run: |
+          if [[ -n "$VERCEL_DEPLOY_HOOK_URL" ]]; then
+            curl -fsS -X POST "$VERCEL_DEPLOY_HOOK_URL"
+          else
+            echo "No Vercel deploy hook configured; relying on Vercel Git integration."
+          fi
+
+      - name: Summary
+        if: always()
+        run: |
+          if [[ "${{ steps.changes.outputs.has_changes }}" == "true" ]]; then
+            echo "Vault data changed, committed, and deployment was triggered."
+          else
+            echo "Vault data unchanged; no deployment trigger needed."
+          fi

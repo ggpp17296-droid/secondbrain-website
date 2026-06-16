@@ -1,0 +1,103 @@
+{
+  "nodes": [
+    {
+      "id": "insight_AI工作流落地的核心难点",
+      "label": "insight_AI工作流落地的核心难点",
+      "type": "card",
+      "tags": [
+        "card",
+        "insight",
+        "AI工作流",
+        "AI开发"
+      ]
+    },
+    {
+      "id": "tip_如何让AI真正参与工作流",
+      "label": "tip_如何让AI真正参与工作流",
+      "type": "card",
+      "tags": [
+        "card",
+        "tip",
+        "AI工作流",
+        "最佳实践"
+      ]
+    },
+    {
+      "id": "_EXAMPLE_book_卡片笔记写作法",
+      "label": "_EXAMPLE_book_卡片笔记写作法",
+      "type": "card",
+      "tags": [
+        "card",
+        "book",
+        "知识管理",
+        "写作"
+      ]
+    },
+    {
+      "id": "_EXAMPLE_insight_记录是思考的外部硬盘",
+      "label": "_EXAMPLE_insight_记录是思考的外部硬盘",
+      "type": "card",
+      "tags": [
+        "card",
+        "insight",
+        "知识管理",
+        "记录"
+      ]
+    },
+    {
+      "id": "_EXAMPLE_mentalmodel_第一性原理",
+      "label": "_EXAMPLE_mentalmodel_第一性原理",
+      "type": "card",
+      "tags": [
+        "card",
+        "mentalmodel",
+        "哲学",
+        "工程学",
+        "lollapalooza"
+      ]
+    },
+    {
+      "id": "_EXAMPLE_person_Niklas_Luhmann",
+      "label": "_EXAMPLE_person_Niklas_Luhmann",
+      "type": "card",
+      "tags": [
+        "card",
+        "person",
+        "社会学",
+        "知识管理"
+      ]
+    },
+    {
+      "id": "_EXAMPLE_quote_学而不思则罔",
+      "label": "_EXAMPLE_quote_学而不思则罔",
+      "type": "card",
+      "tags": [
+        "card",
+        "quote",
+        "学习"
+      ]
+    },
+    {
+      "id": "_EXAMPLE_tool_Obsidian",
+      "label": "_EXAMPLE_tool_Obsidian",
+      "type": "card",
+      "tags": [
+        "card",
+        "tool",
+        "知识管理",
+        "笔记"
+      ]
+    },
+    {
+      "id": "README",
+      "label": "Knowledge Cards",
+      "type": "note",
+      "tags": [
+        "knowledge",
+        "cards",
+        "system"
+      ]
+    }
+  ],
+  "edges": []
+}
