@@ -71,15 +71,17 @@ jobs:
           git commit -m "chore: sync vault data $(date -u +'%Y-%m-%d %H:%M UTC')"
           git push
 
-      - name: Trigger Vercel deploy hook
+      - name: Deploy to Vercel
         if: steps.changes.outputs.has_changes == 'true'
         env:
-          VERCEL_DEPLOY_HOOK_URL: ${{ secrets.VERCEL_DEPLOY_HOOK_URL || secrets.VERCEL_DEPLOY_HOOK }}
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: team_ldMIXRoubce0X93473XX9kwK
+          VERCEL_PROJECT_ID: prj_uhz0xOQYzwDS8oFGgCVQfNuaR2ax
         run: |
-          if [[ -n "$VERCEL_DEPLOY_HOOK_URL" ]]; then
-            curl -fsS -X POST "$VERCEL_DEPLOY_HOOK_URL"
+          if [[ -n "$VERCEL_TOKEN" ]]; then
+            npx vercel --cwd src --prod --yes --token "$VERCEL_TOKEN"
           else
-            echo "No Vercel deploy hook configured; relying on Vercel Git integration."
+            echo "No VERCEL_TOKEN configured; data was committed but deployment was skipped."
           fi
 
       - name: Summary
