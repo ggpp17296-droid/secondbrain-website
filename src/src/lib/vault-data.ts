@@ -62,8 +62,12 @@ export interface LearningStats {
   notesCount: number;
 }
 
+export function getDataFilePath(fileName: string, projectRoot = process.cwd()) {
+  return join(projectRoot, "data", fileName);
+}
+
 function readProjectData<T>(fileName: string): T {
-  const filePath = join(process.cwd(), "..", "data", fileName);
+  const filePath = getDataFilePath(fileName);
   return JSON.parse(readFileSync(filePath, "utf8")) as T;
 }
 
