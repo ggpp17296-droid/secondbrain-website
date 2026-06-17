@@ -1,6 +1,18 @@
 {
   "nodes": [
     {
+      "id": "insight_Codex深度使用指南",
+      "label": "insight_Codex深度使用指南",
+      "type": "card",
+      "tags": [
+        "card",
+        "insight",
+        "Codex",
+        "AI工具",
+        "工作流"
+      ]
+    },
+    {
       "id": "_EXAMPLE_insight_记录是思考的外部硬盘",
       "label": "_EXAMPLE_insight_记录是思考的外部硬盘",
       "type": "card",

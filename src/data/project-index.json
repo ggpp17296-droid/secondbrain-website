@@ -112,6 +112,110 @@
     "totalTasks": 9
   },
   {
+    "id": "2048游戏开发",
+    "name": "2048 游戏开发项目",
+    "status": "planned",
+    "startDate": "2026-06-17T00:00:00.000Z",
+    "progress": 0,
+    "tags": [
+      "project",
+      "game",
+      "learning",
+      "claude-code",
+      "codex"
+    ],
+    "description": "视觉强化版 2048 游戏 - 深度学习 Claude Code 和 Codex 协作",
+    "content": "\n# 2048 游戏开发项目\n\n## 项目概述\n\n**项目类型**：游戏开发  \n**学习目标**：通过实战深度学习 Claude Code 和 Codex 的使用方法  \n**项目规模**：视觉强化版（方案 A）  \n**预计时间**：7 天（5 天开发 + 2 天打磨）  \n**开始日期**：2026-06-18  \n**目标完成**：2026-06-24\n\n---\n\n## 核心功能\n\n- ✅ 完整的 2048 游戏逻辑\n- ✅ 3 套主题皮肤（经典数字、Emoji、AI 工具）\n- ✅ 流畅的动画效果（滑动、合并、出现）\n- ✅ 音效系统（滑动、合并、胜利）\n- ✅ 本地最高分记录\n\n---\n\n## 技术栈\n\n- **前端框架**：React 18 + TypeScript\n- **构建工具**：Vite\n- **样式方案**：CSS Modules + CSS Variables\n- **动画**：CSS Transitions + React Spring（可选）\n- **音效**：Web Audio API\n- **部署**：Vercel\n\n---\n\n## Claude Code + Codex 协作分工\n\n### Claude Code 负责：\n- 需求分析和架构设计\n- 技术文档输出\n- 核心算法伪代码\n- 问题诊断和优化建议\n\n### Codex 负责：\n- 项目初始化和配置\n- 代码实现（游戏逻辑、UI、动画）\n- 调试和测试\n- 部署到 Vercel\n\n---\n\n## 学习重点\n\n### Claude Code 技能：\n- `/brain-storming` - 游戏架构设计\n- `/today` - 每日任务规划\n- `/closeday` - 每日进度总结\n- 核心能力：需求分析、架构设计、问题诊断\n\n### Codex 技能：\n- 项目初始化\n- 算法实现（滑动、合并逻辑）\n- 调试和测试\n- Vercel 部署\n\n### 通用技术：\n- React Hooks\n- TypeScript 类型系统\n- CSS 动画和过渡\n- 游戏状态管理\n- 键盘事件处理\n- LocalStorage\n- Web Audio API\n\n---\n\n## 7 天详细计划\n\n### Day 1：架构设计 + 项目搭建（2026-06-18）\n- [ ] Claude Code：游戏架构设计、核心算法伪代码\n- [ ] Codex：创建项目、搭建基础框架\n- [ ] 产出：技术方案文档 + 空白网格页面\n\n### Day 2：核心游戏逻辑（2026-06-19）\n- [ ] Claude Code：滑动算法设计、状态管理方案\n- [ ] Codex：实现游戏逻辑、键盘控制\n- [ ] 产出：可玩的基础版 2048\n\n### Day 3：动画系统（2026-06-20）\n- [ ] Claude Code：动画方案设计\n- [ ] Codex：实现滑动、合并、出现动画\n- [ ] 产出：流畅的动画效果\n\n### Day 4：主题系统（2026-06-21）\n- [ ] Claude Code：设计 3 套主题配色和内容\n- [ ] Codex：实现主题切换功能\n- [ ] 产出：3 套可切换主题\n\n### Day 5：音效系统 + 数据持久化（2026-06-22）\n- [ ] Claude Code：音效系统设计\n- [ ] Codex：集成音效、实现最高分记录\n- [ ] 产出：完整音效 + 本地存储\n\n### Day 6：UI 优化 + 响应式（2026-06-23）\n- [ ] Claude Code：优化清单、响应式方案\n- [ ] Codex：UI 打磨、移动端适配\n- [ ] 产出：精美 UI + 移动端支持\n\n### Day 7：部署 + 打磨 + 总结（2026-06-24）\n- [ ] Codex：部署到 Vercel、bug 修复\n- [ ] Claude Code：项目文档、学习总结\n- [ ] 产出：上线游戏 + 学习记录\n\n---\n\n## 项目文件结构\n\n```\n2048-game/\n├── src/\n│   ├── components/\n│   │   ├── GameBoard.tsx\n│   │   ├── Grid.tsx\n│   │   ├── Cell.tsx\n│   │   ├── ScoreBoard.tsx\n│   │   └── ThemeSelector.tsx\n│   ├── hooks/\n│   │   ├── useGame.ts\n│   │   └── useSound.ts\n│   ├── utils/\n│   │   ├── gameLogic.ts\n│   │   └── storage.ts\n│   ├── themes/\n│   │   ├── classic.ts\n│   │   ├── emoji.ts\n│   │   └── ai-tools.ts\n│   ├── styles/\n│   └── App.tsx\n├── docs/\n└── package.json\n```\n\n---\n\n## 成功标准\n\n✅ **功能完整**：游戏逻辑正确、3 套主题、动画流畅、音效正常、最高分保存  \n✅ **视觉精美**：UI 现代化、动画出彩、主题统一  \n✅ **学习收获**：完整学习日志、2+ 张知识卡片、理解协作模式\n\n---\n\n## 相关文档\n\n- [[03_Projects/2048游戏开发/实施计划详解.md|实施计划详解]] - 每日详细任务\n- [[03_Projects/学习_Claude_Code/学习日志.md|学习日志]] - 记录学习经验\n- 项目代码：`~/Desktop/codex_workspace/projects/project-005-2048-game/`\n\n---\n\n**创建日期**：2026-06-17  \n**负责人**：努力学习的勇者  \n**协作模式**：Claude Code（架构设计）+ Codex（代码实现）\n",
+    "tasks": [
+      {
+        "title": "Claude Code：游戏架构设计、核心算法伪代码",
+        "completed": false
+      },
+      {
+        "title": "Codex：创建项目、搭建基础框架",
+        "completed": false
+      },
+      {
+        "title": "产出：技术方案文档 + 空白网格页面",
+        "completed": false
+      },
+      {
+        "title": "Claude Code：滑动算法设计、状态管理方案",
+        "completed": false
+      },
+      {
+        "title": "Codex：实现游戏逻辑、键盘控制",
+        "completed": false
+      },
+      {
+        "title": "产出：可玩的基础版 2048",
+        "completed": false
+      },
+      {
+        "title": "Claude Code：动画方案设计",
+        "completed": false
+      },
+      {
+        "title": "Codex：实现滑动、合并、出现动画",
+        "completed": false
+      },
+      {
+        "title": "产出：流畅的动画效果",
+        "completed": false
+      },
+      {
+        "title": "Claude Code：设计 3 套主题配色和内容",
+        "completed": false
+      },
+      {
+        "title": "Codex：实现主题切换功能",
+        "completed": false
+      },
+      {
+        "title": "产出：3 套可切换主题",
+        "completed": false
+      },
+      {
+        "title": "Claude Code：音效系统设计",
+        "completed": false
+      },
+      {
+        "title": "Codex：集成音效、实现最高分记录",
+        "completed": false
+      },
+      {
+        "title": "产出：完整音效 + 本地存储",
+        "completed": false
+      },
+      {
+        "title": "Claude Code：优化清单、响应式方案",
+        "completed": false
+      },
+      {
+        "title": "Codex：UI 打磨、移动端适配",
+        "completed": false
+      },
+      {
+        "title": "产出：精美 UI + 移动端支持",
+        "completed": false
+      },
+      {
+        "title": "Codex：部署到 Vercel、bug 修复",
+        "completed": false
+      },
+      {
+        "title": "Claude Code：项目文档、学习总结",
+        "completed": false
+      },
+      {
+        "title": "产出：上线游戏 + 学习记录",
+        "completed": false
+      }
+    ],
+    "tasksCompleted": 0,
+    "totalTasks": 21
+  },
+  {
     "id": "_Example_Project",
     "name": "Example Project",
     "status": "active",
