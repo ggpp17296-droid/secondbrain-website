@@ -56,6 +56,42 @@
       ]
     },
     {
+      "id": "insight_Claude_Code与Codex协作模式的有效实践",
+      "label": "insight_Claude_Code与Codex协作模式的有效实践",
+      "type": "card",
+      "tags": [
+        "card",
+        "insight",
+        "AI协作",
+        "Claude Code",
+        "Codex"
+      ]
+    },
+    {
+      "id": "tip_Next.js服务器组件与客户端组件的正确分离",
+      "label": "tip_Next.js服务器组件与客户端组件的正确分离",
+      "type": "card",
+      "tags": [
+        "card",
+        "tip",
+        "Next.js",
+        "服务器组件",
+        "客户端组件"
+      ]
+    },
+    {
+      "id": "tip_实现Obsidian_Vault到网站的自动同步流程",
+      "label": "tip_实现Obsidian_Vault到网站的自动同步流程",
+      "type": "card",
+      "tags": [
+        "card",
+        "tip",
+        "GitHub Actions",
+        "CI/CD",
+        "自动化"
+      ]
+    },
+    {
       "id": "insight_AI工作流落地的核心难点",
       "label": "insight_AI工作流落地的核心难点",
       "type": "card",

@@ -8,6 +8,20 @@
   },
   "dailyLogs": [
     {
+      "date": "2026-06-17",
+      "title": "2026-06-17 工作计划",
+      "tags": [
+        "daily",
+        "plan",
+        "learning",
+        "review"
+      ],
+      "highlights": [],
+      "content": "\n# 2026-06-17 工作计划\n\n## 主要目标\n\n完成个人网站项目的**收尾与总结**，并开始下一阶段的学习任务。\n\n---\n\n## 📋 今日重点任务\n\n### 1. 验证自动化流程（优先级：高）\n\n**目标**：确认 GitHub Actions 定时任务自然触发并成功运行\n\n**时间点**：10:00 AM\n\n**验证内容**：\n- [ ] 检查 GitHub Actions 是否在 10:00 自动触发\n- [ ] 查看工作流运行状态和日志\n- [ ] 确认数据是否同步到主仓库\n- [ ] 验证 Vercel 是否自动部署\n- [ ] 检查线上网站内容是否更新\n\n**如果失败**：\n- 查看错误日志\n- 检查 cron 表达式是否正确\n- 验证 Secrets 配置\n- 必要时手动触发测试\n\n---\n\n### 2. 个人网站项目归档（优先级：高）\n\n**目标**：将项目状态同步到 Vault，正式标记为\"已完成\"\n\n**步骤**：\n- [ ] 更新 `03_Projects/个人网站改版/工作日志.md`\n  - 记录最终完成情况\n  - 添加线上地址\n  - 总结关键成果\n- [ ] 更新项目 Overview 状态为 `completed`\n- [ ] 更新 `03_Projects/学习_Claude_Code/学习日志.md`\n  - 记录\"任务 5：设计简单网页\"的完成情况\n  - 添加本次学习经验总结\n\n**预期产出**：\n- 项目正式归档\n- 经验完整记录\n\n---\n\n### 3. 学习路径回顾（优先级：中）\n\n**目标**：总结个人网站项目在整体学习路径中的位置和价值\n\n**思考问题**：\n- 这个项目验证了什么？（Claude Code + Codex 协作模式）\n- 我掌握了哪些新技能？（Next.js、Vercel、GitHub Actions、自动化流程）\n- 哪些经验可以复用？（容错设计、组件分离、文档完善）\n- 下一步应该做什么？（继续 Claude Code 学习任务 or 探索新方向）\n\n**输出形式**：\n- 更新 `01_Context/Current_Priorities.md`（如需要）\n- 或创建一份\"阶段性回顾\"文档\n\n---\n\n### 4. 规划下一个任务（优先级：中）\n\n**目标**：从 Claude Code 学习计划中选择下一个任务\n\n**当前进度**：\n- ✅ 任务 1：整理混乱的文件夹（补齐 Context）\n- ⏭️ 任务 2：从网上的文章提取信息并整理成知识卡片\n- ⏭️ 任务 3：规划一个小项目（实际上\"设计网页\"已经完成）\n- ⏭️ 任务 4-9：待安排\n\n**选项**：\n- **选项 A**：任务 2 - 从网上的文章提取信息并整理成知识卡片\n  - 练习信息处理和知识管理\n  - 输出：2-3 张高质量知识卡片\n  \n- **选项 B**：跳到任务 4 - 整理房地产工作经验\n  - 系统化梳理过往经验\n  - 输出：结构化的知识文档\n\n- **选项 C**：先休整一下\n  - 巩固这几天的学习\n  - 整理笔记和卡片\n  - 明确下一步方向\n\n**决策依据**：\n- 当前精力状态\n- 学习节奏（是否需要缓冲）\n- 优先级判断\n\n---\n\n## 📝 学习目标\n\n今天的重点是**总结与沉淀**：\n\n1. **验证自动化**：确认完整的自动化流程运行正常\n2. **项目归档**：完整记录项目成果和经验\n3. **承上启下**：回顾过去，规划未来\n\n---\n\n## ⚠️ 注意事项\n\n- **不要急于开始新任务**：先把当前项目完整收尾\n- **重视总结的价值**：经验沉淀比继续前进更重要\n- **保持学习节奏**：如果感觉疲惫，可以调整节奏\n\n---\n\n## ✅ 完成标准\n\n今天任务完成的标志：\n\n- [ ] 自动化流程验证通过（或找到问题并解决）\n- [ ] 个人网站项目正式归档\n- [ ] 学习经验完整记录\n- [ ] 明确了下一步方向\n\n---\n\n## 📊 时间规划\n\n- **10:00 - 10:30**：验证自动化流程（30 分钟）\n- **10:30 - 11:30**：项目归档和文档更新（1 小时）\n- **11:30 - 12:00**：学习路径回顾（30 分钟）\n- **14:00 - 15:00**：规划下一个任务（1 小时）\n- **15:00 - 16:00**：机动时间（处理其他事项或深入思考）\n\n预计总时间：3.5 小时\n\n---\n\n## 🎯 今日意义\n\n今天是从\"做\"到\"沉淀\"的关键转折点。\n\n完成了一个完整的项目周期：\n- ✅ 需求分析\n- ✅ 方案设计\n- ✅ 代码实现\n- ✅ 部署上线\n- ⏳ 经验总结 ← **今天的重点**\n\n**今天做好总结，未来才能走得更快。** 💡\n\n---\n\n## 📌 备注\n\n- 如果 10:00 自动化流程验证失败，优先排查问题\n- 项目归档不要流于形式，要真实记录问题和解决方案\n- 学习路径回顾可以和 Claude Code 一起讨论\n- 下一个任务的选择要考虑学习节奏和兴趣点\n",
+      "tasksCompleted": 0,
+      "cardsCreated": 0
+    },
+    {
       "date": "2026-06-16",
       "title": "2026-06-16 工作计划",
       "tags": [
@@ -17,7 +31,7 @@
         "deployment"
       ],
       "highlights": [],
-      "content": "\n# 2026-06-16 工作计划\n\n## 主要目标\n\n完成个人网站项目的**阶段 4：部署与自动化**，实现网站上线和每日自动同步。\n\n---\n\n## 📋 具体任务\n\n### 1. 部署到 Vercel（优先级：高）\n\n**目标**：将网站部署到 Vercel 平台，获得可访问的线上地址\n\n**步骤**：\n1. 在 Vercel 创建新项目\n2. 连接 GitHub 仓库（如果还没创建仓库，需先创建）\n3. 配置构建设置：\n   - Build Command: `cd src && npm run build`\n   - Output Directory: `src/.next`\n   - Install Command: `cd src && npm install`\n4. 部署并验证线上环境\n5. 测试所有页面功能是否正常\n\n**预期产出**：\n- 可访问的线上网址（如 `https://xxx.vercel.app`）\n- 部署文档更新\n\n---\n\n### 2. 配置 GitHub Actions 自动同步（优先级：高）\n\n**目标**：实现每天自动从 Obsidian Vault 同步数据到网站\n\n**步骤**：\n1. 创建 `.github/workflows/sync-vault.yml` 工作流\n2. 配置定时任务（每天凌晨 2 点执行）\n3. 工作流内容：\n   - 读取 Vault 数据\n   - 运行 `vault-sync.js` 脚本\n   - 提交生成的 JSON 文件\n   - 触发 Vercel 重新部署\n4. 配置必要的 Secrets（如 Vercel Deploy Hook）\n5. 测试工作流是否正常运行\n\n**技术要点**：\n- 使用 `schedule` 触发器（cron 表达式）\n- Vault 数据可能需要通过某种方式同步到 GitHub（或直接在工作流中读取）\n- 考虑数据安全性（不要提交敏感信息）\n\n**预期产出**：\n- 自动化工作流文件\n- 每日自动更新机制\n\n---\n\n### 3. 完善项目文档（优先级：中）\n\n**目标**：更新项目 README 和部署文档\n\n**内容**：\n1. 更新 `README.md`：\n   - 项目简介\n   - 功能特性\n   - 技术栈\n   - 本地开发指南\n   - 部署指南\n   - 数据同步说明\n2. 更新 `docs/03_部署手册.md`：\n   - 记录实际部署过程中的问题和解决方案\n   - 添加 GitHub Actions 配置说明\n3. 创建 `CHANGELOG.md`（可选）：\n   - 记录项目版本和更新历史\n\n**预期产出**：\n- 完善的项目文档\n- 方便后续维护和扩展\n\n---\n\n### 4. 配置自定义域名（优先级：低，可选）\n\n**目标**：如果有自定义域名，配置到 Vercel\n\n**步骤**：\n1. 在 Vercel 项目设置中添加自定义域名\n2. 配置 DNS 记录（CNAME 或 A 记录）\n3. 等待 SSL 证书自动配置完成\n4. 验证自定义域名访问\n\n**备注**：此任务可选，如果没有域名可跳过\n\n---\n\n## 📝 学习目标\n\n今天的重点是学习**部署和自动化**相关知识：\n\n1. **Vercel 部署流程**\n   - 理解 Vercel 的构建过程\n   - 学习环境变量配置\n   - 掌握部署预览和生产环境的区别\n\n2. **GitHub Actions**\n   - 理解 CI/CD 概念\n   - 学习 workflow 文件语法\n   - 掌握定时任务和触发器配置\n   - 了解 Secrets 管理\n\n3. **自动化工作流设计**\n   - 理解数据同步机制\n   - 学习如何触发自动部署\n   - 掌握错误处理和通知机制\n\n---\n\n## ⚠️ 可能遇到的问题\n\n1. **Vault 数据访问**\n   - GitHub Actions 如何访问本地 Obsidian Vault？\n   - 可能需要手动提交 Vault 数据，或使用同步服务（如 Obsidian Sync、iCloud、Dropbox）\n   - 备选方案：定时手动运行 sync 脚本并提交\n\n2. **构建路径问题**\n   - Vercel 默认从根目录构建，但我们的项目在 `src/` 子目录\n   - 需要正确配置构建命令和输出目录\n\n3. **环境差异**\n   - 本地开发环境 vs 生产环境\n   - 数据路径可能不同\n   - 需要确保 `vault-sync.js` 在两种环境都能正常运行\n\n---\n\n## ✅ 完成标准\n\n今天任务完成的标志：\n\n- [ ] 网站成功部署到 Vercel，所有功能正常\n- [ ] 获得可访问的线上地址\n- [ ] GitHub Actions 工作流配置完成\n- [ ] 测试自动同步机制（至少手动触发一次验证）\n- [ ] 项目文档更新完善\n- [ ] 更新任务状态为\"已完成\"\n\n---\n\n## 📊 时间规划\n\n- **09:00 - 11:00**：Vercel 部署（2 小时）\n- **11:00 - 12:00**：测试线上环境（1 小时）\n- **14:00 - 16:00**：配置 GitHub Actions（2 小时）\n- **16:00 - 17:00**：完善文档（1 小时）\n- **17:00 - 17:30**：最终验证和总结（30 分钟）\n\n预计总时间：6.5 小时\n\n---\n\n## 🎯 项目里程碑\n\n完成今天的任务后，整个项目将达到：\n\n- ✅ 阶段 1：技术架构搭建\n- ✅ 阶段 2：核心功能开发\n- ✅ 阶段 3：高级功能与优化\n- ✅ 阶段 4：部署与自动化 ← **明天完成**\n\n**项目正式上线！** 🎉\n\n---\n\n## 📌 备注\n\n- 如果遇到无法解决的问题，及时向 Claude Code 求助\n- 记录遇到的问题和解决方案，更新到学习日志\n- 部署完成后截图保存，记录到项目文档\n- 考虑是否需要添加 Google Analytics 或其他分析工具（可选）\n\n---\n\n**今天是关键的一天，加油！** 💪\n",
+      "content": "\n# 2026-06-16 工作计划\n\n## 主要目标\n\n完成个人网站项目的**阶段 4：部署与自动化**，实现网站上线和每日自动同步。\n\n---\n\n## 📋 具体任务\n\n### 1. 部署到 Vercel（优先级：高）\n\n**目标**：将网站部署到 Vercel 平台，获得可访问的线上地址\n\n**步骤**：\n1. 在 Vercel 创建新项目\n2. 连接 GitHub 仓库（如果还没创建仓库，需先创建）\n3. 配置构建设置：\n   - Build Command: `cd src && npm run build`\n   - Output Directory: `src/.next`\n   - Install Command: `cd src && npm install`\n4. 部署并验证线上环境\n5. 测试所有页面功能是否正常\n\n**预期产出**：\n- 可访问的线上网址（如 `https://xxx.vercel.app`）\n- 部署文档更新\n\n---\n\n### 2. 配置 GitHub Actions 自动同步（优先级：高）\n\n**目标**：实现每天自动从 Obsidian Vault 同步数据到网站\n\n**步骤**：\n1. 创建 `.github/workflows/sync-vault.yml` 工作流\n2. 配置定时任务（每天凌晨 2 点执行）\n3. 工作流内容：\n   - 读取 Vault 数据\n   - 运行 `vault-sync.js` 脚本\n   - 提交生成的 JSON 文件\n   - 触发 Vercel 重新部署\n4. 配置必要的 Secrets（如 Vercel Deploy Hook）\n5. 测试工作流是否正常运行\n\n**技术要点**：\n- 使用 `schedule` 触发器（cron 表达式）\n- Vault 数据可能需要通过某种方式同步到 GitHub（或直接在工作流中读取）\n- 考虑数据安全性（不要提交敏感信息）\n\n**预期产出**：\n- 自动化工作流文件\n- 每日自动更新机制\n\n---\n\n### 3. 完善项目文档（优先级：中）\n\n**目标**：更新项目 README 和部署文档\n\n**内容**：\n1. 更新 `README.md`：\n   - 项目简介\n   - 功能特性\n   - 技术栈\n   - 本地开发指南\n   - 部署指南\n   - 数据同步说明\n2. 更新 `docs/03_部署手册.md`：\n   - 记录实际部署过程中的问题和解决方案\n   - 添加 GitHub Actions 配置说明\n3. 创建 `CHANGELOG.md`（可选）：\n   - 记录项目版本和更新历史\n\n**预期产出**：\n- 完善的项目文档\n- 方便后续维护和扩展\n\n---\n\n### 4. 配置自定义域名（优先级：低，可选）\n\n**目标**：如果有自定义域名，配置到 Vercel\n\n**步骤**：\n1. 在 Vercel 项目设置中添加自定义域名\n2. 配置 DNS 记录（CNAME 或 A 记录）\n3. 等待 SSL 证书自动配置完成\n4. 验证自定义域名访问\n\n**备注**：此任务可选，如果没有域名可跳过\n\n---\n\n## 📝 学习目标\n\n今天的重点是学习**部署和自动化**相关知识：\n\n1. **Vercel 部署流程**\n   - 理解 Vercel 的构建过程\n   - 学习环境变量配置\n   - 掌握部署预览和生产环境的区别\n\n2. **GitHub Actions**\n   - 理解 CI/CD 概念\n   - 学习 workflow 文件语法\n   - 掌握定时任务和触发器配置\n   - 了解 Secrets 管理\n\n3. **自动化工作流设计**\n   - 理解数据同步机制\n   - 学习如何触发自动部署\n   - 掌握错误处理和通知机制\n\n---\n\n## ⚠️ 可能遇到的问题\n\n1. **Vault 数据访问**\n   - GitHub Actions 如何访问本地 Obsidian Vault？\n   - 可能需要手动提交 Vault 数据，或使用同步服务（如 Obsidian Sync、iCloud、Dropbox）\n   - 备选方案：定时手动运行 sync 脚本并提交\n\n2. **构建路径问题**\n   - Vercel 默认从根目录构建，但我们的项目在 `src/` 子目录\n   - 需要正确配置构建命令和输出目录\n\n3. **环境差异**\n   - 本地开发环境 vs 生产环境\n   - 数据路径可能不同\n   - 需要确保 `vault-sync.js` 在两种环境都能正常运行\n\n---\n\n## ✅ 完成标准\n\n今天任务完成的标志：\n\n- [ ] 网站成功部署到 Vercel，所有功能正常\n- [ ] 获得可访问的线上地址\n- [ ] GitHub Actions 工作流配置完成\n- [ ] 测试自动同步机制（至少手动触发一次验证）\n- [ ] 项目文档更新完善\n- [ ] 更新任务状态为\"已完成\"\n\n---\n\n## 📊 时间规划\n\n- **09:00 - 11:00**：Vercel 部署（2 小时）\n- **11:00 - 12:00**：测试线上环境（1 小时）\n- **14:00 - 16:00**：配置 GitHub Actions（2 小时）\n- **16:00 - 17:00**：完善文档（1 小时）\n- **17:00 - 17:30**：最终验证和总结（30 分钟）\n\n预计总时间：6.5 小时\n\n---\n\n## 🎯 项目里程碑\n\n完成今天的任务后，整个项目将达到：\n\n- ✅ 阶段 1：技术架构搭建\n- ✅ 阶段 2：核心功能开发\n- ✅ 阶段 3：高级功能与优化\n- ✅ 阶段 4：部署与自动化 ← **明天完成**\n\n**项目正式上线！** 🎉\n\n---\n\n## 📌 备注\n\n- 如果遇到无法解决的问题，及时向 Claude Code 求助\n- 记录遇到的问题和解决方案，更新到学习日志\n- 部署完成后截图保存，记录到项目文档\n- 考虑是否需要添加 Google Analytics 或其他分析工具（可选）\n\n---\n\n**今天是关键的一天，加油！** 💪\n\n---\n\n# 🌅 每日回顾 - 2026-06-16\n\n## 今日完成\n> 真正划掉/完成的事情\n\n- ✅ **个人网站项目完整上线**（Project 004）\n  - 网站成功部署到 Vercel，获得公开访问地址\n  - 配置 GitHub Actions 自动同步工作流（每天 10:00 自动运行）\n  - 验证 Obsidian Git 插件自动备份机制（每小时自动提交推送）\n  - 解决 Vercel Authentication 问题，实现公开访问\n\n- ✅ **项目文档完善**\n  - 更新 README.md（添加项目成果、技术亮点、学习收获）\n  - 重构 docs/03_部署手册.md（新增实际部署经验总结，7 个常见问题详解）\n  - 创建 CHANGELOG.md（完整的版本记录和项目统计）\n\n- ✅ **知识沉淀**\n  - 创建 3 张知识卡片，记录项目核心学习点：\n    - [[tip_实现Obsidian_Vault到网站的自动同步流程]]\n    - [[insight_Claude_Code与Codex协作模式的有效实践]]\n    - [[tip_Next.js服务器组件与客户端组件的正确分离]]\n\n## 今日推进\n> 有进展但未完全完成的事项\n\n- **自动化流程验证**：GitHub Actions 工作流已配置并手动测试成功，等待明天 10:00 定时任务自然触发验证\n\n## 新想法与洞察\n> 值得保留的思考\n\n- **AI 协作模式的有效实践**：Claude Code 负责\"想清楚怎么做\"，Codex 负责\"把它做出来\"，两者配合能在 2 天内完成从 0 到 1 的完整项目\n\n- **容错设计的重要性**：Frontmatter 解析使用 try-catch + 备用解析器，个别文件格式问题不应该阻碍整体构建\n\n- **文档的价值**：完整的实战经验记录（包括问题、原因、解决方案）比单纯的配置说明更有价值，未来遇到类似问题可以快速定位\n\n## 未完成事项\n> 今日未完成但仍需跟进的\n\n- ❌ 自定义域名配置（低优先级，可选功能）\n- ❌ 等待明天 10:00 验证定时任务自然触发\n\n## 延续至明日\n> 明天优先要做的\n\n1. **观察自动化流程**：明天 10:00 检查 GitHub Actions 是否自然触发并成功运行\n2. **项目正式归档**：将项目状态更新到 Vault 项目目录\n3. **回顾学习路径**：总结这个项目在整体学习路径中的位置和价值\n\n---\n\n## 📝 一日总结\n\n完成了个人网站项目的完整交付（从架构设计到上线部署），实现了\"第二大脑\"的自动化展示，验证了 Claude Code + Codex 协作模式的有效性，并将核心经验沉淀为可复用的知识卡片。\n\n---\n\n**线上地址**：\n- https://secondbrain-website-8g4f28qae-ggpp17296-7483s-projects.vercel.app\n- https://src-orpin-beta.vercel.app\n\n**项目时间线**：2 天（2026-06-15 至 2026-06-16）  \n**协作模式**：Claude Code + Codex  \n**自动化程度**：100%\n",
       "tasksCompleted": 0,
       "cardsCreated": 0
     },
@@ -255,6 +269,54 @@
       "summary": "# Obsidian"
     },
     {
+      "id": "insight_Claude_Code与Codex协作模式的有效实践",
+      "type": "card",
+      "title": "insight_Claude_Code与Codex协作模式的有效实践",
+      "tags": [
+        "card",
+        "insight",
+        "AI协作",
+        "Claude Code",
+        "Codex"
+      ],
+      "createdAt": "2026-06-16T00:00:00.000Z",
+      "relatedCards": [],
+      "content": "\n# Claude Code + Codex 协作模式的有效实践\n\n## 核心观点\n> 用一句话表达这个洞察\n\nClaude Code 负责\"想清楚怎么做\"，Codex 负责\"把它做出来\"，两者配合能快速完成从 0 到 1 的完整项目。\n\n---\n\n## 来源\n> 从哪里学到这个观点？\n\n个人网站项目：仅用 2 天时间完成从方案设计到上线部署的完整流程\n\n---\n\n## 为什么重要\n> 这个观点为什么值得关注\n\n**打破了\"AI 要么全自动要么没用\"的误区**：\n- 传统思维：让一个 AI 从头到尾做完所有事\n- 新模式：不同 AI 工具各司其职，像团队协作一样配合\n\n这种模式更接近真实的软件开发流程，也更容易落地。\n\n---\n\n## 具体说明\n> 详细解释这个观点\n\n### Claude Code 的职责（架构师/设计师）\n1. **理解需求**：通过头脑风暴澄清用户真正想要什么\n2. **方案设计**：选择技术栈、设计架构、规划页面结构\n3. **技术文档**：输出详细的实施文档供 Codex 执行\n4. **问题诊断**：当出现错误时分析根本原因\n5. **质量把控**：检查 Codex 的完成情况，确保符合要求\n\n### Codex 的职责（工程师/执行者）\n1. **代码实现**：根据文档编写实际代码\n2. **功能开发**：完成具体的页面和组件\n3. **调试测试**：运行代码、修复 bug、验证功能\n4. **部署配置**：执行实际的部署操作\n\n### 协作关键点\n**清晰的交接文档**：\n- Claude Code 提供的文档要足够详细\n- 包含完整的步骤、代码示例、验收标准\n- Codex 按文档执行，遇到问题反馈\n\n**角色边界**：\n- Claude Code 不直接写生产代码（除非接替 Codex）\n- Codex 不做方案设计（按文档执行）\n- 各自在擅长的领域发挥\n\n---\n\n## 实际案例\n> 支持这个观点的例子\n\n### 个人网站项目分工\n**Claude Code 完成**：\n- 技术方案设计（4 份详细文档，2000+ 行）\n- 选择 Next.js + Vercel + GitHub Actions 架构\n- 设计 Linear.app 风格系统\n- 问题诊断（服务器/客户端组件冲突、Vercel 路径问题）\n- 接替 Codex 完成高级功能（主题切换、思维导图）\n\n**Codex 完成**：\n- 初始化 Next.js 项目\n- 实现 5 个页面的具体代码\n- 应用 Linear 风格到所有组件\n- 配置 Vercel 部署\n- 设置 GitHub Actions 工作流\n\n**结果**：\n- 2 天完成从 0 到 1\n- 5 个完整页面\n- Linear 风格设计系统\n- 全自动化 CI/CD\n- 成功上线运行\n\n---\n\n## 适用场景\n> 什么时候可以应用这个观点\n\n**最适合的场景**：\n- 完整项目开发（而非单个功能）\n- 需要架构设计和具体实现\n- 时间充足，可以多轮迭代\n- 想要高质量的代码和文档\n\n**不太适合的场景**：\n- 紧急 bug 修复（直接动手更快）\n- 简单的一次性任务\n- 没有时间写详细文档\n\n---\n\n## 注意事项\n> 应用这个观点的前提/限制\n\n1. **文档是关键**：\n   - Claude Code 的文档要足够详细\n   - 包含代码示例、步骤说明、验收标准\n   - 不能只给方向，要给具体路径\n\n2. **及时检查**：\n   - 不要等 Codex 全部做完才检查\n   - 分阶段验证，发现问题及时调整\n\n3. **适时接替**：\n   - 当 Codex 遇到持续问题时，Claude Code 要能接手\n   - 不是\"分工了就不管\"，而是\"协作\"\n\n4. **额度管理**：\n   - Codex 有使用额度限制\n   - 关键阶段要规划好额度使用\n   - Claude Code 要能随时接替\n\n**核心思维**：这不是\"外包\"，是\"团队协作\"。\n\n---\n\n## 延伸思考\n> 可以进一步探索的方向\n\n1. **三工具协同**：Claude Code + Codex + NotebookLM\n   - NotebookLM 做背景研究\n   - Claude Code 做方案设计\n   - Codex 做具体实现\n\n2. **工作流模板化**：\n   - 把这次的协作模式整理成模板\n   - 下次类似项目直接复用\n\n3. **角色边界优化**：\n   - 什么时候该用 Claude Code\n   - 什么时候该用 Codex\n   - 如何判断该接替还是该等待\n\n---\n\n## 关联卡片\n> 相关的技巧、概念、方法\n\n- [[tip_如何让AI真正参与工作流]]\n- [[insight_AI工作流落地的核心难点]]\n- [[tip_实现Obsidian_Vault到网站的自动同步流程]]\n",
+      "summary": "# Claude Code + Codex 协作模式的有效实践"
+    },
+    {
+      "id": "tip_Next.js服务器组件与客户端组件的正确分离",
+      "type": "card",
+      "title": "tip_Next.js服务器组件与客户端组件的正确分离",
+      "tags": [
+        "card",
+        "tip",
+        "Next.js",
+        "服务器组件",
+        "客户端组件"
+      ],
+      "createdAt": "2026-06-16T00:00:00.000Z",
+      "relatedCards": [],
+      "content": "\n# Next.js 服务器组件与客户端组件的正确分离\n\n## 关联工具\n> 这个技巧是关于哪个工具/软件的？\n\nNext.js 14+ (App Router)\n\n---\n\n## 来源\n> 从哪里学到这个技巧？\n\n在开发个人网站时遇到的实际问题：知识网络页面需要状态管理（客户端），但数据获取依赖 Node.js fs 模块（服务器端）\n\n---\n\n## 技巧描述\n> 用一句话说明这个技巧是做什么的\n\n将数据获取保留在服务器组件，把交互逻辑提取到客户端组件，通过 props 传递数据，避免混用导致的构建错误。\n\n---\n\n## 操作步骤\n> 具体如何操作\n\n### 第一步：识别职责边界\n- **服务器组件职责**：数据获取、文件系统访问、数据库查询\n- **客户端组件职责**：用户交互、状态管理、浏览器 API\n\n### 第二步：页面保持为服务器组件\n```typescript\n// app/knowledge/page.tsx (服务器组件，无 'use client')\nimport { getVaultData } from '@/lib/vault-data';\nimport { KnowledgeView } from '@/components/knowledge/KnowledgeView';\n\nexport default function KnowledgePage() {\n  const vaultData = getVaultData(); // 服务器端读取文件\n  const cards = vaultData.cards.filter(isRealCard).map(toKnowledgeItem);\n  \n  return <KnowledgeView cards={cards} typeCount={typeCount} />;\n}\n```\n\n### 第三步：交互逻辑提取到客户端组件\n```typescript\n// components/knowledge/KnowledgeView.tsx\n'use client';  // 客户端组件\n\nimport { useState } from 'react';\n\nexport function KnowledgeView({ cards, typeCount }) {\n  const [viewMode, setViewMode] = useState('cards');\n  \n  return (\n    <>\n      <button onClick={() => setViewMode('mindmap')}>\n        切换视图\n      </button>\n      {viewMode === 'cards' ? <CardView /> : <MindMapView />}\n    </>\n  );\n}\n```\n\n### 第四步：数据通过 props 传递\n- 服务器组件读取数据\n- 将数据作为 props 传给客户端组件\n- 客户端组件只处理交互，不直接访问文件系统\n\n---\n\n## 效果\n> 使用这个技巧带来了什么好处/提升\n\n1. **构建成功**：避免 \"does not support external modules (request: node:fs)\" 错误\n2. **职责清晰**：数据获取和交互逻辑分离，代码更易维护\n3. **性能优化**：服务器组件在构建时执行，客户端组件体积更小\n4. **类型安全**：props 传递确保数据结构清晰\n\n---\n\n## 适用场景\n> 什么时候应该用这个技巧\n\n- 页面需要用户交互（状态、事件监听）\n- 同时需要访问服务器端资源（文件系统、数据库）\n- 使用第三方库需要浏览器 API（如 Markmap）\n- 构建时出现 \"external modules not supported\" 错误\n\n---\n\n## 注意事项\n> 需要小心的地方/前提条件\n\n1. **不要在客户端组件中导入使用 Node.js API 的模块**\n2. **服务器组件不能使用 useState、useEffect 等 React hooks**\n3. **数据序列化**：传递给客户端组件的数据必须可序列化（不能是函数、Date 对象等）\n4. **避免过度拆分**：不是所有组件都需要分离，简单的静态内容可以保持在服务器组件\n\n**关键原则**：服务器负责数据，客户端负责交互。\n\n---\n\n## 关联卡片\n> 相关的工具、技巧、概念\n\n- [[tip_Vercel部署数据路径配置]]\n- [[insight_AI协作模式的有效实践]]\n",
+      "summary": "# Next.js 服务器组件与客户端组件的正确分离"
+    },
+    {
+      "id": "tip_实现Obsidian_Vault到网站的自动同步流程",
+      "type": "card",
+      "title": "tip_实现Obsidian_Vault到网站的自动同步流程",
+      "tags": [
+        "card",
+        "tip",
+        "GitHub Actions",
+        "CI/CD",
+        "自动化"
+      ],
+      "createdAt": "2026-06-16T00:00:00.000Z",
+      "relatedCards": [],
+      "content": "\n# 实现 Obsidian Vault 到网站的自动同步流程\n\n## 关联工具\n> 这个技巧是关于哪个工具/软件的？\n\nGitHub Actions + Vercel + Obsidian Git\n\n---\n\n## 来源\n> 从哪里学到这个技巧？\n\n个人网站项目中实现\"第二大脑\"自动展示的完整自动化流程\n\n---\n\n## 技巧描述\n> 用一句话说明这个技巧是做什么的\n\n通过三层自动化（本地同步 → GitHub → 网站部署）实现 Obsidian 笔记内容每天自动更新到公开网站。\n\n---\n\n## 操作步骤\n> 具体如何操作\n\n### 第一步：配置 Obsidian Git 插件（本地 → GitHub）\n```yaml\n配置项：\n- Vault backup interval: 60 分钟\n- Auto push interval: 60 分钟\n- Auto pull on startup: 启用\n```\n**效果**：每小时自动提交并推送 Vault 变更到 GitHub\n\n### 第二步：创建 GitHub Actions 工作流（GitHub → Vercel）\n```yaml\n# .github/workflows/daily-sync.yml\nname: Daily Vault Sync and Deploy\n\non:\n  schedule:\n    - cron: \"0 2 * * *\"  # 每天 10:00 北京时间\n  workflow_dispatch:      # 支持手动触发\n\njobs:\n  sync-and-deploy:\n    steps:\n      - name: Checkout vault repository\n        uses: actions/checkout@v4\n        with:\n          repository: username/my-brain\n          token: ${{ secrets.VAULT_ACCESS_TOKEN }}\n      \n      - name: Sync vault data\n        run: node scripts/vault-sync.js\n      \n      - name: Deploy to Vercel\n        run: npx vercel --prod\n```\n\n### 第三步：配置容错机制\n```javascript\n// vault-sync.js\nfunction readMarkdown(filePath) {\n  try {\n    return matter(fileContent);  // 标准 YAML 解析\n  } catch (error) {\n    console.warn(`Frontmatter parse warning: ${error.message}`);\n    return parseFrontmatter(fileContent);  // 备用解析器\n  }\n}\n```\n**效果**：个别文件格式问题不影响整体同步\n\n### 第四步：配置必要的 Secrets\n- `VAULT_ACCESS_TOKEN`：访问私有 Vault 仓库\n- `VERCEL_TOKEN`：自动部署到 Vercel\n\n---\n\n## 效果\n> 使用这个技巧带来了什么好处/提升\n\n1. **完全自动化**：从写笔记到网站更新，零人工干预\n2. **数据安全**：Vault 每小时备份到 GitHub\n3. **内容新鲜**：网站每天自动更新\n4. **容错能力**：个别文件错误不影响整体流程\n5. **可追溯性**：每次同步都有 Git 提交记录\n\n---\n\n## 适用场景\n> 什么时候应该用这个技巧\n\n- 想把私有笔记的部分内容公开展示\n- 需要定期更新网站内容，但不想手动操作\n- 使用 Obsidian 作为内容管理系统\n- 希望笔记有自动备份机制\n- 想建立个人知识展示网站\n\n---\n\n## 注意事项\n> 需要小心的地方/前提条件\n\n1. **隐私保护**：\n   - Vault 仓库应该是私有的\n   - 同步脚本只提取需要公开的数据\n   - 不要提交包含敏感信息的文件（.env、密钥等）\n\n2. **数据路径**：\n   - 确保构建环境能正确访问数据文件\n   - Vercel 部署需要注意相对路径问题\n\n3. **频率控制**：\n   - 本地同步：每小时（避免过于频繁）\n   - 网站部署：每天一次（节省构建配额）\n\n4. **容错设计**：\n   - Frontmatter 解析要有备用方案\n   - 只在有数据变更时才触发部署\n   - 记录详细日志便于排查问题\n\n**关键原则**：多层自动化 + 容错设计 = 稳定的自动更新流程\n\n---\n\n## 关联卡片\n> 相关的工具、技巧、概念\n\n- [[tip_GitHub Actions定时任务配置]]\n- [[tip_Obsidian Git自动备份配置]]\n",
+      "summary": "# 实现 Obsidian Vault 到网站的自动同步流程"
+    },
+    {
       "id": "insight_AI工作流落地的核心难点",
       "type": "card",
       "title": "insight_AI工作流落地的核心难点",
@@ -314,5 +376,5 @@
       "summary": "# 00_Cards — 原子化知识卡片"
     }
   ],
-  "lastSync": "2026-06-16T07:45:38.843Z"
+  "lastSync": "2026-06-17T02:55:13.713Z"
 }
