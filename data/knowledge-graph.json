@@ -1,6 +1,17 @@
 {
   "nodes": [
     {
+      "id": "concept_归一化策略",
+      "label": "concept_归一化策略",
+      "type": "concept",
+      "tags": [
+        "algorithm",
+        "game-dev",
+        "design-pattern",
+        "simplification"
+      ]
+    },
+    {
       "id": "insight_Codex深度使用指南",
       "label": "insight_Codex深度使用指南",
       "type": "card",
@@ -10,6 +21,28 @@
         "Codex",
         "AI工具",
         "工作流"
+      ]
+    },
+    {
+      "id": "insight_文档驱动的AI协作模式",
+      "label": "insight_文档驱动的AI协作模式",
+      "type": "insight",
+      "tags": [
+        "collaboration",
+        "ai-tools",
+        "workflow",
+        "best-practice"
+      ]
+    },
+    {
+      "id": "tip_前端项目代码审查的系统化清单",
+      "label": "tip_前端项目代码审查的系统化清单",
+      "type": "tip",
+      "tags": [
+        "code-review",
+        "quality-assurance",
+        "checklist",
+        "best-practice"
       ]
     },
     {
@@ -101,6 +134,41 @@
         "GitHub Actions",
         "CI/CD",
         "自动化"
+      ]
+    },
+    {
+      "id": "insight_React中键盘事件监听的最佳实践",
+      "label": "insight_React中键盘事件监听的最佳实践",
+      "type": "card",
+      "tags": [
+        "card",
+        "insight",
+        "react",
+        "keyboard",
+        "event-handling"
+      ]
+    },
+    {
+      "id": "insight_useReducer在游戏状态管理中的应用",
+      "label": "insight_useReducer在游戏状态管理中的应用",
+      "type": "card",
+      "tags": [
+        "card",
+        "insight",
+        "react",
+        "state-management",
+        "game"
+      ]
+    },
+    {
+      "id": "insight_测试补强的边界情况优先原则",
+      "label": "insight_测试补强的边界情况优先原则",
+      "type": "card",
+      "tags": [
+        "card",
+        "insight",
+        "testing",
+        "quality-assurance"
       ]
     },
     {
