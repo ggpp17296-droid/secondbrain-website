@@ -172,6 +172,44 @@
       ]
     },
     {
+      "id": "insight_Web动画性能优化的核心原则",
+      "label": "insight_Web动画性能优化的核心原则",
+      "type": "note",
+      "tags": [
+        "insight",
+        "performance",
+        "css",
+        "animation",
+        "gpu-acceleration",
+        "web-performance"
+      ]
+    },
+    {
+      "id": "insight_动画系统的数据结构分离设计",
+      "label": "insight_动画系统的数据结构分离设计",
+      "type": "note",
+      "tags": [
+        "insight",
+        "animation",
+        "architecture",
+        "game-development",
+        "react"
+      ]
+    },
+    {
+      "id": "insight_输入锁定机制与异步动画状态控制",
+      "label": "insight_输入锁定机制与异步动画状态控制",
+      "type": "note",
+      "tags": [
+        "insight",
+        "state-management",
+        "react",
+        "async",
+        "timing",
+        "animation"
+      ]
+    },
+    {
       "id": "insight_AI工作流落地的核心难点",
       "label": "insight_AI工作流落地的核心难点",
       "type": "card",
