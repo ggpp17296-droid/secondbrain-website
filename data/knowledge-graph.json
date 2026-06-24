@@ -101,6 +101,42 @@
       ]
     },
     {
+      "id": "insight_Context API的懒初始化与性能优化模式",
+      "label": "insight_Context API的懒初始化与性能优化模式",
+      "type": "card",
+      "tags": [
+        "card",
+        "insight",
+        "context-api",
+        "state-management",
+        "architecture"
+      ]
+    },
+    {
+      "id": "insight_Vite生产构建优化的黄金三角",
+      "label": "insight_Vite生产构建优化的黄金三角",
+      "type": "card",
+      "tags": [
+        "card",
+        "insight",
+        "vite",
+        "build-optimization",
+        "deployment"
+      ]
+    },
+    {
+      "id": "insight_Web Audio API程序合成音效的优势",
+      "label": "insight_Web Audio API程序合成音效的优势",
+      "type": "card",
+      "tags": [
+        "card",
+        "insight",
+        "web-audio",
+        "sound",
+        "performance"
+      ]
+    },
+    {
       "id": "insight_Claude_Code与Codex协作模式的有效实践",
       "label": "insight_Claude_Code与Codex协作模式的有效实践",
       "type": "card",

@@ -1,11 +1,11 @@
 {
-  "daysSinceStart": 22,
-  "currentDay": 23,
+  "daysSinceStart": 23,
+  "currentDay": 24,
   "currentWeek": 4,
   "tasksCompleted": 0,
   "totalTasks": 9,
   "projectsCount": 4,
-  "cardsCount": 22,
-  "totalLearningHours": 9,
-  "notesCount": 6
+  "cardsCount": 25,
+  "totalLearningHours": 10.5,
+  "notesCount": 7
 }
