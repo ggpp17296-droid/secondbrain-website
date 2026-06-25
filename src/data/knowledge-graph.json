@@ -1,6 +1,20 @@
 {
   "nodes": [
     {
+      "id": "how-to_FFmpeg视频合并的两种方式",
+      "label": "how-to_FFmpeg视频合并的两种方式",
+      "type": "card",
+      "tags": [
+        "card",
+        "how-to",
+        "ffmpeg",
+        "video",
+        "concat",
+        "xfade",
+        "transition"
+      ]
+    },
+    {
       "id": "concept_归一化策略",
       "label": "concept_归一化策略",
       "type": "concept",
