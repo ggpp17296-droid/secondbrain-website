@@ -187,6 +187,48 @@
       ]
     },
     {
+      "id": "how-to_FFmpeg压缩与优化",
+      "label": "how-to_FFmpeg压缩与优化",
+      "type": "card",
+      "tags": [
+        "card",
+        "how-to",
+        "ffmpeg",
+        "video",
+        "compress",
+        "optimize",
+        "resolution",
+        "crf"
+      ]
+    },
+    {
+      "id": "how-to_FFmpeg添加文字和字幕",
+      "label": "how-to_FFmpeg添加文字和字幕",
+      "type": "card",
+      "tags": [
+        "card",
+        "how-to",
+        "ffmpeg",
+        "video",
+        "text",
+        "subtitle",
+        "drawtext"
+      ]
+    },
+    {
+      "id": "how-to_FFmpeg视频剪切基础操作",
+      "label": "how-to_FFmpeg视频剪切基础操作",
+      "type": "card",
+      "tags": [
+        "card",
+        "how-to",
+        "ffmpeg",
+        "video",
+        "cut",
+        "trim"
+      ]
+    },
+    {
       "id": "insight_React中键盘事件监听的最佳实践",
       "label": "insight_React中键盘事件监听的最佳实践",
       "type": "card",
