@@ -187,6 +187,139 @@
       ]
     },
     {
+      "id": "how-to_PPT制作与视觉QA工作流",
+      "label": "how-to_PPT制作与视觉QA工作流",
+      "type": "card",
+      "tags": [
+        "card",
+        "how-to",
+        "ppt",
+        "design",
+        "visual-qa",
+        "workflow"
+      ]
+    },
+    {
+      "id": "insight_共享存储的挂载权限与安全边界",
+      "label": "insight_共享存储的挂载权限与安全边界",
+      "type": "card",
+      "tags": [
+        "card",
+        "insight",
+        "storage",
+        "nfs",
+        "smb",
+        "permission",
+        "lxc"
+      ]
+    },
+    {
+      "id": "insight_基础设施代理排错的核心方法",
+      "label": "insight_基础设施代理排错的核心方法",
+      "type": "card",
+      "tags": [
+        "card",
+        "insight",
+        "infrastructure",
+        "network",
+        "proxy",
+        "troubleshooting",
+        "openwrt"
+      ]
+    },
+    {
+      "id": "insight_工作区项目管理的编号与边界原则",
+      "label": "insight_工作区项目管理的编号与边界原则",
+      "type": "card",
+      "tags": [
+        "card",
+        "insight",
+        "workspace",
+        "project-management",
+        "best-practice"
+      ]
+    },
+    {
+      "id": "insight_视频学习项目的工作流设计",
+      "label": "insight_视频学习项目的工作流设计",
+      "type": "card",
+      "tags": [
+        "card",
+        "insight",
+        "video",
+        "ffmpeg",
+        "workflow",
+        "learning"
+      ]
+    },
+    {
+      "id": "insight_远程操作的基础意识",
+      "label": "insight_远程操作的基础意识",
+      "type": "card",
+      "tags": [
+        "card",
+        "insight",
+        "remote",
+        "ssh",
+        "infrastructure",
+        "environment",
+        "multi-device"
+      ]
+    },
+    {
+      "id": "insight_配置与路径的运行时优先级",
+      "label": "insight_配置与路径的运行时优先级",
+      "type": "card",
+      "tags": [
+        "card",
+        "insight",
+        "config",
+        "path",
+        "runtime",
+        "environment",
+        "dotenv"
+      ]
+    },
+    {
+      "id": "insight_问题记录与证据链方法",
+      "label": "insight_问题记录与证据链方法",
+      "type": "card",
+      "tags": [
+        "card",
+        "insight",
+        "documentation",
+        "problem-solving",
+        "evidence",
+        "troubleshooting"
+      ]
+    },
+    {
+      "id": "insight_项目迁移与目录边界确认",
+      "label": "insight_项目迁移与目录边界确认",
+      "type": "card",
+      "tags": [
+        "card",
+        "insight",
+        "migration",
+        "workspace",
+        "directory-structure",
+        "git"
+      ]
+    },
+    {
+      "id": "insight_验证分层模型",
+      "label": "insight_验证分层模型",
+      "type": "card",
+      "tags": [
+        "card",
+        "insight",
+        "verification",
+        "build",
+        "deploy",
+        "quality-assurance"
+      ]
+    },
+    {
       "id": "how-to_FFmpeg压缩与优化",
       "label": "how-to_FFmpeg压缩与优化",
       "type": "card",

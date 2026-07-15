@@ -586,6 +586,179 @@
       "summary": "# 实现 Obsidian Vault 到网站的自动同步流程"
     },
     {
+      "id": "how-to_PPT制作与视觉QA工作流",
+      "type": "card",
+      "title": "how-to_PPT制作与视觉QA工作流",
+      "tags": [
+        "card",
+        "how-to",
+        "ppt",
+        "design",
+        "visual-qa",
+        "workflow"
+      ],
+      "createdAt": "2026-07-14T00:00:00.000Z",
+      "relatedCards": [],
+      "content": "\n# PPT 制作与视觉 QA 工作流：从母版到逐页验收\n\n## 一句话\n\n> PPT 验收必须同时检查结构字段和真实渲染；每页主视觉应有明确职责，避免重复削弱叙事。\n\n---\n\n## 核心知识\n\n### 标准化工作流\n\n```\n1. 建立任务目录\n   decks/YYYY-MM-DD-主题名称/\n\n2. 选择母版\n   templates/模板名/ → 复制到任务目录\n\n3. 设计阶段\n   source-notes.txt（素材来源）\n   slide-plan.txt（页面清单与叙事结构）\n\n4. 生成与检查\n   生成 PPTX → 逐页 PNG 渲染 → 全尺寸目检\n\n5. 归档\n   outputs/最终稿.pptx\n   archive/YYYY-MM-DD-主题名称/\n```\n\n---\n\n### 逐页渲染检查方法\n\n**为什么联系表不够用**（project-002 教训）：\n- montage 联系表可能只显示首张\n- 小字号、脚注、表格压线在联系表中无法可靠呈现\n\n**正确做法**：\n```bash\n# 逐页渲染 PNG\npdftoppm -png -r 150 presentation.pdf page\n\n# 或使用 artifact-tool 的逐页检查\nartifact-tool render --pages 1-10\n\n# 检查关键页全尺寸渲染\n# 关注：小字号、脚注、表格、对比度、遮挡\n```\n\n**检查清单**：\n- [ ] 页数正确\n- [ ] 字体显示正常（Songti SC、PingFang SC 等）\n- [ ] 小字号可读\n- [ ] 脚注无遮挡\n- [ ] 表格无压线\n- [ ] 每页主视觉职责不同（避免同一图片在多个关键页重复）\n- [ ] 输出目录无中间文件残留\n\n---\n\n### 图片职责分配原则\n\n**project-002 教训**：同一人物照片在封面、开场、人物页和结语重复使用，削弱叙事区分。\n\n**正确做法**：\n- 封面 → 主题氛围图（不重复）\n- 问题页 → 痛点/挑战场景（不重复）\n- 人物页 → 主角故事（不重复）\n- 结语 → 情感收束（不重复）\n\n**检查方法**：设计阶段先建立\"每页主视觉职责表\"，避免到最终 QA 才发现重复。\n\n---\n\n### 母版复用管理\n\n**project-002 经验**：\n\n```\ntemplates/岭南商业志/\n├── 岭南商业志-6页版式母版.pptx    # 可编辑母版\n├── 视觉规范.md                     # 颜色、字体、间距规范\n├── 版式模式.md                     # 各页版式说明\n├── qa-checklist.txt               # 验收检查清单\n├── components.mjs                 # 构建组件代码\n└── build-template.mjs             # 母版生成脚本\n```\n\n**原则**：\n- 模板只保留视觉系统和结构组件\n- 主题专属素材（图片、数据、史料）只进项目归档，不写回模板\n- 通用模板包按主题分类（地方文化、技艺传承、城市记忆……）\n\n---\n\n## 常见问题处理\n\n| 问题 | 原因 | 解决方案 |\n|------|------|---------|\n| 脚注对比度低 | 拼贴背景降低了标签可读性 | 标签加不透明底色，来源区加独立深色条 |\n| 小字号看不清 | 只看联系表未检查全尺寸 | 逐页 PNG 渲染，关键页全尺寸目检 |\n| 图片重复 | 每页主视觉职责未提前规划 | 设计阶段建立职责表，QA 时比对 |\n| 中文路径编码 | Node 脚本用 URL pathname | 使用 `fileURLToPath` 或 `path.join()` |\n\n---\n\n## 延伸阅读\n\n### 相关经验\n- [[insight_验证分层模型]] — 渲染检查属于 L4 真实烟测\n\n### 来源项目\n- `project-002-ppt-design/04_复盘与沉淀.md` — 完整 QA 方法论\n- `project-002-ppt-design/02_问题与报错日志.md` — 渲染检查教训\n\n---\n\n_最后更新：2026-07-14_\n",
+      "summary": "# PPT 制作与视觉 QA 工作流：从母版到逐页验收"
+    },
+    {
+      "id": "insight_共享存储的挂载权限与安全边界",
+      "type": "card",
+      "title": "insight_共享存储的挂载权限与安全边界",
+      "tags": [
+        "card",
+        "insight",
+        "storage",
+        "nfs",
+        "smb",
+        "permission",
+        "lxc"
+      ],
+      "createdAt": "2026-07-14T00:00:00.000Z",
+      "relatedCards": [],
+      "content": "\n# 共享存储的挂载、权限与安全边界：NFS/SMB 在 PVE/LXC/Ubuntu 中的实践\n\n## 一句话\n\n> 共享存储的权限由服务端控制，客户端即使使用 sudo 也不能绕过 NFS ACL；数据库和索引放本地，文档放共享目录。\n\n---\n\n## 核心知识\n\n### 存储架构决策\n\n**project-008 经验**：数据层应按用途分工：\n\n| 存储位置 | 存放内容 | 原因 |\n|---------|---------|------|\n| fnOS（NAS） | 文档原件、媒体、导出 | 大容量、可共享 |\n| Ubuntu 本地 | Claude Code/Hermes 运行环境 | 需要权限控制 |\n| tools LXC 本地 | 数据库、索引、应用状态 | 高频读写，避免 NFS 延迟 |\n| PVE 宿主机 | 容器数据 mount point | 非特权 LXC 不能直接挂载 NFS |\n\n---\n\n### NFS 挂载的权限边界\n\n**project-008 发现**：\n- Ubuntu 用户 `jacklee` 可以访问 fnOS 共享目录（显示为 `jacklee:1001`，模式 777）\n- 但这是 fnOS 服务端允许的，不是 Ubuntu 侧的权限控制\n- 非特权 LXC（tools）即使有 sudo 也不能绕过 NFS ACL\n- 权限收紧后，PVE 的 NFS 身份创建目录可能失败（`Permission denied`）\n\n**安全原则**：\n- 不要把整个共享目录设为 `no_root_squash`\n- 在服务端（fnOS）创建专用子目录，只给客户端该目录的写入权限\n- 验证时同时检查服务端 ACL 和客户端访问结果\n\n---\n\n### 挂载路径映射实践\n\n**project-008 验证路径**：\n```\nfnOS (服务端)\n  /fs/1000/nfs/paperless/     ← 专用目录，NFS 导出\n      ↓\nPVE 宿主机\n  /mnt/fnos-nfs/paperless/    ← 持久挂载点\n      ↓\ntools LXC (CT 102)\n  /mnt/paperless/              ← 通过 mp0 映射\n```\n\n**验证命令**：\n```bash\n# PVE 宿主机验证\nmount | grep fnos\nls -la /mnt/fnos-nfs/paperless/\n\n# tools LXC 验证（通过 pct exec）\npct exec 102 -- ls -la /mnt/paperless/\npct exec 102 -- touch /mnt/paperless/.tools-write-test\npct exec 102 -- rm /mnt/paperless/.tools-write-test\n```\n\n---\n\n### 非特权 LXC 的 UID 映射\n\n**project-008 发现**：tools LXC 是非特权容器，写入 fnOS NFS 目录的文件显示为 `nobody:nogroup`。\n\n**这是正常表现**，符合非特权 LXC 的 UID/GID 映射规则。不是错误，不需要修复。\n\n---\n\n### SMB vs NFS 适用场景\n\n| 场景 | 推荐协议 | 原因 |\n|------|---------|------|\n| Mac/Windows 客户端 | SMB | 原生支持，文件级访问 |\n| Ubuntu 服务间共享 | NFSv4 | 更适合服务器场景，支持 POSIX 权限 |\n| 容器数据 | 本地磁盘 | 避免 NFS 延迟和 ACL 问题 |\n| 文档存储 | 共享目录 | fnOS 管理权限，多客户端访问 |\n\n---\n\n### 持久化挂载配置\n\n**Ubuntu `/etc/fstab` 示例**：\n```\n192.168.2.30:/fs/1000/nfs /mnt/fnos nfs4 _netdev,nofail,x-systemd.automount,x-systemd.requires=network-online.target,defaults 0 0\n```\n\n**关键参数**：\n- `_netdev`：网络设备，等待网络就绪后再挂载\n- `nofail`：启动时 NFS 不可用不阻塞开机\n- `x-systemd.automount`：按需挂载，减少启动时间\n\n**先测试，再写入 fstab**：\n```bash\n# 1. 临时挂载测试\nsudo mount -t nfs4 192.168.2.30:/fs/1000/nfs /mnt/fnos\n\n# 2. 读写测试\ntouch /mnt/fnos/test-write\nls -la /mnt/fnos/test-write\nrm /mnt/fnos/test-write\n\n# 3. 确认正常后才写入 /etc/fstab\n```\n\n---\n\n## 触发提醒\n\n- 看到\"权限 denied\" → 先确认是服务端 ACL 还是客户端配置问题\n- 看到 NFS 挂载失败 → 检查服务端导出配置和客户端 NFS 客户端安装\n- 看到非特权 LXC UID 显示为 nobody → 这是正常表现，不需修复\n- 看到\"PVE 不能创建 NFS 存储\" → 不是连通性问题，是服务端导出根目录权限不足\n- 规划 Paperless 等数据库应用 → 优先把数据库和索引放本地，文档放共享目录\n\n---\n\n## 延伸阅读\n\n### 相关经验\n- [[insight_远程操作的基础意识]] — 提示符确认和命令边界\n- [[insight_验证分层模型]] — 存储验证属于哪一层\n\n### 来源项目\n- `project-008-P6魔方NAS-R5S代理组网/02_问题与报错日志.md` — PVE NFS 权限阻塞\n\n---\n\n_最后更新：2026-07-14_\n",
+      "summary": "# 共享存储的挂载、权限与安全边界：NFS/SMB 在 PVE/LXC/Ubuntu 中的实践"
+    },
+    {
+      "id": "insight_基础设施代理排错的核心方法",
+      "type": "card",
+      "title": "insight_基础设施代理排错的核心方法",
+      "tags": [
+        "card",
+        "insight",
+        "infrastructure",
+        "network",
+        "proxy",
+        "troubleshooting",
+        "openwrt"
+      ],
+      "createdAt": "2026-07-14T00:00:00.000Z",
+      "relatedCards": [],
+      "content": "\n# 基础设施代理排错的核心方法：设备表与分层核验\n\n## 一句话\n\n> 代理排错先建设备表，再看进程、端口、路由和脚本；不要按端口名称猜测协议，不要共用不同服务的配置。\n\n---\n\n## 核心知识\n\n### 设备/IP/服务/协议/端口表\n\n**project-008 验证方法**：每次排错前先建立完整表。\n\n| 设备 | IP | 服务 | 协议 | 端口 | 备注 |\n|------|-----|------|------|------|------|\n| OpenWrt | 192.168.2.1 | MaTrix 管理 | HTTP | 7654 | 非代理端口 |\n| OpenWrt | 192.168.2.1 | MaTrix TUN | TUN | tun0 | 代理出口 |\n| Ubuntu | 192.168.2.40 | Claude Code | HTTP | 8080 | 需代理 |\n| Ubuntu | 192.168.2.40 | Hermes | HTTP | 3000 | 需代理 |\n| tools | 192.168.2.50 | Paperless | HTTP | 8000 | 本地优先 |\n\n**原则**：管理端口不等于代理端口；托管 FRP 不等于自建 VPS。\n\n---\n\n### 代理排错四步法\n\n#### Step 1：看进程和监听端口\n\n```bash\n# 检查活跃进程\nps aux | grep relayway\nps aux | grep openclash\n\n# 检查监听端口\nss -tlnp | grep 7654\n# 或在精简系统用\nnetstat -tlnp | grep 7654\n\n# 检查 TUN 接口\nip addr show tun0\nip -4 addr show tun0 | grep inet\n```\n\n#### Step 2：看路由表和 ip rule\n\n```bash\n# 检查策略路由规则\nip -4 rule show\n\n# 检查指定表的路由\nip -4 route show table 100\n\n# 检查设备走的路由\nip -4 route get 8.8.8.8 from 192.168.2.228\n```\n\n#### Step 3：看配置文件和脚本\n\n```bash\n# 检查 MaTrix 选中的代理脚本\ncat /etc/matrix-selected-proxy.sh\n\n# 检查 DHCP 静态租约\nuci show dhcp\n\n# 检查 OpenWrt 防火墙\niptables -t nat -L -n | grep DNAT\n```\n\n#### Step 4：验证实际流量\n\n```bash\n# 指定源地址测试路由\ncurl --interface 192.168.2.228 https://api.openai.com/v1/models\n\n# 检查 DNS 解析\nnslookup chat.openai.com 192.168.2.1\n\n# 检查 TUN 连接状态\nlogread | grep relayway | tail -20\n```\n\n---\n\n### 常见混淆与纠正\n\n| 混淆 | 真相 | 验证方法 |\n|------|------|---------|\n| MaTrix 7654 是代理端口 | 7654 是管理/TUN 入口，不是 HTTP/SOCKS | `ss -tlnp` 确认协议 |\n| Claude Code 配置 = Hermes 配置 | 两者 API 协议、Base URL、模型列表不同 | 分别核验 |\n| 页面能打开 = 聊天可用 | Dashboard 需要原生认证，Nginx Basic Auth 不够 | 分层验证 API/PTY |\n| FRP 端口映射 = 外网可用 | 可能遇到 Host/Origin/PTY 校验 | 实际外网测试 |\n| OpenWrt 有 nft 命令 | 精简版可能是 fw3/iptables | `command -v nft` 先确认 |\n\n---\n\n### 设备分流配置的自动化\n\n**project-008 经验**：手动维护 `ip rule` 容易出错，特别是 MAC 地址抄录错误。\n\n**自动化原则**：\n- 脚本从 DHCP 静态租约按 MAC 解析 IP\n- 缺失必需 MAC 时**拒绝执行**（dry-run 拦截）\n- 只维护优先级 `10000-10099`，不改 DNS、IPv6、其他表\n- 应用前检查 `tun0` 存在，表 100 和兜底规则正常\n- 部署后验证每台设备的实际路由\n\n**验证命令**：\n```bash\n# 验证指定设备走 tun0\nip -4 route get 8.8.8.8 from 192.168.2.228\n\n# 验证非代理设备走主路由\nip -4 route get 8.8.8.8 from 192.168.2.137\n# 应显示 pppoe-wan，不是 tun0\n```\n\n---\n\n## 触发提醒\n\n- 看到端口号 7654、8080、3000 等 → 先确认是管理端口还是代理端口\n- 看到\"代理不生效\" → 先 `ip rule` 和 `ip route` 查路由，不先改配置\n- 看到 OpenWrt 版本、fw3/fw4、iptables/nftables → 不得直接执行网上的 nftables 教程\n- 看到设备 IP 变化 → 检查 DHCP 静态租约是否正确绑定 MAC\n\n---\n\n## 延伸阅读\n\n### 相关经验\n- [[insight_远程操作的基础意识]] — 提示符确认和可恢复性\n- [[insight_验证分层模型]] — 分层验证模型\n\n### 来源项目\n- `project-008-P6魔方NAS-R5S代理组网/02_问题与报错日志.md` — 完整排错案例\n- `project-008-P6魔方NAS-R5S代理组网/04_复盘与沉淀.md` — 复用方法\n\n---\n\n_最后更新：2026-07-14_\n",
+      "summary": "# 基础设施代理排错的核心方法：设备表与分层核验"
+    },
+    {
+      "id": "insight_工作区项目管理的编号与边界原则",
+      "type": "card",
+      "title": "insight_工作区项目管理的编号与边界原则",
+      "tags": [
+        "card",
+        "insight",
+        "workspace",
+        "project-management",
+        "best-practice"
+      ],
+      "createdAt": "2026-07-14T00:00:00.000Z",
+      "relatedCards": [],
+      "content": "\n# 工作区项目管理的编号与边界原则\n\n## 一句话\n\n> 统一编号、目录分层、三文件标准，是让多个 AI 协作项目可持续维护的基础设施。\n\n---\n\n## 核心知识\n\n### 三个必备文件\n\n每个项目必须有：\n\n| 文件 | 职责 |\n|------|------|\n| `00_项目入口或共享任务本.md` | 目标、入口、当前状态、主要输出 |\n| `01_项目总览与下一步.md` | 范围、里程碑、已完成、阻塞、下一步 |\n| `02_问题与报错日志.md` | 日期、现象、根因、影响、处理、验证 |\n\n**旧文档保留历史上下文，新文档只写当前状态**。不因篇幅自动压缩项目内部文档。\n\n---\n\n### 项目编号规则\n\n```\n/Users/jacklee/Desktop/codex_workspace/projects/project-三位编号-项目名称/\n```\n\n- 创建前查看 `projects/`，取现有最大编号加 1\n- 默认不复用旧编号\n- 名称优先使用中文、英文、数字和短横线\n\n---\n\n### 目录分层\n\n```\nsrc/      代码脚本    data/     原始数据\nassets/   参考素材    drafts/   草稿\ntests/    测试证据    outputs/  最终交付物\n```\n\n系统缓存、构建目录不作为交付物，完成后清理或在记录中说明。\n\n---\n\n## 为什么这三个文件重要\n\n**没有统一入口时的问题**（project-001~004 早期均出现）：\n- 资产分散在桌面、下载目录、项目外文件夹\n- 聊天上下文断裂，找不到当前任务在哪里\n- 问题记录散落，每次续做需要重新翻找历史\n- 返工后同类问题在其他项目重复出现\n\n**有标准后的效果**（project-005~008 已验证）：\n- 新 AI 会话只需读三份全局文档 + 项目入口文档，立即上手\n- 问题日志积累后可直接提炼跨项目复用经验\n- 输出物按目录分离，清理时不会误删源码\n\n---\n\n## 升级规则\n\n- **单项目高频问题** → 写入 `02_问题与报错日志.md`\n- **可跨项目复用的问题** → 提炼到 `01_全局复利与踩坑日志.md`\n- **两个及以上项目共性的规则/流程** → 提炼到 `00_全局工作台.md`\n- workspace 根目录主文档控制在 **8000 字** 以内；接近 7200 字时压缩\n\n---\n\n## 何时创建项目\n\n满足任一条件即按 SOP 执行：\n- 会产生多个文件/版本\n- 需要多轮执行\n- 产生代码/文档/表格/演示稿/自动化脚本\n- 用户明确要求创建或后续需要维护复盘\n\n单次问答、解释或临时查看可以不建项目；一旦产生可交付物，应立即转入项目目录。\n\n---\n\n## 收尾检查清单\n\n```\n[ ] 输出物在 outputs/\n[ ] 代码/脚本在 src/\n[ ] 测试证据在 tests/\n[ ] 01_项目总览与下一步.md 已更新\n[ ] 02_问题与报错日志.md 已更新\n[ ] 可复用问题已升级到全局日志\n```\n\n---\n\n## 延伸阅读\n\n### 相关经验\n- [[insight_文档驱动的AI协作模式]] — 项目文档如何支撑 AI 协作\n- [[insight_Claude_Code与Codex协作模式的有效实践]] — 多工具协作的项目结构\n\n### 来源项目\n- [[00_全局工作台.md]] — workspace 总规则\n- [[01_全局复利与踩坑日志.md]] — 跨项目经验沉淀\n- [[02_新项目创建SOP.md]] — 标准流程\n\n---\n\n_最后更新：2026-07-14_\n",
+      "summary": "# 工作区项目管理的编号与边界原则"
+    },
+    {
+      "id": "insight_视频学习项目的工作流设计",
+      "type": "card",
+      "title": "insight_视频学习项目的工作流设计",
+      "tags": [
+        "card",
+        "insight",
+        "video",
+        "ffmpeg",
+        "workflow",
+        "learning"
+      ],
+      "createdAt": "2026-07-14T00:00:00.000Z",
+      "relatedCards": [],
+      "content": "\n# 视频学习项目的工作流设计：命令模式与验证闭环\n\n## 一句话\n\n> 视频学习类项目应先统一素材目录、输出目录和命令记录位置；每条命令必须记录参数、输出和时长验证。\n\n---\n\n## 核心知识\n\n### 视频学习项目目录结构\n\n```\nproject/\n├── lessons/           # 课程笔记（每技能一文件）\n│   └── ffmpeg/\n│       └── skill-02-video-cutting.md\n├── assets/            # 原始素材\n│   ├── raw/          # 源视频\n│   └── clips/        # 练习片段\n├── outputs/          # 最终产物（可播放视频）\n├── tests/            # 验证记录（命令输出、时长、截图）\n│   └── ffmpeg/\n│       └── skill-02-video-cutting.md\n├── src/              # 脚本和自动化\n│   └── ffmpeg/       # 批处理脚本\n└── drafts/           # 草稿和中间版本\n```\n\n---\n\n### 教学模式：先给命令，不默认执行\n\n**project-006 经验**：FFmpeg 命令会生成新文件、覆盖旧文件，学习阶段应该先知道命令会做什么，再决定是否执行。\n\n**触发词约定**：\n\n| 触发词 | 行为 |\n|--------|------|\n| \"讲解模式\" | 只解释，不执行 |\n| \"命令模式\" | 只给终端命令和简短说明 |\n| \"执行模式\" | Codex 直接执行命令 |\n| \"排错模式\" | 先检查路径、文件、时长和参数，再给修复命令 |\n| \"沉淀模式\" | 把本节知识写入项目文档 |\n\n---\n\n### 每条命令的验证闭环\n\n**project-006 教训**：只看命令成功退出不够，必须验证输出文件。\n\n```bash\n# 1. 执行命令\nffmpeg -ss 00:00:08 -i input.mp4 -t 00:00:05 output.mp4\n\n# 2. 验证时长\nffprobe -v error -show_entries format=duration \\\n  -of default=nw=1:nk=1 output.mp4\n\n# 3. 验证分辨率和编码\nffprobe -v error -select_streams v:0 \\\n  -show_entries stream=width,height,r_frame_rate,codec_name \\\n  -of default=nw=1 output.mp4\n\n# 4. 验证文件大小\nls -lh output.mp4\n\n# 5. 播放器确认可播放\n# （或 ffprobe -show_format 确认无损坏）\n```\n\n**必须记录到 tests/ 的内容**：\n- 执行的命令\n- 预期时长 vs 实际时长\n- 预期 vs 实际分辨率/编码\n- 错误信息（若有）\n- 是否符合预期\n\n---\n\n### FFmpeg 技能学习闭环\n\n```\n1. 参数直觉（5 分钟）\n   → 知道这个命令解决什么问题\n\n2. 命令拆解（10 分钟）\n   → 理解每个参数的真实含义\n\n3. 练习 1：基础命令\n   → 在 assets/raw/ 中操作\n\n4. 练习 2：变体命令\n   → 改变参数，观察差异\n\n5. 验证输出\n   → ffprobe + 播放器确认\n\n6. 记录踩坑\n   → 写入 03_过程记录.md 和 lessons/\n```\n\n**每次只学一个核心动作**，不混多个概念。\n\n---\n\n### 阶段化学习策略\n\n**project-006 经验**：FFmpeg 阶段不追求记住所有参数，而是建立\"看懂命令、改动命令、验证结果\"的能力。\n\n| 阶段 | 内容 | 验证方式 |\n|------|------|---------|\n| 阶段 1（核心） | 剪切、合并、文字、分辨率压缩、音频 | 可播放产物 + 时长验证 |\n| 阶段 2（扩展） | 抽帧、水印、速度、裁剪、批处理 | 可播放产物 + 脚本可重复运行 |\n| 阶段 3+ | MoviePy 脚本化、Remotion 动画 | 自动化产出 + 渲染验证 |\n\n---\n\n## 触发提醒\n\n- \"刚学了新命令\" → 立即验证输出文件，不要只看退出码\n- \"跑批处理脚本\" → 先在单文件上测试，确认后再批量执行\n- \"生成视频后\" → ffprobe 查参数 + 播放器确认可播放 + 抽帧目检\n- \"用 Remotion/HyperFrames\" → 先确认依赖是否存在，再决定验证范围\n\n---\n\n## 延伸阅读\n\n### 相关技能卡片\n- [[how-to_FFmpeg视频剪切基础操作]] — 核心参数：-ss, -t, -to\n- [[how-to_FFmpeg压缩与优化]] — CRF、preset、scale\n- [[how-to_FFmpeg添加文字和字幕]] — drawtext 滤镜\n\n### 来源项目\n- `project-006-video-learning/05_教学模式与学习规则.md` — 完整教学模式\n- `project-006-video-learning/06_FFmpeg技能拆分.md` — 14 项技能清单\n\n---\n\n_最后更新：2026-07-14_\n",
+      "summary": "# 视频学习项目的工作流设计：命令模式与验证闭环"
+    },
+    {
+      "id": "insight_远程操作的基础意识",
+      "type": "card",
+      "title": "insight_远程操作的基础意识",
+      "tags": [
+        "card",
+        "insight",
+        "remote",
+        "ssh",
+        "infrastructure",
+        "environment",
+        "multi-device"
+      ],
+      "createdAt": "2026-07-14T00:00:00.000Z",
+      "relatedCards": [],
+      "content": "\n# 远程操作的基础意识：提示符、边界与可恢复性\n\n## 一句话\n\n> 远程命令前先看提示符确认主机，长任务放 tmux，敏感操作前备份——这是避免\"在 Mac 上执行了 Ubuntu 命令\"的唯一方法。\n\n---\n\n## 核心知识\n\n### 远程操作三原则\n\n#### 1. 先看提示符，再执行命令\n\n**为什么重要**（project-008 真实教训）：曾把 Ubuntu 的 `/etc/fstab` 命令误输入 Mac 终端，险些修改系统文件。\n\n**正确做法**：\n```bash\n# 每次远程连接后，先确认提示符\njacklee@ubuntu-server:~$   # 这是 Ubuntu\nroot@OpenWrt:~#            # 这是 OpenWrt 路由器\njacklee@pve:~$             # 这是 PVE 宿主\n```\n\n**触发场景**：\n- SSH 断开重连后\n- 多窗口操作时切换了窗口\n- 远程命令输出很长，需要滚动回看\n\n---\n\n#### 2. 长任务放 tmux，避免会话中断丢失\n\n**真实案例**（project-008）：FRP 重连会导致已有 SSH TCP 会话断开。如果正在执行固件升级或配置部署，任务会中断。\n\n**正确做法**：\n```bash\n# 启动 tmux 会话\ntmux new -s deploy\n\n# 在 tmux 内执行长任务\n./deploy-script.sh\n\n# 即使 SSH 断开，任务继续运行\n# 重新连接后恢复\ntmux attach -t deploy\n```\n\n**适用场景**：\n- 固件升级/配置部署\n- 大文件传输\n- 多次 SSH 跳板操作\n- 需要等待多步确认的命令\n\n---\n\n#### 3. 敏感操作前备份，失败后有回滚路径\n\n**project-008 教训**：\n- 首次 NFS 挂载失败时，脚本检测到错误后未写入任何目标路径 ✅\n- iPad MAC 地址 dry-run 拦截了缺失 MAC 的执行，阻止了无效配置写入 ✅\n- SSH 加固前先用 `sshd -T` 验证最终生效值，而不是只看某个配置文件 ✅\n\n**备份原则**：\n```bash\n# 配置文件修改前备份\ncp /etc/nginx/nginx.conf /etc/nginx/nginx.conf.bak-20260713\n\n# 批量修改前生成回滚脚本\n# 或记录原始值，失败时手动恢复\n```\n\n---\n\n## 远程环境的特殊性\n\n### 精简系统的命令缺失\n\n**案例**（project-008）：OpenWrt 是精简 BusyBox，不能假设存在：\n- `ss`（用 `netstat` 替代）\n- 完整 `ps` 参数\n- `install` 命令（用 `cp` + `chmod` 替代）\n\n**处理**：执行前先确认命令存在：\n```bash\n# 检查命令是否存在\nwhich ss || which netstat\ncommand -v nft || echo \"nft not found\"\n```\n\n### 网络边界的协议差异\n\n| 场景 | 验证方法 |\n|------|---------|\n| 页面能打开 ≠ 聊天通道成功 | 分层验证：登录→API→PTY |\n| HEAD 405 ≠ 服务故障 | 某些端点只允许 GET，换用 GET 验证 |\n| Nginx 502 ≠ Nginx 本身坏 | 先查 upstream 是否监听 |\n| SSH 断开后继续输入 | 必须先确认提示符仍是当前主机 |\n\n### 跳板连接的风险\n\n```\nMac → SSH Ubuntu → SSH OpenWrt\n```\n\n每多一层跳板，提示符确认的重要性就增加一分。避免在跳板会话中执行高风险命令。\n\n---\n\n## 多主机协作的设备表\n\n**project-008 验证方法**：建立\"设备/IP/服务/协议/端口\"表，远程操作前对照。\n\n| 设备 | IP | 用途 | 协议 | 端口 |\n|------|-----|------|------|------|\n| OpenWrt | 192.168.2.1 | 路由器/代理 | SSH/HTTP | 22/80 |\n| Ubuntu VM | 192.168.2.40 | AI 运行环境 | SSH/Docker | 22/8000 |\n| PVE | 192.168.2.20 | 虚拟化宿主 | SSH/Web | 22/8006 |\n| fnOS | 192.168.2.30 | 数据存储 | SMB/NFS | 445/2049 |\n\n---\n\n## 触发提醒\n\n看到以下任一信号时，立即停止并重新确认：\n\n- \"等等，这个命令应该在哪个主机上执行？\"\n- \"刚才是怎么连过来的，有没有跳板？\"\n- \"这个提示符看着不太对……\"\n- \"这个系统是精简的，不确定有没有这个命令\"\n\n---\n\n## 延伸阅读\n\n### 相关经验\n- [[insight_验证分层模型]] — 基础设施分层验证\n- [[insight_配置与路径的运行时优先级]] — 配置的运行时优先级\n\n### 来源项目\n- `project-008-P6魔方NAS-R5S代理组网/02_问题与报错日志.md` — SSH 断开误操作教训\n- `project-008-P6魔方NAS-R5S代理组网/04_复盘与沉淀.md` — 远程操作复用方法\n\n---\n\n_最后更新：2026-07-14_\n",
+      "summary": "# 远程操作的基础意识：提示符、边界与可恢复性"
+    },
+    {
+      "id": "insight_配置与路径的运行时优先级",
+      "type": "card",
+      "title": "insight_配置与路径的运行时优先级",
+      "tags": [
+        "card",
+        "insight",
+        "config",
+        "path",
+        "runtime",
+        "environment",
+        "dotenv"
+      ],
+      "createdAt": "2026-07-14T00:00:00.000Z",
+      "relatedCards": [],
+      "content": "\n# 配置与路径的运行时优先级：为什么\"源文件正确\"不等于\"运行结果正确\"\n\n## 一句话\n\n> 源文件、环境变量、Compose 展开值、容器内值和实际请求是五个不同的层级，必须分层核对。\n\n---\n\n## 核心知识\n\n### 五层配置模型\n\n```\nLayer 1: 源文件（.env、配置文件、脚本）\n    ↓ 读取/展开\nLayer 2: Compose 展开值（docker compose config）\n    ↓ 注入\nLayer 3: 容器内环境变量\n    ↓ 运行时\nLayer 4: 实际进程参数和监听端口\n    ↓ 请求\nLayer 5: 实际请求结果\n```\n\n**每一层都可能与上一层不同**。修改 Layer 1 后，不等于 Layer 3~5 已同步更新。\n\n---\n\n## 常见踩坑场景\n\n### 坑 1：修改 .env 后容器内值未变\n\n**现象**（project-008）：修改了 Ubuntu 上的 `.env` 文件，但容器行为没有变化。\n\n**根因**：当前 shell 中已 `export` 的环境变量优先级高于 Compose 的 `.env` 展开值。\n\n**处理**：修改配置后必须重新加载 shell 或显式 `unset` 旧变量，再重启容器验证。\n\n---\n\n### 坑 2：本地路径 vs 部署路径不一致\n\n**现象**（project-004）：Vercel 预渲染时读取 `/vercel/data/vault-data.json` 失败。\n\n**根因**：服务端代码假设了本地项目根目录的相对路径 `../data`，但部署环境的目录结构不同。\n\n**处理**：使用 `process.cwd()` 动态获取当前运行目录；将部署期数据镜像到项目根内 `src/data/`。\n\n---\n\n### 坑 3：文件路径被当作 URL 处理\n\n**现象**（project-002）：Node 脚本使用 URL pathname 处理本地目录，中文路径被编码为 `%E5...`。\n\n**根因**：`new URL('./outputs/', import.meta.url).pathname` 返回的是 URL 编码路径，不是文件系统路径。\n\n**处理**：使用 `fileURLToPath(import.meta.url)` 转换，或直接使用 `path.join()` 处理本地路径。\n\n---\n\n### 坑 4：配置修改前未备份\n\n**现象**（project-008）：修改 Nginx/FRP/SSH 配置后，配置被覆盖或回退困难。\n\n**处理原则**：\n- 修改前先 `cp xxx.conf xxx.conf.bak-YYYYMMDD`\n- 配置语句用完整行，避免依赖空白缩进匹配\n- 验证后确认备份可删，未验证前保留\n\n---\n\n## 分层核验方法\n\n### 检查容器环境变量\n\n```bash\n# 查看实际展开值\ndocker compose config\n\n# 查看容器内环境变量\ndocker exec <container> env | grep <KEY>\n\n# 对比宿主机 .env 和容器内值\ndiff <(cat .env | grep KEY) <(docker exec <container> env | grep KEY)\n```\n\n### 检查进程参数\n\n```bash\n# 查看实际监听端口\nss -tlnp | grep <service>\n# 或\nnetstat -tlnp | grep <service>\n\n# 查看进程启动参数\nps aux | grep <process>\n```\n\n### 检查路由和配置展开\n\n```bash\n# 检查 OpenWrt 路由表\nip -4 rule show\nip -4 route show table 100\n\n# 检查 SSHd 最终生效配置\nsshd -T\n\n# 检查 Nginx upstream\nnginx -T | grep upstream\n```\n\n---\n\n## 触发提醒\n\n看到以下任一信号时，必须进入分层核验：\n\n- \"源文件看起来是对的\"\n- \"修改了配置但没有生效\"\n- \"构建通过但部署失败\"\n- \"本地正常但远程失败\"\n- \"API 返回的不是预期数据\"\n\n**原则**：任何配置或依赖变更后，不要只看源文件或单个退出码。\n\n---\n\n## 速查表\n\n| 问题 | 优先检查 |\n|------|---------|\n| 容器行为异常 | 容器内 `env`、进程参数、`docker compose config` |\n| 路径 404 | `process.cwd()`、构建期数据镜像、绝对路径 vs 相对路径 |\n| .env 修改不生效 | shell 导出变量、容器重启、`exec env` 对比 |\n| API 返回错误 | 协议、Base URL、模型列表、HTTP 方法、认证 |\n| 远程配置异常 | 提示符确认主机、`sshd -T`、进程监听、路由表 |\n\n---\n\n## 延伸阅读\n\n### 相关经验\n- [[insight_验证分层模型]] — 四层验证模型，Layer 3/4 与配置核验直接相关\n- [[insight_文档驱动的AI协作模式]] — 配置如何记录到文档\n\n### 来源项目\n- `project-004-secondbrain-demopage/02_问题与报错日志.md` — Vercel 部署路径问题\n- `project-002-ppt-design/02_问题与报错日志.md` — URL pathname 中文编码问题\n- `project-008-P6魔方NAS-R5S代理组网/02_问题与报错日志.md` — .env shell 覆盖问题\n\n---\n\n_最后更新：2026-07-14_\n",
+      "summary": "# 配置与路径的运行时优先级：为什么\"源文件正确\"不等于\"运行结果正确\""
+    },
+    {
+      "id": "insight_问题记录与证据链方法",
+      "type": "card",
+      "title": "insight_问题记录与证据链方法",
+      "tags": [
+        "card",
+        "insight",
+        "documentation",
+        "problem-solving",
+        "evidence",
+        "troubleshooting"
+      ],
+      "createdAt": "2026-07-14T00:00:00.000Z",
+      "relatedCards": [],
+      "content": "\n# 问题记录与证据链方法：现象→根因→验证→复用\n\n## 一句话\n\n> 每个问题写现象、根因、影响、处理、验证和证据路径；未验证内容明确标记，不用猜测填空。\n\n---\n\n## 核心知识\n\n### 标准问题记录格式\n\n```markdown\n## YYYY-MM-DD｜标题\n\n- 来源项目：project-XXX-xxx\n- 场景与现象：\n- 根因：\n- 影响：\n- 处理：\n- 验证：\n- 可复用做法：\n- 触发提醒：\n- 证据/相关文件：\n```\n\n**每项必须有内容**，不能留空。如果某项暂时未知，标记为\"待确认\"。\n\n---\n\n### 证据链的四个层级\n\n| 层级 | 内容 | 示例 |\n|------|------|------|\n| **现象** | 具体表现 | \"Vercel 预渲染读取 /vercel/data/vault-data.json 失败\" |\n| **根因** | 为什么发生 | \"本地路径和部署环境路径假设不一致\" |\n| **处理** | 如何修复 | \"将数据镜像到项目根内 src/data/\" |\n| **验证** | 如何确认修复有效 | \"路径测试、npm run build、部署验证均通过\" |\n\n**没有验证的根因是猜测**，没有证据的处理是盲试。\n\n---\n\n### 升级规则：何时提炼到全局日志\n\n| 条件 | 升级位置 |\n|------|---------|\n| 单项目高频问题 | 项目 02_问题与报错日志.md |\n| 重复出现的返工问题 | 01_全局复利与踩坑日志.md |\n| 两个及以上项目共性 | 00_全局工作台.md |\n\n**project-008 的例子**：\n- \"iPad MAC 地址抄录错误被 dry-run 拦截\" → 项目日志\n- \"FRP 重连导致 SSH 会话中断\" → 全局复利日志（跨项目）\n- \"配置分层核验是通用方法\" → 全局工作台（多个项目验证）\n\n---\n\n### 证据路径的管理\n\n**project-008 经验**：网络设备配置涉及多个文件，必须记录证据路径。\n\n```\n证据路径：\n- 现场路由器：ubus call system board\n- OpenWrt 版本：/etc/openwrt_release\n- 路由规则：ip -4 rule show\n- 代理脚本：/etc/matrix-selected-proxy.sh\n- DHCP 租约：uci show dhcp\n- PVE 配置：pct config 102\n```\n\n**原则**：证据路径要具体到命令或文件，能让后续接手者复现验证。\n\n---\n\n### 常见错误记录模式\n\n#### ❌ 差的记录方式\n\n```markdown\n## 问题\n配置不对，修复了\n```\n\n#### ✅ 好的记录方式\n\n```markdown\n## 2026-07-13｜iPad MAC 抄录错误被 dry-run 拦截\n\n- 现象：OpenWrt dry-run 提示找不到 80:5f:5c:01:2b:a2 的静态 DHCP 地址。\n- 根因：项目记录将 iPad 的实际 MAC 80:5F:C5:01:2B:A2 错写为 5C 段错误版本。\n- 影响：规则变更前停止，未修改任何 ip rule。\n- 处理：以 uci show dhcp 的现场输出为准，修正策略模板、fixture 与设备基线。\n- 验证：脚本 dry-run 在规则变更前停止，证明保护有效。\n- 可复用做法：脚本必须 MAC 缺失即拒绝执行。\n- 触发提醒：手动抄录 MAC 时双人核对，或直接从 uci show 读取。\n- 证据/相关文件：config/relayway-device-policy.conf.example, data/device-baseline.json\n```\n\n---\n\n## 何时标记\"待验证\"\n\n以下情况必须明确标记为\"待验证\"，不猜测填空：\n\n- 根因未完全确认（已知部分但可能有其他因素）\n- 处理方案是推测（需要现场测试）\n- 验证依赖于外部环境（等待某台设备重启后确认）\n- 性能/稳定性影响未知（需要长期观察）\n\n示例：\n```markdown\n- 根因：Relayway TUN 连接不稳定，可能与上游代理有关（待进一步排查）\n- 验证：下次 R5S 重启后查看 logread -e relayway-device-policy\n```\n\n---\n\n## 触发提醒\n\n- 每次报错后 → 先写现象和根因，不要先盲试\n- 发现重复错误 → 检查是否已在全局日志有记录\n- 发现跨项目共性 → 提炼到全局日志\n- 记录解决方案后 → 写清楚触发条件，避免后人重蹈覆辙\n- 无法验证时 → 明确标记\"待验证\"，不猜测填空\n\n---\n\n## 延伸阅读\n\n### 相关经验\n- [[insight_文档驱动的AI协作模式]] — 文档如何支撑 AI 协作\n- [[insight_验证分层模型]] — 四层验证模型\n\n### 来源项目\n- `01_全局复利与踩坑日志.md` — 标准记录格式\n- `project-008-P6魔方NAS-R5S代理组网/02_问题与报错日志.md` — 完整证据链示例\n\n---\n\n_最后更新：2026-07-14_\n",
+      "summary": "# 问题记录与证据链方法：现象→根因→验证→复用"
+    },
+    {
+      "id": "insight_项目迁移与目录边界确认",
+      "type": "card",
+      "title": "insight_项目迁移与目录边界确认",
+      "tags": [
+        "card",
+        "insight",
+        "migration",
+        "workspace",
+        "directory-structure",
+        "git"
+      ],
+      "createdAt": "2026-07-14T00:00:00.000Z",
+      "relatedCards": [],
+      "content": "\n# 项目迁移与目录边界确认：标签≠目录，容器≠单项目\n\n## 一句话\n\n> 迁移前先确认真实根目录和运行子目录；混合 workspace 不要按子目录拆分；Git socket 文件需要显式排除。\n\n---\n\n## 核心知识\n\n### 迁移前必须确认的三件事\n\n#### 1. 真实根目录 vs 标签/cwd/会话索引\n\n**project-001 教训**：Codex 左侧标签与实际源目录不一致，容易把旧工作区当成当前仓库。\n\n**确认方法**：\n```bash\n# 交叉核对\npwd                          # 当前工作目录\nls -la .git                  # 确认是 Git 仓库根\ngit -C /path/to/dir status   # 显式指定目录验证\ncat session_index.json       # 查看会话索引中的路径\n```\n\n#### 2. 单项目 vs workspace 容器\n\n**project-003 教训**：一个源目录同时包含主站点、Remotion 子项目、报告和脚本。错误地拆分成\"两个项目\"会导致 Remotion 子包无法独立构建。\n\n**判断方法**：\n- 根目录有独立的 `package.json` 和 `node_modules` → 可能是独立项目\n- 根目录有多个子目录各含 `package.json` → 可能是 workspace 容器\n- 子包有独立的测试/构建，但需要父级依赖 → 必须整体迁移\n\n**原则**：先判断根目录是单项目还是 workspace 容器，再决定项目边界和命名。\n\n#### 3. 可迁移内容 vs 可重建内容 vs 用户数据\n\n**project-001/003 教训**：`.git`、`node_modules`、`.next`、构建缓存容易和源码混在一起。\n\n**分类原则**：\n\n| 类型 | 是否迁移 | 说明 |\n|------|---------|------|\n| 源码（`src/`、`components/`） | ✅ 是 | 用户资产，必须迁移 |\n| 业务数据（`data/`、`outputs/`） | ✅ 是 | 用户资产，必须迁移 |\n| `.git` | ⚠️ 视情况 | 有价值时迁移；注意 socket 文件 |\n| `node_modules` | ❌ 否 | 可重建，不迁移 |\n| 构建产物（`dist/`、`.next/`） | ❌ 否 | 可重建，不迁移 |\n| socket 文件（`.git/fsmonitor--daemon.ipc`） | ❌ 否 | 运行时文件，不迁移 |\n\n---\n\n### Git socket 文件排除\n\n**project-003 发现**：复制 Git 仓库时可能遇到 `.git/fsmonitor--daemon.ipc` 等 socket 文件。\n\n**处理**：\n```bash\n# 迁移前识别 socket 文件\nfind . -type s -path \"*/.git/*\"\n\n# rsync 排除\nrsync -av --exclude='*.ipc' --exclude='*.sock' src/ dest/\n\n# 或复制后清理\nrm .git/fsmonitor--daemon.ipc\n```\n\n---\n\n### 验证后再清理源目录\n\n**project-003 验证流程**：\n1. 复制到目标目录\n2. 根包运行 `npm test` + `npm run build`\n3. 每个子包分别运行测试和构建\n4. 全部通过后，源目录才可标记为\"待清理\"\n\n**原则**：验证通过后删除源目录是可行的，但必须先完成测试与构建。删除前再次确认没有运行依赖。\n\n---\n\n## 迁移检查清单\n\n```\n[ ] 确认真实源目录和目标目录\n[ ] 判断是单项目还是 workspace 容器\n[ ] 扫描 .git、node_modules、构建缓存位置\n[ ] 排除 socket 文件（.git 下的 *.ipc, *.sock）\n[ ] 根包测试/构建通过\n[ ] 子包（若有）测试/构建通过\n[ ] 验证迁移后功能完整\n[ ] 源目录清理（仅在验证通过后）\n```\n\n---\n\n## 触发提醒\n\n- \"标签/标题和实际目录不一致\" → 立即交叉验证真实路径\n- \"一个目录有多个 package.json\" → 判断是 workspace 容器还是独立项目\n- \"迁移后构建失败\" → 先确认是 node_modules 版本差异还是目录结构问题\n- \"需要清理旧目录\" → 先确认没有 Git worktree 或运行依赖依赖旧目录\n\n---\n\n## 延伸阅读\n\n### 相关经验\n- [[insight_工作区项目管理的编号与边界原则]] — 项目编号和目录结构标准\n- [[insight_验证分层模型]] — 迁移后如何分层验证\n\n### 来源项目\n- `project-001-pet-care/02_问题与报错日志.md` — 标签与目录不一致\n- `project-001-pet-care/04_复盘与沉淀.md` — 迁移边界经验\n- `project-003-todul-lise/02_问题与报错日志.md` — workspace 容器判断\n\n---\n\n_最后更新：2026-07-14_\n",
+      "summary": "# 项目迁移与目录边界确认：标签≠目录，容器≠单项目"
+    },
+    {
+      "id": "insight_验证分层模型",
+      "type": "card",
+      "title": "insight_验证分层模型",
+      "tags": [
+        "card",
+        "insight",
+        "verification",
+        "build",
+        "deploy",
+        "quality-assurance"
+      ],
+      "createdAt": "2026-07-14T00:00:00.000Z",
+      "relatedCards": [],
+      "content": "\n# 验证分层：为什么\"构建通过\"不等于\"功能完成\"\n\n## 一句话\n\n> 构建只证明编译成功，真实页面和交互必须单独验收。多层验证才是完整证据链。\n\n---\n\n## 核心知识\n\n### 四层验证模型\n\n| 层级 | 验证什么 | 典型命令/方法 |\n|------|---------|--------------|\n| **L1 语法** | 类型、lint、格式 | `tsc --noEmit`、`npm run lint`、`prettier --check` |\n| **L2 构建** | 编译成功、产物生成 | `npm run build`、`vite build` |\n| **L3 最小运行** | 服务启动、路由可达 | 本地预览、API 端点请求 |\n| **L4 真实烟测** | 核心用户流程、浏览器交互 | 真实界面点击、关键路径走通 |\n\n**每一层都是独立的**：通过 L1/L2 不等于通过 L3/L4。\n\n---\n\n## 真实案例\n\n### 案例 1：Vercel 部署后 /about 预渲染失败（project-004）\n\n- **L1/L2**：本地构建通过 ✅\n- **L3**：本地预览正常 ✅\n- **L4**：部署后 `/about` 预渲染读取 `/vercel/data/vault-data.json` 失败 ❌\n\n**根因**：本地路径和部署环境路径假设不一致。解决方案：构建期将数据镜像到项目根内 `src/data/`，页面读取 `process.cwd()/data`。\n\n---\n\n### 案例 2：PPTX 渲染检查只看联系表不够（project-002）\n\n- **L1/L2**：PPTX 文件生成成功 ✅\n- **L4 错误**：montage 联系表只显示首张；小字号、脚注、表格压线无法可靠呈现\n\n**根因**：联系表是概览工具，不能替代逐页全尺寸检查。\n\n**正确做法**：逐页 PNG 渲染 + 关键事实页全尺寸目检。\n\n---\n\n### 案例 3：2048 游戏验收只看测试不够（project-005）\n\n- **L1**：Vitest 测试无法在 Claude Code 环境中运行（worker pool 基础设施问题）\n- **L2**：Vite 生产构建通过 ✅\n- **L3**：TypeScript 类型检查通过 ✅\n- **L4**：用 Playwright 驱动浏览器验证动画、键盘、计分\n\n**根因**：测试被环境阻塞，但功能正确性仍需在真实界面验证。\n\n**正确做法**：纯 Node.js 逻辑测试 + 浏览器端到端验证并行。\n\n---\n\n### 案例 4：基础设施部署只检查页面不够（project-008）\n\n- **页面能打开** ≠ Dashboard 聊天通道成功\n- **HEAD 405** ≠ 服务故障（某些端点只允许 GET）\n- **Nginx 502** ≠ Nginx 本身坏了（可能是 upstream 未监听）\n\n**正确做法**：外网验证必须分层——登录/注册 → 服务本身 → Nginx upstream → API/PTY → 浏览器。\n\n---\n\n## 常见误区\n\n| 误区 | 实际 | 正确做法 |\n|------|------|---------|\n| \"构建通过就完成了\" | 只证明编译成功 | 打开真实界面跑核心流程 |\n| \"页面能打开就行\" | 只证明 HTTP 200 | 验证核心交互、数据正确 |\n| \"API 返回 200 就 OK\" | 可能只返回空数据 | 检查响应结构和业务含义 |\n| \"测试通过就安全\" | 环境失败是基础设施问题 | 测试+逻辑验证+浏览器三路并行 |\n\n---\n\n## 验证边界原则\n\n> 任何配置或依赖变更后，不要只看源文件或单个退出码。\n\n- 涉及**外部数据文件**时，先抽象路径解析并用失败测试固定边界（project-004）\n- 涉及**远程系统/代理/容器**时，先建立设备/IP/服务/协议/端口表，再逐层验证\n- 涉及**视频/动画/渲染**时，必须用 ffprobe/播放器/截图验证可播放性和时长\n- 无法验证时明确标记\"**待验证**\"，不猜测\n\n---\n\n## 速查表\n\n| 场景 | 必须验证什么 |\n|------|------------|\n| 前端构建 | L1+L2+L4（浏览器核心流程） |\n| 后端部署 | L3+L4（API 请求 + 核心业务路径） |\n| 基础设施 | 分层：进程→端口→路由→服务→API→浏览器 |\n| 视频制作 | ffprobe 查参数 + 播放器确认可播放 + 抽帧目检 |\n| 数据迁移 | 源目录验证 + 目标目录验证 + 构建/测试 + 真实界面 |\n\n---\n\n## 延伸阅读\n\n### 相关经验\n- [[insight_文档驱动的AI协作模式]] — 验证结果如何记录到文档\n- [[insight_Claude_Code与Codex协作模式的有效实践]] — 构建与验证的协作流程\n\n### 来源项目\n- `project-004-secondbrain-demopage/02_问题与报错日志.md` — Vercel 数据路径问题\n- `project-002-ppt-design/02_问题与报错日志.md` — PPTX 渲染检查\n- `project-005-game2048/03_过程记录.md` — Vitest 环境阻塞与替代验证\n- `project-008-P6魔方NAS-R5S代理组网/02_问题与报错日志.md` — 基础设施分层验证\n\n---\n\n_最后更新：2026-07-14_\n",
+      "summary": "# 验证分层：为什么\"构建通过\"不等于\"功能完成\""
+    },
+    {
       "id": "how-to_FFmpeg压缩与优化",
       "type": "card",
       "title": "how-to_FFmpeg压缩与优化",
@@ -796,5 +969,5 @@
       "summary": "# 00_Cards — 原子化知识卡片"
     }
   ],
-  "lastSync": "2026-07-14T04:44:22.246Z"
+  "lastSync": "2026-07-15T04:43:57.966Z"
 }
