@@ -60,6 +60,65 @@
       ]
     },
     {
+      "id": "insight_自托管应用的SQLite隔离部署原则",
+      "label": "insight_自托管应用的SQLite隔离部署原则",
+      "type": "card",
+      "tags": [
+        "card",
+        "insight",
+        "sqlite",
+        "self-hosted",
+        "container",
+        "nfs",
+        "storage",
+        "deployment"
+      ]
+    },
+    {
+      "id": "insight_自托管服务的访问控制与监控分层策略",
+      "label": "insight_自托管服务的访问控制与监控分层策略",
+      "type": "card",
+      "tags": [
+        "card",
+        "insight",
+        "wireguard",
+        "security",
+        "access-control",
+        "monitoring",
+        "self-hosted"
+      ]
+    },
+    {
+      "id": "tip_Homepage类WebUI的Nginx静态化替代方案",
+      "label": "tip_Homepage类WebUI的Nginx静态化替代方案",
+      "type": "card",
+      "tags": [
+        "card",
+        "tip",
+        "homepage",
+        "nginx",
+        "alpine",
+        "static",
+        "container",
+        "deployment"
+      ]
+    },
+    {
+      "id": "tip_容器运维的备份与扩容规范",
+      "label": "tip_容器运维的备份与扩容规范",
+      "type": "card",
+      "tags": [
+        "card",
+        "tip",
+        "container",
+        "lxc",
+        "backup",
+        "snapshot",
+        "扩容",
+        "self-hosted"
+      ]
+    },
+    {
       "id": "_EXAMPLE_insight_记录是思考的外部硬盘",
       "label": "_EXAMPLE_insight_记录是思考的外部硬盘",
       "type": "card",
@@ -236,7 +295,8 @@
         "insight",
         "workspace",
         "project-management",
-        "best-practice"
+        "best-practice",
+        "asset-management"
       ]
     },
     {
@@ -249,7 +309,8 @@
         "video",
         "ffmpeg",
         "workflow",
-        "learning"
+        "learning",
+        "time-benchmark"
       ]
     },
     {
@@ -394,6 +455,21 @@
         "insight",
         "testing",
         "quality-assurance"
+      ]
+    },
+    {
+      "id": "insight_AI驱动短视频自动化剪辑的六步工作流",
+      "label": "insight_AI驱动短视频自动化剪辑的六步工作流",
+      "type": "card",
+      "tags": [
+        "card",
+        "insight",
+        "codex",
+        "video",
+        "automation",
+        "workflow",
+        "短视频",
+        "剪辑"
       ]
     },
     {

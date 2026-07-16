@@ -415,6 +415,81 @@
       "summary": "# 前端项目代码审查的系统化清单"
     },
     {
+      "id": "insight_自托管应用的SQLite隔离部署原则",
+      "type": "card",
+      "title": "insight_自托管应用的SQLite隔离部署原则",
+      "tags": [
+        "card",
+        "insight",
+        "sqlite",
+        "self-hosted",
+        "container",
+        "nfs",
+        "storage",
+        "deployment"
+      ],
+      "createdAt": "2026-07-15T00:00:00.000Z",
+      "relatedCards": [],
+      "content": "\n# 自托管应用的 SQLite 隔离部署原则\n\n## 一句话\n\n> 每个自托管应用使用独立目录和独立 SQLite 数据库，不共用 Compose、不混用共享存储、不混用数据库——简化备份、迁移和问题隔离。\n\n---\n\n## 核心知识\n\n### 为什么隔离部署\n\n**常见问题**（未隔离时）：\n- 一个应用故障可能导致共用数据库损坏\n- 备份时无法精确指定应用数据\n- 迁移时需要识别和分离混合数据\n- 一个应用升级破坏共用配置\n\n**隔离部署的优势**：\n- 备份精确：一个应用 = 一个目录 = 一份备份\n- 迁移简单：复制整个目录即可迁移\n- 问题隔离：一个应用故障不影响其他\n- 升级安全：独立环境，不破坏共用配置\n\n---\n\n### project-008 的实践\n\n#### Paperless-ngx（文档管理）\n\n```yaml\n# 独立部署，不共用其他服务的配置\n部署目录: /opt/paperless-ngx\n数据卷:\n  - /opt/paperless-ngx/data     # 应用状态 → tools 本地\n  - /opt/paperless-ngx/media    # 媒体文件 → NFS 映射\n  - /opt/paperless-ngx/export   # 导出文件 → NFS 映射\n数据库: PostgreSQL → tools 本地\n```\n\n**数据分离原则**：\n- 应用状态放本地（高性能、低延迟）\n- 文档原件放 NFS（可共享、易备份）\n\n#### n8n（自动化工作流）\n\n```yaml\n# 独立部署，使用 SQLite 而非共用 PostgreSQL\n部署目录: /opt/n8n\n镜像: docker.n8n.io/n8nio/n8n:2.26.8\n数据目录: /opt/n8n/data（仅 jacklee 可访问）\n数据库: 独立 SQLite\n执行记录: 最多 7 天 / 1000 条\n```\n\n**隔离决策**：\n- 不与 Paperless 共用 Compose\n- 不把 SQLite 放入 NFS\n- 不与 Homepage 共用数据库\n\n#### Homepage（服务仪表盘）\n\n```yaml\n# 独立目录，独立配置\n部署目录: /opt/tools-stack/homepage\n配置: /opt/tools-stack/homepage/services.yaml\n```\n\n---\n\n### 隔离部署决策表\n\n| 决策项 | 推荐 | 说明 |\n|--------|------|------|\n| Compose | 每个应用独立 `docker-compose.yml` | 不共用一个 Compose 管理多个异构服务 |\n| 数据库 | 优先应用自带 SQLite 或独立 PostgreSQL | 不共用数据库实例 |\n| 存储 | 应用状态放本地，文档放共享 | 数据库/索引不放 NFS |\n| 备份 | 目录级备份即可完整恢复 | 不需要区分混合数据 |\n| 迁移 | 打包整个目录即可 | 不需要识别分离混合数据 |\n\n---\n\n## 真实案例\n\n### n8n 隔离部署（project-008）\n\n**部署前评估**：\n- n8n 是否需要 PostgreSQL？→ 当前阶段使用 SQLite 即可\n- n8n 是否需要放入 NFS？→ 不需要，SQLite 放本地\n- n8n 是否共用其他服务的配置？→ 不共用\n\n**决策**：\n```bash\n# 独立目录\nmkdir -p /opt/n8n\n\n# 独立 SQLite\n/opt/n8n/data  # 仅 jacklee 访问\n\n# 不共用\n# - 不与 Paperless 共用 Compose\n# - 不与 Homepage 共用数据库\n# - 不放入 NFS\n```\n\n**结果**：\n- 备份：`cp -r /opt/n8n` 即可完整备份\n- 迁移：复制整个 `/opt/n8n` 目录到新机器\n- 故障隔离：n8n 问题不影响 Paperless 或 Homepage\n\n---\n\n## 触发提醒\n\n**新应用部署时**：\n- 这个应用需要数据库吗？→ 用自带的 SQLite 还是独立 PostgreSQL？\n- 数据放本地还是 NFS？→ 高频读写放本地，大文件放 NFS\n- 需要和其他应用共用配置吗？→ 不共用，独立目录\n- 备份时能精确指定这个应用的数据吗？→ 能的话说明隔离正确\n\n**备份策略**：\n- 能否只备份这个应用的数据而不混入其他？\n- 能否在迁移时只复制这个应用的数据？\n- 一个应用故障会影响其他应用吗？\n\n---\n\n## 延伸阅读\n\n### 相关经验\n- [[insight_共享存储的挂载权限与安全边界]] — NFS/本地存储的架构决策原则\n\n### 来源项目\n- `project-008-P6魔方NAS-R5S代理组网/03_过程记录.md` — Paperless 和 n8n 部署决策\n- `project-008-P6魔方NAS-R5S代理组网/02_问题与报错日志.md` — Paperless 部署规划\n\n---\n\n_最后更新：2026-07-15_\n",
+      "summary": "# 自托管应用的 SQLite 隔离部署原则"
+    },
+    {
+      "id": "insight_自托管服务的访问控制与监控分层策略",
+      "type": "card",
+      "title": "insight_自托管服务的访问控制与监控分层策略",
+      "tags": [
+        "card",
+        "insight",
+        "wireguard",
+        "security",
+        "access-control",
+        "monitoring",
+        "self-hosted"
+      ],
+      "createdAt": "2026-07-15T00:00:00.000Z",
+      "relatedCards": [],
+      "content": "\n# 自托管服务的访问控制与监控分层策略\n\n## 一句话\n\n> 访问控制遵循权限最小化（设备 × 端口白名单），监控遵循职责分层（服务可用性 vs 主机资源）。\n\n---\n\n## 核心知识\n\n### 一、WireGuard 权限最小化原则\n\n**核心思想**：不开放整个 LAN 或整个网段，而是按「设备 × 端口」建立精确白名单。\n\n**project-008 实践**：\n\n| 允许来源 | 允许端口 | 说明 |\n|---------|---------|------|\n| tools CT102 `192.168.2.50` | `22,3000,3001,5678,8000,8090` | 6 个具体服务端口 |\n| R5S `192.168.2.1` | `22,80,7654` | 路由器管理端口 |\n| TP-Link `192.168.2.2` | `80` | 仅 Web 管理 |\n| Mac (`10.66.66.x`) | 按 AllowedIPs 动态 | 客户端按需路由 |\n\n**错误做法**：\n```bash\n# ❌ 开放整个 LAN 段\nAllowedIPs = 192.168.2.0/24\n\n# ❌ 开放所有端口\nEndpoint = 192.168.2.50:0-65535\n```\n\n**正确做法**：\n```bash\n# ✅ 只允许特定设备和端口\nAllowedIPs = 192.168.2.50/32  # Mac 端按需路由到 tools\n# 具体端口通过 Ubuntu VM 的 FORWARD 规则或 UFW 控制\n```\n\n**安全边界**：\n- 不暴露整个 LAN、fnOS、SMB/NFS 或新公网入口\n- 每个新增服务先评估是否需要外网访问，再决定白名单\n- 公网密码登录列为明确的安全待办项\n\n---\n\n### 二、分层监控策略\n\n**核心思想**：不同工具负责不同层级，职责不重叠。\n\n| 监控目标 | 工具 | 验证方式 |\n|---------|------|---------|\n| 服务可用性（HTTP 端点） | **Uptime Kuma** | HTTP/HTTPS 检查，`/healthz` 或 `/accounts/login/` 返回状态码 |\n| 主机资源（CPU/内存/磁盘/网络） | **Beszel** | 通过 Agent 采集 CT/VM 实时数据 |\n| 端口可达性 | `ss -tlnp` / `nc` | 分层手动验证 |\n\n**project-008 实践**：\n- Uptime Kuma 监控 Paperless：`/accounts/login/` → `200 OK`\n- Uptime Kuma 监控 n8n：`/healthz` → `200 OK`\n- Beszel 通过 tools CT102 Agent 监控 CPU、内存、磁盘、网络\n- **不为 n8n 单独创建 Beszel 主机监控**（已有 Beszel 覆盖 tools CT102 整体）\n\n**原则**：\n- Uptime Kuma 管\"服务能不能响应\"\n- Beszel 管\"机器撑不撑得住\"\n- 两者不替代彼此，也不重复创建\n\n---\n\n## 真实案例\n\n### 案例：WireGuard 白名单精细化（project-008）\n\n**现象**：初版 WireGuard 配置较粗放，需要精细化管理。\n\n**处理**：\n1. 备份 `/etc/wireguard/p6-home.conf` → `p6-home.conf.bak-20260715-management-plane`\n2. 以 `10.66.66.0/24` 为来源建立严格 TCP 转发白名单\n3. 允许 tools、R5S、TP-Link 的精确端口组合\n4. 端到端 TCP 验收：10 个批准端口均连接成功，fnOS `.30:22/.30:5666`、R5S `.1:443` 均连接超时（预期行为）\n\n**结果**：未开放整个 LAN，未暴露 SMB/NFS，新增服务端口需明确评估才加入白名单。\n\n---\n\n### 案例：n8n 监控接入（project-008）\n\n**决策**：n8n 已纳入 Uptime Kuma 与 WireGuard 受限端口白名单，但不立即创建 Beszel 单独监控。\n\n**理由**：Beszel 已通过 tools CT102 Agent 覆盖 CPU、内存、磁盘、网络；为每个新服务单独创建 Beszel 监控是重复建设。\n\n---\n\n## 触发提醒\n\n**访问控制相关**：\n- 新增服务需要外网访问 → 先评估「设备 × 端口」白名单，不默认开放 LAN\n- 需要通过 WireGuard 访问内网服务 → 检查 AllowedIPs 和 FORWARD 规则\n- 考虑开放公网访问 → 先规划域名、HTTPS 和认证\n\n**监控相关**：\n- 新增服务 → 评估是否需要 Uptime Kuma HTTP 检查\n- 新增容器/VM → 评估是否需要 Beszel 主机监控\n- 两个工具都能覆盖时 → 优先用已有的，不重复建设\n\n---\n\n## 延伸阅读\n\n### 相关经验\n- [[insight_基础设施代理排错的核心方法]] — 排错四步法，监控分层是验证的一部分\n- [[insight_验证分层模型]] — 四层验证模型，监控属于 L3/L4\n\n### 来源项目\n- `project-008-P6魔方NAS-R5S代理组网/03_过程记录.md` — WireGuard 白名单、n8n 监控接入\n- `project-008-P6魔方NAS-R5S代理组网/02_问题与报错日志.md` — 权限控制决策\n\n---\n\n_最后更新：2026-07-15_\n",
+      "summary": "# 自托管服务的访问控制与监控分层策略"
+    },
+    {
+      "id": "tip_Homepage类WebUI的Nginx静态化替代方案",
+      "type": "card",
+      "title": "tip_Homepage类WebUI的Nginx静态化替代方案",
+      "tags": [
+        "card",
+        "tip",
+        "homepage",
+        "nginx",
+        "alpine",
+        "static",
+        "container",
+        "deployment"
+      ],
+      "createdAt": "2026-07-15T00:00:00.000Z",
+      "relatedCards": [],
+      "content": "\n# Homepage 类 Web UI 的 Nginx Alpine 静态化替代方案\n\n## 一句话\n\n> 用 Nginx Alpine 替代重型 Web UI，静态文件部署轻量、启动快、资源占用低；改版前保留旧容器供回滚。\n\n---\n\n## 核心知识\n\n### 什么场景适合静态化\n\n**适合静态化的场景**：\n- 仪表盘类 Web UI（Homepage、Dashy、Homer）\n- 静态文件展示页面\n- 无服务端动态渲染的 SPA\n\n**不适合静态化的场景**：\n- 需要服务端渲染的动态应用\n- 需要后端数据库的 Web 应用\n- 需要 WebSocket 实时通信的服务管理面板\n\n---\n\n### project-008 的实践\n\n#### 部署方案\n\n```bash\n# 静态文件位置\n/opt/tools-stack/homepage-visual/dist/\n\n# Nginx Alpine 服务配置\ndocker run -d \\\n  --name homepage-visual \\\n  -p 3000:80 \\\n  -v /opt/tools-stack/homepage-visual/dist:/usr/share/nginx/html:ro \\\n  nginx:alpine\n\n# 验证\ncurl http://192.168.2.50:3000  # 应返回 200\n```\n\n**优势对比**：\n\n| 指标 | gethomepage | Nginx Alpine |\n|------|------------|--------------|\n| 镜像大小 | ~100MB+ | ~25MB |\n| 启动时间 | 较慢 | 秒级 |\n| 资源占用 | 较高 | 极低 |\n| 适合场景 | 动态配置 Web UI | 静态文件服务 |\n\n---\n\n### 改版流程\n\n#### Step 1：备份旧容器\n\n```bash\n# 改版前重命名为备份\ndocker rename homepage homepage-gethomepage-backup-20260714-123257\n```\n\n#### Step 2：部署新容器\n\n```bash\n# 部署 Nginx Alpine\ndocker run -d \\\n  --name homepage \\\n  -p 3000:80 \\\n  -v /opt/tools-stack/homepage-visual/dist:/usr/share/nginx/html:ro \\\n  nginx:alpine\n```\n\n#### Step 3：验证\n\n```bash\n# 验证容器状态\ndocker ps | grep homepage\n\n# 验证 HTTP 响应\ncurl http://192.168.2.50:3000\n\n# 验证健康状态\n# - 返回 200\n# - 无错误日志\n# - 浏览器中核心功能可用\n```\n\n#### Step 4：确认稳定后可选清理\n\n```bash\n# 确认新容器稳定运行一段时间后\n# 可选：停止并删除旧容器\ndocker stop homepage-gethomepage-backup-20260714-123257\ndocker rm homepage-gethomepage-backup-20260714-123257\n```\n\n**重要**：只有确认以下条件才删除旧容器：\n- 新容器 `healthy` 状态稳定\n- 核心功能在浏览器中验证通过\n- 至少经过一次正常工作周期（如 24 小时）\n\n---\n\n### 快速回滚\n\n如果新容器有问题，回滚只需两步：\n\n```bash\n# Step 1：停止新容器\ndocker stop homepage\n\n# Step 2：恢复旧容器\ndocker rename homepage-gethomepage-backup-20260714-123257 homepage\n\n# Step 3：验证回滚\ncurl http://192.168.2.50:3000\n```\n\n---\n\n## 触发提醒\n\n**考虑静态化替代时**：\n- 当前 Web UI 是否依赖服务端动态渲染？→ 是则不适合\n- 静态文件是否可以独立构建？→ 是则适合\n- 是否需要保留回滚路径？→ 是则先备份旧容器\n\n**改版上线时**：\n- 先备份旧容器，再部署新容器\n- 新容器稳定后再考虑删除旧容器\n- 回滚操作保持简单（停止→重命名→验证）\n\n---\n\n## 延伸阅读\n\n### 相关经验\n- [[insight_自托管服务的访问控制与监控分层策略]] — 监控和访问控制是静态化后的持续保障\n- [[tip_容器运维的备份与扩容规范]] — 备份和回滚原则\n\n### 来源项目\n- `project-008-P6魔方NAS-R5S代理组网/03_过程记录.md` — Homepage 静态化改版\n\n---\n\n_最后更新：2026-07-15_\n",
+      "summary": "# Homepage 类 Web UI 的 Nginx Alpine 静态化替代方案"
+    },
+    {
+      "id": "tip_容器运维的备份与扩容规范",
+      "type": "card",
+      "title": "tip_容器运维的备份与扩容规范",
+      "tags": [
+        "card",
+        "tip",
+        "container",
+        "lxc",
+        "backup",
+        "snapshot",
+        "扩容",
+        "self-hosted"
+      ],
+      "createdAt": "2026-07-15T00:00:00.000Z",
+      "relatedCards": [],
+      "content": "\n# 容器运维的备份与扩容规范\n\n## 一句话\n\n> 容器配置变更前备份，扩容前做 snapshot，变更后立即复核——零停机完成资源调整，有回滚路径应对意外。\n\n---\n\n## 核心知识\n\n### 一、配置变更前的备份规范\n\n**project-008 实践：Homepage 配置备份**\n\n每次修改 Homepage `services.yaml` 前：\n```bash\n# 格式：原文件名 + .bak-日期时间\ncp /opt/tools-stack/homepage/services.yaml \\\n   /opt/tools-stack/homepage/services.yaml.bak-redesign-20260714-121701\n\ncp /opt/tools-stack/homepage/services.yaml \\\n   /opt/tools-stack/homepage/services.yaml.bak-paperless-20260713-XXXXXX\n```\n\n**关键原则**：\n- 备份文件名包含**修改原因 + 时间戳**\n- 覆盖前一层时保留更早的备份，直到确认新配置稳定\n- 不在备份中使用空格或特殊字符\n\n---\n\n### 二、新容器部署前的旧容器保留\n\n**project-008 实践：Homepage 静态化改版**\n\n改版前：\n```bash\n# 重命名旧容器为备份名\ndocker rename homepage homepage-gethomepage-backup-20260714-123257\n```\n\n新容器上线并验证稳定后，才考虑删除旧容器。\n\n**验证清单**：\n- [ ] 新容器 `healthy` 状态\n- [ ] HTTP 端点返回正确状态码\n- [ ] 核心功能在浏览器中可用\n- [ ] 日志无明显错误\n\n---\n\n### 三、容器扩容前的 Snapshot 备份\n\n**project-008 实践：tools CT102 在线扩容**\n\n```\n扩容前 → snapshot 备份 → 在线扩容 → 服务复核\n```\n\n```bash\n# PVE 创建 snapshot 备份\n# CT102 从 2GB→4GB 内存、512MB→1GB Swap、16GB→32GB 根盘\n\n# snapshot 位置\n/var/lib/vz/dump/vzdump-lxc-102-2026_07_15-10_53_20.tar.zst\n```\n\n**关键原则**：\n- **Snapshot 在扩容前做**，而不是之后\n- 扩容过程**保持容器 running**（在线扩容，零停机）\n- 扩容后**立即复核**所有服务状态\n\n**扩容后复核清单**：\n```bash\n# 验证容器状态\npct status 102\n\n# 验证 HTTP 端点\ncurl http://192.168.2.50:3000   # Homepage\ncurl http://192.168.2.50:8000   # Paperless\ncurl http://192.168.2.50:5678/healthz  # n8n\n\n# 验证 Docker 容器\ndocker ps | grep Up\n\n# 验证资源\nfree -h && df -h\n```\n\n---\n\n### 四、扩容后的资源监控关注点\n\n**project-008 发现**：\n\n```\n扩容后：\n- 内存：2GB → 4GB，可用约 3.6GB\n- 根盘：16GB → 32GB，可用约 21GB\n- thin pool：Data% / Meta% 需要定期检查\n```\n\n**监控关注**：\n- thin pool 未启用自动扩展保护时，需要定期检查容量\n- 无监控地继续扩大虚拟磁盘声明容量会导致 thin pool 耗尽\n- 高流量服务（Paperless OCR/导入、n8n 执行记录）会增加资源压力\n\n---\n\n## 触发提醒\n\n**配置变更前**：\n- 修改 services.yaml、.env、nginx.conf 等配置文件 → 先备份\n- 修改容器端口映射、环境变量 → 先备份\n- 更新容器镜像版本 → 先备份旧配置\n\n**新容器部署前**：\n- 部署新版本服务 → 先保留旧容器，确认新版本稳定后再考虑删除\n- 测试环境验证 → 保留生产环境旧容器\n\n**容器扩容前**：\n- LXC/VM 资源不足 → 先做 snapshot，再扩容\n- 扩容后 → 立即复核所有服务状态\n\n---\n\n## 延伸阅读\n\n### 相关经验\n- [[insight_远程操作的基础意识]] — 远程操作前确认提示符，避免误操作\n- [[insight_配置与路径的运行时优先级]] — 配置变更的分层验证\n\n### 来源项目\n- `project-008-P6魔方NAS-R5S代理组网/03_过程记录.md` — Homepage 配置备份、tools CT102 snapshot 扩容\n- `project-008-P6魔方NAS-R5S代理组网/02_问题与报错日志.md` — 备份规范决策\n\n---\n\n_最后更新：2026-07-15_\n",
+      "summary": "# 容器运维的备份与扩容规范"
+    },
+    {
       "id": "_EXAMPLE_insight_记录是思考的外部硬盘",
       "type": "card",
       "title": "_EXAMPLE_insight_记录是思考的外部硬盘",
@@ -647,11 +722,12 @@
         "insight",
         "workspace",
         "project-management",
-        "best-practice"
+        "best-practice",
+        "asset-management"
       ],
       "createdAt": "2026-07-14T00:00:00.000Z",
       "relatedCards": [],
-      "content": "\n# 工作区项目管理的编号与边界原则\n\n## 一句话\n\n> 统一编号、目录分层、三文件标准，是让多个 AI 协作项目可持续维护的基础设施。\n\n---\n\n## 核心知识\n\n### 三个必备文件\n\n每个项目必须有：\n\n| 文件 | 职责 |\n|------|------|\n| `00_项目入口或共享任务本.md` | 目标、入口、当前状态、主要输出 |\n| `01_项目总览与下一步.md` | 范围、里程碑、已完成、阻塞、下一步 |\n| `02_问题与报错日志.md` | 日期、现象、根因、影响、处理、验证 |\n\n**旧文档保留历史上下文，新文档只写当前状态**。不因篇幅自动压缩项目内部文档。\n\n---\n\n### 项目编号规则\n\n```\n/Users/jacklee/Desktop/codex_workspace/projects/project-三位编号-项目名称/\n```\n\n- 创建前查看 `projects/`，取现有最大编号加 1\n- 默认不复用旧编号\n- 名称优先使用中文、英文、数字和短横线\n\n---\n\n### 目录分层\n\n```\nsrc/      代码脚本    data/     原始数据\nassets/   参考素材    drafts/   草稿\ntests/    测试证据    outputs/  最终交付物\n```\n\n系统缓存、构建目录不作为交付物，完成后清理或在记录中说明。\n\n---\n\n## 为什么这三个文件重要\n\n**没有统一入口时的问题**（project-001~004 早期均出现）：\n- 资产分散在桌面、下载目录、项目外文件夹\n- 聊天上下文断裂，找不到当前任务在哪里\n- 问题记录散落，每次续做需要重新翻找历史\n- 返工后同类问题在其他项目重复出现\n\n**有标准后的效果**（project-005~008 已验证）：\n- 新 AI 会话只需读三份全局文档 + 项目入口文档，立即上手\n- 问题日志积累后可直接提炼跨项目复用经验\n- 输出物按目录分离，清理时不会误删源码\n\n---\n\n## 升级规则\n\n- **单项目高频问题** → 写入 `02_问题与报错日志.md`\n- **可跨项目复用的问题** → 提炼到 `01_全局复利与踩坑日志.md`\n- **两个及以上项目共性的规则/流程** → 提炼到 `00_全局工作台.md`\n- workspace 根目录主文档控制在 **8000 字** 以内；接近 7200 字时压缩\n\n---\n\n## 何时创建项目\n\n满足任一条件即按 SOP 执行：\n- 会产生多个文件/版本\n- 需要多轮执行\n- 产生代码/文档/表格/演示稿/自动化脚本\n- 用户明确要求创建或后续需要维护复盘\n\n单次问答、解释或临时查看可以不建项目；一旦产生可交付物，应立即转入项目目录。\n\n---\n\n## 收尾检查清单\n\n```\n[ ] 输出物在 outputs/\n[ ] 代码/脚本在 src/\n[ ] 测试证据在 tests/\n[ ] 01_项目总览与下一步.md 已更新\n[ ] 02_问题与报错日志.md 已更新\n[ ] 可复用问题已升级到全局日志\n```\n\n---\n\n## 延伸阅读\n\n### 相关经验\n- [[insight_文档驱动的AI协作模式]] — 项目文档如何支撑 AI 协作\n- [[insight_Claude_Code与Codex协作模式的有效实践]] — 多工具协作的项目结构\n\n### 来源项目\n- [[00_全局工作台.md]] — workspace 总规则\n- [[01_全局复利与踩坑日志.md]] — 跨项目经验沉淀\n- [[02_新项目创建SOP.md]] — 标准流程\n\n---\n\n_最后更新：2026-07-14_\n",
+      "content": "\n# 工作区项目管理的编号与边界原则\n\n## 一句话\n\n> 统一编号、目录分层、三文件标准，是让多个 AI 协作项目可持续维护的基础设施。\n\n---\n\n## 核心知识\n\n### 三个必备文件\n\n每个项目必须有：\n\n| 文件 | 职责 |\n|------|------|\n| `00_项目入口或共享任务本.md` | 目标、入口、当前状态、主要输出 |\n| `01_项目总览与下一步.md` | 范围、里程碑、已完成、阻塞、下一步 |\n| `02_问题与报错日志.md` | 日期、现象、根因、影响、处理、验证 |\n\n**旧文档保留历史上下文，新文档只写当前状态**。不因篇幅自动压缩项目内部文档。\n\n---\n\n### 项目编号规则\n\n```\n/Users/jacklee/Desktop/codex_workspace/projects/project-三位编号-项目名称/\n```\n\n- 创建前查看 `projects/`，取现有最大编号加 1\n- 默认不复用旧编号\n- 名称优先使用中文、英文、数字和短横线\n\n---\n\n### 目录分层\n\n```\nsrc/      代码脚本    data/     原始数据\nassets/   参考素材    drafts/   草稿\ntests/    测试证据    outputs/  最终交付物\n```\n\n系统缓存、构建目录不作为交付物，完成后清理或在记录中说明。\n\n### 素材管理原则\n\n> 复制素材而非移动，保护原始资产。\n\n**醒春工作流经验**：\n- 自动化流程中，从 `assets/` 复制素材到 `work/` 而不是移动\n- 保护原始素材库不被破坏\n- 工作流程完成后可清理 `work/` 中的临时文件\n\n---\n\n## 为什么这三个文件重要\n\n**没有统一入口时的问题**（project-001~004 早期均出现）：\n- 资产分散在桌面、下载目录、项目外文件夹\n- 聊天上下文断裂，找不到当前任务在哪里\n- 问题记录散落，每次续做需要重新翻找历史\n- 返工后同类问题在其他项目重复出现\n\n**有标准后的效果**（project-005~008 已验证）：\n- 新 AI 会话只需读三份全局文档 + 项目入口文档，立即上手\n- 问题日志积累后可直接提炼跨项目复用经验\n- 输出物按目录分离，清理时不会误删源码\n\n---\n\n## 升级规则\n\n- **单项目高频问题** → 写入 `02_问题与报错日志.md`\n- **可跨项目复用的问题** → 提炼到 `01_全局复利与踩坑日志.md`\n- **两个及以上项目共性的规则/流程** → 提炼到 `00_全局工作台.md`\n- workspace 根目录主文档控制在 **8000 字** 以内；接近 7200 字时压缩\n\n---\n\n## 何时创建项目\n\n满足任一条件即按 SOP 执行：\n- 会产生多个文件/版本\n- 需要多轮执行\n- 产生代码/文档/表格/演示稿/自动化脚本\n- 用户明确要求创建或后续需要维护复盘\n\n单次问答、解释或临时查看可以不建项目；一旦产生可交付物，应立即转入项目目录。\n\n---\n\n## 收尾检查清单\n\n```\n[ ] 输出物在 outputs/\n[ ] 代码/脚本在 src/\n[ ] 测试证据在 tests/\n[ ] 01_项目总览与下一步.md 已更新\n[ ] 02_问题与报错日志.md 已更新\n[ ] 可复用问题已升级到全局日志\n```\n\n---\n\n## 延伸阅读\n\n### 相关经验\n- [[insight_文档驱动的AI协作模式]] — 项目文档如何支撑 AI 协作\n- [[insight_Claude_Code与Codex协作模式的有效实践]] — 多工具协作的项目结构\n\n### 来源项目\n- [[00_全局工作台.md]] — workspace 总规则\n- [[01_全局复利与踩坑日志.md]] — 跨项目经验沉淀\n- [[02_新项目创建SOP.md]] — 标准流程\n\n---\n\n_最后更新：2026-07-14_\n",
       "summary": "# 工作区项目管理的编号与边界原则"
     },
     {
@@ -664,11 +740,12 @@
         "video",
         "ffmpeg",
         "workflow",
-        "learning"
+        "learning",
+        "time-benchmark"
       ],
       "createdAt": "2026-07-14T00:00:00.000Z",
       "relatedCards": [],
-      "content": "\n# 视频学习项目的工作流设计：命令模式与验证闭环\n\n## 一句话\n\n> 视频学习类项目应先统一素材目录、输出目录和命令记录位置；每条命令必须记录参数、输出和时长验证。\n\n---\n\n## 核心知识\n\n### 视频学习项目目录结构\n\n```\nproject/\n├── lessons/           # 课程笔记（每技能一文件）\n│   └── ffmpeg/\n│       └── skill-02-video-cutting.md\n├── assets/            # 原始素材\n│   ├── raw/          # 源视频\n│   └── clips/        # 练习片段\n├── outputs/          # 最终产物（可播放视频）\n├── tests/            # 验证记录（命令输出、时长、截图）\n│   └── ffmpeg/\n│       └── skill-02-video-cutting.md\n├── src/              # 脚本和自动化\n│   └── ffmpeg/       # 批处理脚本\n└── drafts/           # 草稿和中间版本\n```\n\n---\n\n### 教学模式：先给命令，不默认执行\n\n**project-006 经验**：FFmpeg 命令会生成新文件、覆盖旧文件，学习阶段应该先知道命令会做什么，再决定是否执行。\n\n**触发词约定**：\n\n| 触发词 | 行为 |\n|--------|------|\n| \"讲解模式\" | 只解释，不执行 |\n| \"命令模式\" | 只给终端命令和简短说明 |\n| \"执行模式\" | Codex 直接执行命令 |\n| \"排错模式\" | 先检查路径、文件、时长和参数，再给修复命令 |\n| \"沉淀模式\" | 把本节知识写入项目文档 |\n\n---\n\n### 每条命令的验证闭环\n\n**project-006 教训**：只看命令成功退出不够，必须验证输出文件。\n\n```bash\n# 1. 执行命令\nffmpeg -ss 00:00:08 -i input.mp4 -t 00:00:05 output.mp4\n\n# 2. 验证时长\nffprobe -v error -show_entries format=duration \\\n  -of default=nw=1:nk=1 output.mp4\n\n# 3. 验证分辨率和编码\nffprobe -v error -select_streams v:0 \\\n  -show_entries stream=width,height,r_frame_rate,codec_name \\\n  -of default=nw=1 output.mp4\n\n# 4. 验证文件大小\nls -lh output.mp4\n\n# 5. 播放器确认可播放\n# （或 ffprobe -show_format 确认无损坏）\n```\n\n**必须记录到 tests/ 的内容**：\n- 执行的命令\n- 预期时长 vs 实际时长\n- 预期 vs 实际分辨率/编码\n- 错误信息（若有）\n- 是否符合预期\n\n---\n\n### FFmpeg 技能学习闭环\n\n```\n1. 参数直觉（5 分钟）\n   → 知道这个命令解决什么问题\n\n2. 命令拆解（10 分钟）\n   → 理解每个参数的真实含义\n\n3. 练习 1：基础命令\n   → 在 assets/raw/ 中操作\n\n4. 练习 2：变体命令\n   → 改变参数，观察差异\n\n5. 验证输出\n   → ffprobe + 播放器确认\n\n6. 记录踩坑\n   → 写入 03_过程记录.md 和 lessons/\n```\n\n**每次只学一个核心动作**，不混多个概念。\n\n---\n\n### 阶段化学习策略\n\n**project-006 经验**：FFmpeg 阶段不追求记住所有参数，而是建立\"看懂命令、改动命令、验证结果\"的能力。\n\n| 阶段 | 内容 | 验证方式 |\n|------|------|---------|\n| 阶段 1（核心） | 剪切、合并、文字、分辨率压缩、音频 | 可播放产物 + 时长验证 |\n| 阶段 2（扩展） | 抽帧、水印、速度、裁剪、批处理 | 可播放产物 + 脚本可重复运行 |\n| 阶段 3+ | MoviePy 脚本化、Remotion 动画 | 自动化产出 + 渲染验证 |\n\n---\n\n## 触发提醒\n\n- \"刚学了新命令\" → 立即验证输出文件，不要只看退出码\n- \"跑批处理脚本\" → 先在单文件上测试，确认后再批量执行\n- \"生成视频后\" → ffprobe 查参数 + 播放器确认可播放 + 抽帧目检\n- \"用 Remotion/HyperFrames\" → 先确认依赖是否存在，再决定验证范围\n\n---\n\n## 延伸阅读\n\n### 相关技能卡片\n- [[how-to_FFmpeg视频剪切基础操作]] — 核心参数：-ss, -t, -to\n- [[how-to_FFmpeg压缩与优化]] — CRF、preset、scale\n- [[how-to_FFmpeg添加文字和字幕]] — drawtext 滤镜\n\n### 来源项目\n- `project-006-video-learning/05_教学模式与学习规则.md` — 完整教学模式\n- `project-006-video-learning/06_FFmpeg技能拆分.md` — 14 项技能清单\n\n---\n\n_最后更新：2026-07-14_\n",
+      "content": "\n# 视频学习项目的工作流设计：命令模式与验证闭环\n\n## 一句话\n\n> 视频学习类项目应先统一素材目录、输出目录和命令记录位置；每条命令必须记录参数、输出和时长验证。\n\n---\n\n## 核心知识\n\n### 视频学习项目目录结构\n\n```\nproject/\n├── lessons/           # 课程笔记（每技能一文件）\n│   └── ffmpeg/\n│       └── skill-02-video-cutting.md\n├── assets/            # 原始素材\n│   ├── raw/          # 源视频\n│   └── clips/        # 练习片段\n├── outputs/          # 最终产物（可播放视频）\n├── tests/            # 验证记录（命令输出、时长、截图）\n│   └── ffmpeg/\n│       └── skill-02-video-cutting.md\n├── src/              # 脚本和自动化\n│   └── ffmpeg/       # 批处理脚本\n└── drafts/           # 草稿和中间版本\n```\n\n---\n\n### 教学模式：先给命令，不默认执行\n\n**project-006 经验**：FFmpeg 命令会生成新文件、覆盖旧文件，学习阶段应该先知道命令会做什么，再决定是否执行。\n\n**触发词约定**：\n\n| 触发词 | 行为 |\n|--------|------|\n| \"讲解模式\" | 只解释，不执行 |\n| \"命令模式\" | 只给终端命令和简短说明 |\n| \"执行模式\" | Codex 直接执行命令 |\n| \"排错模式\" | 先检查路径、文件、时长和参数，再给修复命令 |\n| \"沉淀模式\" | 把本节知识写入项目文档 |\n\n---\n\n### 每条命令的验证闭环\n\n**project-006 教训**：只看命令成功退出不够，必须验证输出文件。\n\n```bash\n# 1. 执行命令\nffmpeg -ss 00:00:08 -i input.mp4 -t 00:00:05 output.mp4\n\n# 2. 验证时长\nffprobe -v error -show_entries format=duration \\\n  -of default=nw=1:nk=1 output.mp4\n\n# 3. 验证分辨率和编码\nffprobe -v error -select_streams v:0 \\\n  -show_entries stream=width,height,r_frame_rate,codec_name \\\n  -of default=nw=1 output.mp4\n\n# 4. 验证文件大小\nls -lh output.mp4\n\n# 5. 播放器确认可播放\n# （或 ffprobe -show_format 确认无损坏）\n```\n\n**必须记录到 tests/ 的内容**：\n- 执行的命令\n- 预期时长 vs 实际时长\n- 预期 vs 实际分辨率/编码\n- 错误信息（若有）\n- 是否符合预期\n\n---\n\n### FFmpeg 技能学习闭环\n\n```\n1. 参数直觉（5 分钟）\n   → 知道这个命令解决什么问题\n\n2. 命令拆解（10 分钟）\n   → 理解每个参数的真实含义\n\n3. 练习 1：基础命令\n   → 在 assets/raw/ 中操作\n\n4. 练习 2：变体命令\n   → 改变参数，观察差异\n\n5. 验证输出\n   → ffprobe + 播放器确认\n\n6. 记录踩坑\n   → 写入 03_过程记录.md 和 lessons/\n```\n\n**每次只学一个核心动作**，不混多个概念。\n\n---\n\n### 阶段化学习策略\n\n**project-006 经验**：FFmpeg 阶段不追求记住所有参数，而是建立\"看懂命令、改动命令、验证结果\"的能力。\n\n| 阶段 | 内容 | 验证方式 |\n|------|------|---------|\n| 阶段 1（核心） | 剪切、合并、文字、分辨率压缩、音频 | 可播放产物 + 时长验证 |\n| 阶段 2（扩展） | 抽帧、水印、速度、裁剪、批处理 | 可播放产物 + 脚本可重复运行 |\n| 阶段 3+ | MoviePy 脚本化、Remotion 动画 | 自动化产出 + 渲染验证 |\n\n---\n\n## 时间基准原则\n\n> 自动化内容生成中，**以真实生成为基准**，而非死套参考素材时长。\n\n**醒春工作流经验**：\n\n| 常见做法 | 问题 | 正确做法 |\n|---------|------|---------|\n| 死套参考视频的镜头时长 | 配音和画面不同步 | 以真实配音时长为画面基准 |\n| 预设时长生成配音 | 配音被截断或过长 | 先生成配音，再按实际时长调整画面 |\n| 硬凑素材填补空缺 | 观众看出机器拼凑感 | 置信度 < 0.6 标记缺素材 |\n\n**核心原则**：所有时间线基准以**最终生成的真实内容**为准，而非预设的参考值。\n\n## 触发提醒\n\n- \"刚学了新命令\" → 立即验证输出文件，不要只看退出码\n- \"跑批处理脚本\" → 先在单文件上测试，确认后再批量执行\n- \"生成视频后\" → ffprobe 查参数 + 播放器确认可播放 + 抽帧目检\n- \"用 Remotion/HyperFrames\" → 先确认依赖是否存在，再决定验证范围\n- \"生成配音后\" → 以真实配音时长为画面和字幕的时长基准\n\n---\n\n## 延伸阅读\n\n### 相关技能卡片\n- [[how-to_FFmpeg视频剪切基础操作]] — 核心参数：-ss, -t, -to\n- [[how-to_FFmpeg压缩与优化]] — CRF、preset、scale\n- [[how-to_FFmpeg添加文字和字幕]] — drawtext 滤镜\n\n### 来源项目\n- `project-006-video-learning/05_教学模式与学习规则.md` — 完整教学模式\n- `project-006-video-learning/06_FFmpeg技能拆分.md` — 14 项技能清单\n\n---\n\n_最后更新：2026-07-14_\n",
       "summary": "# 视频学习项目的工作流设计：命令模式与验证闭环"
     },
     {
@@ -860,6 +937,25 @@
       "summary": "# 测试补强的边界情况优先原则"
     },
     {
+      "id": "insight_AI驱动短视频自动化剪辑的六步工作流",
+      "type": "card",
+      "title": "insight_AI驱动短视频自动化剪辑的六步工作流",
+      "tags": [
+        "card",
+        "insight",
+        "codex",
+        "video",
+        "automation",
+        "workflow",
+        "短视频",
+        "剪辑"
+      ],
+      "createdAt": "2026-07-16T00:00:00.000Z",
+      "relatedCards": [],
+      "content": "\n# AI 驱动短视频自动化剪辑的六步工作流\n\n## 一句话\n\n> 不原创、先拆爆款；Codex 执行流水线，人工只做审核和微调——把重复的剪辑动作自动化，让 AI 替你完成 70% 的重复劳动。\n\n---\n\n## 核心知识\n\n### 工作流设计原则\n\n**核心方法论**：爆款参考视频提供结构，素材库提供画面，Codex 负责执行中间流程。\n\n- 不要一上来就原创，先研究爆款——爆款的结构、节奏、字幕方式、转化钩子都经过市场验证\n- Codex 不是帮你完成一次任务，而是把你的经验沉淀成可重复调用的工作流\n\n### 六步流水线\n\n```\n1. 参考视频 → 2. 拆解镜头 → 3. 匹配素材 → 4. 生成配音 → 5. 生成草稿 → 6. 人工审核\n```\n\n| 步骤 | Codex 做什么 | 输出 |\n|------|------------|------|\n| 1. 环境准备 | 检查 FFmpeg/Python/剪映/TTS 可用性 | 确认工具就绪 |\n| 2. 拆解参考视频 | FFmpeg 镜头检测 + 关键帧提取 + 音轨分离 | recipe.json + 关键帧图片 |\n| 3. 素材匹配 | Python OpenCV 视觉特征匹配（颜色/亮度/构图） | matches.json + fragment 文件夹 |\n| 4. 生成配音 | 调用 TTS API，按镜头分段 | final_voice.mp3 |\n| 5. 生成草稿 | FFmpeg 合成预览 + 生成 SRT + 生成剪映草稿格式 | remix.mp4 + captions.srt + jianying_draft/ |\n| 6. 人工审核 | — | 打开剪映微调，导出成品 |\n\n### 关键操作原则\n\n| 原则 | 说明 | 原因 |\n|------|------|------|\n| **复制素材，不移动** | Codex 从 assets/ 复制到 work/material/ | 保护原始素材库不被破坏 |\n| **置信度 < 0.6 标记缺素材** | 低匹配度镜头不硬凑 | 观众能看出机器拼凑感 |\n| **以真实配音时长为基准** | 画面和配音必须同步 | 不是死套参考视频时长 |\n| **分层问题定位** | 拆解/匹配/配音/草稿分层排查 | 不要全量重做 |\n| **先人工确认再下一步** | 镜头切分、配音文本、匹配结果 | 自动化不能替代所有人工判断 |\n\n---\n\n## 适用边界\n\n### 适合的场景\n\n- 电商带货视频\n- 产品种草视频\n- 混剪类内容\n- 营销推广视频\n- 图文素材号\n- 矩阵号批量内容\n- 长视频切片二次加工\n\n### 不适合的场景\n\n- 电影感短片\n- 强叙事原创视频\n- 复杂转场\n- 精细情绪表达\n\n**核心定位**：不替代高级剪辑师，而是干掉 70% 的重复劳动。\n\n---\n\n## 工具栈与角色分工\n\n```\nCodex（编排者）\n  └─ 理解需求、调度工具、写脚本、检查结果\n\nFFmpeg（底层处理）\n  └─ 镜头检测、关键帧提取、音轨提取、视频合成\n\nPython + OpenCV（智能分析）\n  └─ 帧间差异分析、视觉特征提取、素材相似度匹配\n\n豆包 TTS / 声音克隆（配音生成）\n  └─ 文字转语音，输出独立音频片段\n\n剪映专业版（最终编辑界面）\n  └─ Codex 生成 .draft 草稿，人工微调\n```\n\n---\n\n## 触发提醒\n\n- 想做批量短视频但不想一个个手动剪辑 → 用这套流水线\n- 已有素材库，想自动化匹配 → 启用 Step 3 素材匹配\n- 剪视频时重复动作太多 → 把流程封装成 Codex Skill\n\n---\n\n## 延伸阅读\n\n### 相关经验\n- [[insight_Claude_Code与Codex协作模式的有效实践]] — Claude Code 和 Codex 的协作边界\n- [[insight_视频学习项目的工作流设计]] — 视频学习的目录结构和验证闭环\n\n### 来源项目\n- `project-006-video-learning/src/醒春自动剪辑工作流/00_醒春文章全文归档.md` — 原文完整归档\n- `project-006-video-learning/src/醒春自动剪辑工作流/01_Claude_Code_vs_Codex能力边界分析.md` — 能力边界分析\n- `project-007-video-auto-edit/` — 醒春工作流学习项目\n\n---\n\n_最后更新：2026-07-16_\n",
+      "summary": "# AI 驱动短视频自动化剪辑的六步工作流"
+    },
+    {
       "id": "insight_Web动画性能优化的核心原则",
       "type": "note",
       "title": "insight_Web动画性能优化的核心原则",
@@ -969,5 +1065,5 @@
       "summary": "# 00_Cards — 原子化知识卡片"
     }
   ],
-  "lastSync": "2026-07-15T04:43:57.966Z"
+  "lastSync": "2026-07-16T04:54:19.788Z"
 }
