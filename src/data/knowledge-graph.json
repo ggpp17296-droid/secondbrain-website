@@ -473,6 +473,32 @@
       ]
     },
     {
+      "id": "insight_Hermes四端协作的数据分层与验收边界",
+      "label": "insight_Hermes四端协作的数据分层与验收边界",
+      "type": "card",
+      "tags": [
+        "card",
+        "insight",
+        "hermes",
+        "多端协作",
+        "分布式系统",
+        "验收方法"
+      ]
+    },
+    {
+      "id": "insight_旅行视频项目的决策分离与可执行边界",
+      "label": "insight_旅行视频项目的决策分离与可执行边界",
+      "type": "card",
+      "tags": [
+        "card",
+        "insight",
+        "视频创作",
+        "旅行规划",
+        "决策基线",
+        "项目管理"
+      ]
+    },
+    {
       "id": "insight_Web动画性能优化的核心原则",
       "label": "insight_Web动画性能优化的核心原则",
       "type": "note",
