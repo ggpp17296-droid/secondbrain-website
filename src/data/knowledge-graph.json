@@ -578,6 +578,12 @@
         "cards",
         "system"
       ]
+    },
+    {
+      "id": "tool_mlx-whisper本地模型调用指南",
+      "label": "tool_mlx-whisper本地模型调用指南",
+      "type": "note",
+      "tags": []
     }
   ],
   "edges": []

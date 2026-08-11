@@ -1097,7 +1097,17 @@
       "relatedCards": [],
       "content": "\n# 00_Cards — 原子化知识卡片\n\n> 一张卡片，只讲一件事。卡片之间通过 `related` 字段和 `[[双向链接]]` 构建知识网络。\n\n---\n\n## 卡片类型（22 种）\n\n完整模板见 `.templates/` 目录。每种类型针对一种特定的知识单元：\n\n| 类型 | 用途 | 示例卡片 |\n|------|------|----------|\n| `insight` | 自己的思考与洞察 | [[_EXAMPLE_insight_记录是思考的外部硬盘]] |\n| `book` | 一本书的档案 + 概要 | [[_EXAMPLE_book_卡片笔记写作法]] |\n| `book-note` | 一本书里的具体笔记 | — |\n| `quote` | 有启发的引用 | [[_EXAMPLE_quote_学而不思则罔]] |\n| `person` | 值得关注的人物 | [[_EXAMPLE_person_Niklas_Luhmann]] |\n| `mentalmodel` | 通用思维模型 | [[_EXAMPLE_mentalmodel_第一性原理]] |\n| `term` | 重要概念/术语 | — |\n| `resource` | 在线资源（网站、文章） | — |\n| `tool` | 实用工具 | [[_EXAMPLE_tool_Obsidian]] |\n| `opensource` | 开源项目 | — |\n| `prompt` | AI 提示词模板 | — |\n| `counterintuitive` | 反直觉的观点 | — |\n| `course` | 优质课程 / 学习视频 | — |\n| `checklist` | 标准化流程清单 | — |\n| `tip` | 实用技巧 | — |\n| `subscription` | 付费订阅服务 | — |\n| `atomic-habit` | 习惯追踪 | — |\n| `techstack` | 技术栈组合 | — |\n| `story` | 有启发的故事 | — |\n| `paradox` | 思维悖论 | — |\n| `question` | 值得长期追问的问题 | — |\n| `moc` | 主题内容地图（Map of Content） | — |\n\n---\n\n## 卡片设计理念\n\n1. **原子化**：一张卡片只讲一件事。信息太多就拆成多张\n2. **可链接**：通过 `related` 字段和 `[[wiki链接]]` 关联其他卡片\n3. **有来源**：`source` 字段记录这个知识从哪里来\n4. **可复用**：同一张卡片可以在多个项目、多篇文章里引用\n\n---\n\n## 如何新建卡片\n\n### 手动方式\n1. 从 `.templates/` 找对应类型的模板\n2. 复制到 `00_Cards/` 根目录\n3. 按命名规范重命名：`{type}_{主题}.md`\n4. 填写 frontmatter 和正文\n\n### 用 AI Skill 方式\n使用 `card-creator` Skill（已内置）：\n\n```\n/create-card 关于「xxx」的 insight 卡\n```\n\nAI 会自动识别卡片类型、填写合适的模板、保存到正确位置。\n\n---\n\n## 命名规范\n\n```\n{card_type}_{主题名称}.md\n\n示例：\n- insight_记录是思考的外部硬盘.md\n- book_卡片笔记写作法.md\n- mentalmodel_第一性原理.md\n- person_Niklas_Luhmann.md\n```\n\n示例卡片统一带 `_EXAMPLE_` 前缀，方便批量删除。\n\n---\n\n## 示例卡片说明\n\n本目录预置了 6 张示例卡片（`_EXAMPLE_` 前缀），展示不同类型的卡片长什么样，它们之间怎么互相引用。\n\n**你可以安全删除所有 `_EXAMPLE_*` 文件**，它们只是样板。\n",
       "summary": "# 00_Cards — 原子化知识卡片"
+    },
+    {
+      "id": "tool_mlx-whisper本地模型调用指南",
+      "type": "note",
+      "title": "tool_mlx-whisper本地模型调用指南",
+      "tags": [],
+      "createdAt": null,
+      "relatedCards": [],
+      "content": "# mlx-whisper 本地模型调用指南\n\n## 模型信息\n\n- **模型名称**：whisper-medium-mlx\n- **来源**：mlx-community/whisper-medium-mlx\n- **本地路径**：`/Users/jacklee/Library/Caches/mlx-whisper/whisper-medium-mlx`\n- **文件大小**：1.4 GB（weights.npz + config.json）\n- **适用芯片**：Apple Silicon（M系列，MLX 优化版）\n- **特点**：完全离线，无需 API Key，中文识别效果好\n\n---\n\n## 调用方式\n\n### 标准调用（直接用本地路径，不走 HuggingFace）\n\n```python\nimport mlx_whisper\n\nresult = mlx_whisper.transcribe(\n    \"/path/to/video_or_audio.mp4\",\n    path_or_hf_repo=\"/Users/jacklee/Library/Caches/mlx-whisper/whisper-medium-mlx\",\n    language=\"zh\",\n    verbose=True\n)\n\n# 获取文字内容\nprint(result[\"text\"])\n\n# 保存到文件\nwith open(\"/path/to/output.txt\", \"w\", encoding=\"utf-8\") as f:\n    f.write(result[\"text\"])\n```\n\n### 调用 Python 路径\n\n```bash\n/usr/bin/python3\n```\n\n---\n\n## 注意事项\n\n- **不要设置 `HF_ENDPOINT`**：指定本地路径后不会联网，不需要镜像源\n- **不要使用 `mlx-community/whisper-medium-mlx` 字符串**：会触发 HuggingFace 下载（XET 协议，国内网络不稳定）\n- **始终用绝对路径**：`/Users/jacklee/Library/Caches/mlx-whisper/whisper-medium-mlx`\n- 支持格式：MP4、MP3、WAV、M4A 等常见音视频格式\n- 高原/嘈杂环境录音建议加 `beam_size=5` 参数提升准确率\n\n---\n\n## 支持的语言参数\n\n| 参数 | 语言 |\n|------|------|\n| `language=\"zh\"` | 中文（普通话） |\n| `language=\"en\"` | 英文 |\n| 不填 | 自动检测 |\n\n---\n\n## 历史背景\n\n- 安装时间：2026-08-10\n- 安装方式：用户手动下载模型文件到 `~/Library/Caches/mlx-whisper/`\n- HuggingFace 直接下载失败原因：新版 XET 协议，国内网络不支持断点续传\n- 解决方案：用户通过其他方式下载模型后放置到本地路径\n\n---\n\n## 相关标签\n\n#工具 #AI #语音识别 #mlx-whisper #本地模型\n",
+      "summary": "mlx-whisper 本地模型调用指南"
     }
   ],
-  "lastSync": "2026-08-10T03:45:41.408Z"
+  "lastSync": "2026-08-11T03:27:58.795Z"
 }
