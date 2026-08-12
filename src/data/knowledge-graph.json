@@ -174,6 +174,19 @@
       ]
     },
     {
+      "id": "tool_MacMini音视频AI远程调用规范",
+      "label": "tool_MacMini音视频AI远程调用规范",
+      "type": "note",
+      "tags": [
+        "工具",
+        "AI",
+        "远程调用",
+        "Whisper",
+        "Demucs",
+        "MacMini"
+      ]
+    },
+    {
       "id": "insight_Context API的懒初始化与性能优化模式",
       "label": "insight_Context API的懒初始化与性能优化模式",
       "type": "card",
@@ -499,6 +512,18 @@
       ]
     },
     {
+      "id": "tool_mlx-whisper本地模型调用指南",
+      "label": "tool_mlx-whisper本地模型调用指南",
+      "type": "note",
+      "tags": [
+        "工具",
+        "AI",
+        "语音识别",
+        "Whisper",
+        "远程调用"
+      ]
+    },
+    {
       "id": "insight_Web动画性能优化的核心原则",
       "label": "insight_Web动画性能优化的核心原则",
       "type": "note",
@@ -578,12 +603,6 @@
         "cards",
         "system"
       ]
-    },
-    {
-      "id": "tool_mlx-whisper本地模型调用指南",
-      "label": "tool_mlx-whisper本地模型调用指南",
-      "type": "note",
-      "tags": []
     }
   ],
   "edges": []

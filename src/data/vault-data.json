@@ -565,6 +565,23 @@
       "summary": "# Obsidian"
     },
     {
+      "id": "tool_MacMini音视频AI远程调用规范",
+      "type": "note",
+      "title": "tool_MacMini音视频AI远程调用规范",
+      "tags": [
+        "工具",
+        "AI",
+        "远程调用",
+        "Whisper",
+        "Demucs",
+        "MacMini"
+      ],
+      "createdAt": "2026-08-12T00:00:00.000Z",
+      "relatedCards": [],
+      "content": "\n# Mac mini 音视频 AI 远程调用规范\n\n> 长期事实卡片。执行音视频转录或人声分离任务时，直接按本文调用，无需重新探索。\n\n## 一、主机与安全边界\n\n| 项目 | 内容 |\n|------|------|\n| 目标主机 | Mac mini（16GB） |\n| Tailscale 地址 | `100.71.82.126` |\n| SSH 别名 | `mac-mini`（**优先使用别名**） |\n| 访问方式 | 仅走 Tailscale SSH |\n\n**硬边界（不可越过）：**\n- ❌ 不访问、不使用历史 LAN 地址\n- ❌ 不创建 HTTP/API 服务、FRP 隧道、公网端口\n- ❌ 不读取/复制/写入：`.env`、SSH 私钥、Hermes 会话、Ollama 模型及模型缓存\n- ❌ 不修改或删除：`venv`、`bin/ffmpeg`、`cache/huggingface`\n\n---\n\n## 二、安装根目录\n\n```\n/Users/jack/ai-tools/audio-models/\n├── bin/\n│   ├── transcribe-srt      # 能力一：转 SRT\n│   ├── separate-vocals     # 能力二：人声分离\n│   ├── ffmpeg  (符号链接，勿动)\n│   └── ffprobe (符号链接，勿动)\n├── venv/                   # 勿动\n└── cache/huggingface/      # 勿动\n```\n\n---\n\n## 三、能力一：视频/音频 → SRT 字幕\n\n- **模型**：`mlx-whisper` + `mlx-community/whisper-medium-mlx`\n\n```bash\nssh mac-mini '/Users/jack/ai-tools/audio-models/bin/transcribe-srt \"/输入媒体完整路径\" \"/输出目录完整路径\"'\n```\n\n**成功标准**：输出目录出现与输入文件同名的 `.srt`\n\n---\n\n## 四、能力二：提取人声与伴奏\n\n- **模型**：Demucs 4.1.0（已验证 Apple Metal / MPS 加速）\n\n```bash\nssh mac-mini '/Users/jack/ai-tools/audio-models/bin/separate-vocals \"/输入媒体完整路径\" \"/输出目录完整路径\"'\n```\n\n**成功标准**：输出目录出现以下两个文件\n\n```\nhtdemucs/文件名/vocals.wav      # 人声\nhtdemucs/文件名/no_vocals.wav   # 伴奏\n```\n\n---\n\n## 五、任务执行规则\n\n1. **媒体落位**：输入媒体必须先放入**已授权、可追溯的任务目录**；完成后只取回 SRT 或两个音轨，不搬运其他文件\n2. **禁止并行**：16GB 内存限制，**Whisper 与 Demucs 不可同时运行**，必须顺序执行\n3. **前后检查**：\n   - 调用前：确认 SSH 连通 + 输入文件存在\n   - 调用后：确认目标输出文件存在且**非零大小**\n4. **报错处理**：\n   - ❌ 不替换 FFmpeg\n   - ❌ 不重装 Python\n   - ❌ 不清缓存\n   - ✅ 回传完整错误摘要 + 输入/输出路径，交给维护智能体处理\n\n---\n\n## 六、连通性快速自检\n\n```bash\nssh -o ConnectTimeout=10 mac-mini 'ls /Users/jack/ai-tools/audio-models/bin/'\n```\n\n---\n\n## 七、与本机 mlx-whisper 的关系\n\n| 场景 | 使用方案 |\n|------|---------|\n| 需要 SRT 时间轴字幕 | Mac mini `transcribe-srt` |\n| 需要人声/伴奏分离 | Mac mini `separate-vocals` |\n| 只要纯文字稿、本机即可 | 本机 mlx-whisper，见 [[tool_mlx-whisper本地模型调用指南]] |\n\n---\n\n## 相关标签\n\n#工具 #AI #远程调用 #Whisper #Demucs #音视频处理\n",
+      "summary": "# Mac mini 音视频 AI 远程调用规范"
+    },
+    {
       "id": "insight_Context API的懒初始化与性能优化模式",
       "type": "card",
       "title": "insight_Context API的懒初始化与性能优化模式",
@@ -990,6 +1007,22 @@
       "summary": "# 旅行视频项目的决策分离与可执行边界"
     },
     {
+      "id": "tool_mlx-whisper本地模型调用指南",
+      "type": "note",
+      "title": "tool_mlx-whisper本地模型调用指南",
+      "tags": [
+        "工具",
+        "AI",
+        "语音识别",
+        "Whisper",
+        "远程调用"
+      ],
+      "createdAt": "2026-08-10T00:00:00.000Z",
+      "relatedCards": [],
+      "content": "\n# mlx-whisper 调用指南（跨网络 · Mac mini）\n\n> ⚠️ **2026-08-12 变更**：已停用本机模型调用，统一改为通过 Tailscale SSH 调用 Mac mini 上的部署。\n> 本机 `~/Library/Caches/mlx-whisper/` 模型不再作为默认路径，仅在 Mac mini 不可达时作为降级备选。\n\n---\n\n## 一、默认调用方式（跨网络）\n\n### 转 SRT + TXT（同时输出，一次推理）\n\n```bash\n# 默认中文\nssh mac-mini '/Users/jack/ai-tools/audio-models/bin/transcribe-srt \"/输入媒体完整路径\" \"/输出目录完整路径\"'\n\n# 指定语言（可选第三参数：zh / en / auto）\nssh mac-mini '/Users/jack/ai-tools/audio-models/bin/transcribe-srt \"/输入媒体完整路径\" \"/输出目录完整路径\" en'\n\n# 自动检测语言\nssh mac-mini '/Users/jack/ai-tools/audio-models/bin/transcribe-srt \"/输入媒体完整路径\" \"/输出目录完整路径\" auto'\n```\n\n- **主机**：Mac mini，Tailscale `100.71.82.126`，SSH 别名 `mac-mini`\n- **模型**：`mlx-community/whisper-medium-mlx`（Mac mini 侧 `cache/huggingface`）\n- **输出格式**：`--output-format all`，一次推理同时生成 `.srt`（带时间轴）和 `.txt`（纯文字）\n- **成功标准**：输出目录同时出现与输入同名的 `.srt` 和 `.txt`，均非零大小\n\n### 完整任务流程\n\n```bash\n# 1. 检查连通性\nssh -o ConnectTimeout=10 mac-mini 'echo OK'\n\n# 2. 上传媒体到已授权任务目录\nscp \"/本机/媒体.mp4\" mac-mini:/Users/jack/ai-tools/audio-models/work/\n\n# 3. 执行转录（默认 zh；如需其他语言在末尾加第三参数）\nssh mac-mini '/Users/jack/ai-tools/audio-models/bin/transcribe-srt \\\n  \"/Users/jack/ai-tools/audio-models/work/媒体.mp4\" \\\n  \"/Users/jack/ai-tools/audio-models/work/srt-out\"'\n\n# 4. 校验输出非零（应同时出现 .srt 和 .txt）\nssh mac-mini 'ls -la /Users/jack/ai-tools/audio-models/work/srt-out/'\n\n# 5. 取回输出（SRT 带时间轴 / TXT 纯文字，按需取）\nscp mac-mini:/Users/jack/ai-tools/audio-models/work/srt-out/媒体.srt \"/本机/目标目录/\"\nscp mac-mini:/Users/jack/ai-tools/audio-models/work/srt-out/媒体.txt \"/本机/目标目录/\"\n```\n\n**已授权任务目录**：`/Users/jack/ai-tools/audio-models/work/`\n\n---\n\n## 二、语言参数\n\n| 用法 | 说明 |\n|------|------|\n| 不传第三参数（默认） | `--language zh`，中文 |\n| 第三参数 `en` | `--language en`，英文 |\n| 第三参数 `auto` | 不传 `--language`，自动检测 |\n\n---\n\n## 三、输出说明\n\n脚本使用 `--output-format all`，一次模型推理同时生成：\n- **`.srt`**：带时间轴字幕（85B），格式示例：\n  ```\n  1\n  00:00:00,000 --> 00:00:02,000\n  你好,这是Mac mini上的中文语音识别测试\n  ```\n- **`.txt`**：纯文字稿（52B），无序号、无时间轴，直接可用\n\n按需取回即可，不必本机二次处理。\n\n---\n\n## 五、安全边界\n\n- ✅ 仅走 Tailscale SSH\n- ❌ 不使用历史 LAN 地址\n- ❌ 不创建 HTTP/API、FRP 或公网端口\n- ❌ 不读取 Mac mini 的 `.env`、SSH 私钥、Hermes 会话、Ollama 模型及缓存\n- ❌ 不修改 `venv`、`bin/ffmpeg`、`cache/huggingface`\n- ⚠️ **禁止并行**：16GB 内存，Whisper 与 Demucs 必须顺序执行\n\n---\n\n## 六、报错处理\n\n不要自行修复。**不替换 FFmpeg、不重装 Python、不清缓存。**\n回传完整错误摘要 + 输入/输出路径，交维护智能体处理。\n\n---\n\n## 七、降级备选（本机，仅 Mac mini 不可达时）\n\n<details>\n<summary>本机 mlx-whisper 调用方式（已不作为默认）</summary>\n\n- 本机模型路径：`/Users/jacklee/Library/Caches/mlx-whisper/whisper-medium-mlx`（1.4 GB）\n\n```python\nimport mlx_whisper\n\nresult = mlx_whisper.transcribe(\n    \"/path/to/video.mp4\",\n    path_or_hf_repo=\"/Users/jacklee/Library/Caches/mlx-whisper/whisper-medium-mlx\",\n    language=\"zh\"\n)\nprint(result[\"text\"])\n```\n\n注意事项：\n- 必须用绝对本地路径，**不要**传 `mlx-community/whisper-medium-mlx` 字符串（会触发 HuggingFace XET 下载，国内不稳定）\n- 不要设置 `HF_ENDPOINT`\n- 输出为纯文字，无时间轴\n\n</details>\n\n---\n\n## 八、相关卡片\n\n- [[tool_MacMini音视频AI远程调用规范]] — 完整主机边界、Demucs 人声分离能力\n\n---\n\n## 历史背景\n\n- 2026-08-10：本机手动放置模型，因 HuggingFace XET 协议国内下载失败\n- 2026-08-12：Mac mini 部署完成并验证，切换为跨网络调用，本机降为备选\n- 2026-08-12：`transcribe-srt` 升级——支持第三参数指定语言（默认 `zh`），输出格式改为 `all`，一次推理同时产出 SRT + TXT。备份：`bin/transcribe-srt.bak.20260812`\n  - 该版本 CLI 的 `--output-format` 只接受单值，不支持 `srt,txt` 逗号列表，故采用 `all`\n\n## 已知风险\n\n- `bin/ffprobe` 是指向 `/Applications/VideoFusion-macOS.app/Contents/Resources/ffprobe` 的软链，依赖外部 App。该 App 卸载或更新可能断链（已记录，暂不处理）\n\n#工具 #AI #语音识别 #Whisper #远程调用\n",
+      "summary": "# mlx-whisper 调用指南（跨网络 · Mac mini）"
+    },
+    {
       "id": "insight_Web动画性能优化的核心原则",
       "type": "note",
       "title": "insight_Web动画性能优化的核心原则",
@@ -1097,17 +1130,7 @@
       "relatedCards": [],
       "content": "\n# 00_Cards — 原子化知识卡片\n\n> 一张卡片，只讲一件事。卡片之间通过 `related` 字段和 `[[双向链接]]` 构建知识网络。\n\n---\n\n## 卡片类型（22 种）\n\n完整模板见 `.templates/` 目录。每种类型针对一种特定的知识单元：\n\n| 类型 | 用途 | 示例卡片 |\n|------|------|----------|\n| `insight` | 自己的思考与洞察 | [[_EXAMPLE_insight_记录是思考的外部硬盘]] |\n| `book` | 一本书的档案 + 概要 | [[_EXAMPLE_book_卡片笔记写作法]] |\n| `book-note` | 一本书里的具体笔记 | — |\n| `quote` | 有启发的引用 | [[_EXAMPLE_quote_学而不思则罔]] |\n| `person` | 值得关注的人物 | [[_EXAMPLE_person_Niklas_Luhmann]] |\n| `mentalmodel` | 通用思维模型 | [[_EXAMPLE_mentalmodel_第一性原理]] |\n| `term` | 重要概念/术语 | — |\n| `resource` | 在线资源（网站、文章） | — |\n| `tool` | 实用工具 | [[_EXAMPLE_tool_Obsidian]] |\n| `opensource` | 开源项目 | — |\n| `prompt` | AI 提示词模板 | — |\n| `counterintuitive` | 反直觉的观点 | — |\n| `course` | 优质课程 / 学习视频 | — |\n| `checklist` | 标准化流程清单 | — |\n| `tip` | 实用技巧 | — |\n| `subscription` | 付费订阅服务 | — |\n| `atomic-habit` | 习惯追踪 | — |\n| `techstack` | 技术栈组合 | — |\n| `story` | 有启发的故事 | — |\n| `paradox` | 思维悖论 | — |\n| `question` | 值得长期追问的问题 | — |\n| `moc` | 主题内容地图（Map of Content） | — |\n\n---\n\n## 卡片设计理念\n\n1. **原子化**：一张卡片只讲一件事。信息太多就拆成多张\n2. **可链接**：通过 `related` 字段和 `[[wiki链接]]` 关联其他卡片\n3. **有来源**：`source` 字段记录这个知识从哪里来\n4. **可复用**：同一张卡片可以在多个项目、多篇文章里引用\n\n---\n\n## 如何新建卡片\n\n### 手动方式\n1. 从 `.templates/` 找对应类型的模板\n2. 复制到 `00_Cards/` 根目录\n3. 按命名规范重命名：`{type}_{主题}.md`\n4. 填写 frontmatter 和正文\n\n### 用 AI Skill 方式\n使用 `card-creator` Skill（已内置）：\n\n```\n/create-card 关于「xxx」的 insight 卡\n```\n\nAI 会自动识别卡片类型、填写合适的模板、保存到正确位置。\n\n---\n\n## 命名规范\n\n```\n{card_type}_{主题名称}.md\n\n示例：\n- insight_记录是思考的外部硬盘.md\n- book_卡片笔记写作法.md\n- mentalmodel_第一性原理.md\n- person_Niklas_Luhmann.md\n```\n\n示例卡片统一带 `_EXAMPLE_` 前缀，方便批量删除。\n\n---\n\n## 示例卡片说明\n\n本目录预置了 6 张示例卡片（`_EXAMPLE_` 前缀），展示不同类型的卡片长什么样，它们之间怎么互相引用。\n\n**你可以安全删除所有 `_EXAMPLE_*` 文件**，它们只是样板。\n",
       "summary": "# 00_Cards — 原子化知识卡片"
-    },
-    {
-      "id": "tool_mlx-whisper本地模型调用指南",
-      "type": "note",
-      "title": "tool_mlx-whisper本地模型调用指南",
-      "tags": [],
-      "createdAt": null,
-      "relatedCards": [],
-      "content": "# mlx-whisper 本地模型调用指南\n\n## 模型信息\n\n- **模型名称**：whisper-medium-mlx\n- **来源**：mlx-community/whisper-medium-mlx\n- **本地路径**：`/Users/jacklee/Library/Caches/mlx-whisper/whisper-medium-mlx`\n- **文件大小**：1.4 GB（weights.npz + config.json）\n- **适用芯片**：Apple Silicon（M系列，MLX 优化版）\n- **特点**：完全离线，无需 API Key，中文识别效果好\n\n---\n\n## 调用方式\n\n### 标准调用（直接用本地路径，不走 HuggingFace）\n\n```python\nimport mlx_whisper\n\nresult = mlx_whisper.transcribe(\n    \"/path/to/video_or_audio.mp4\",\n    path_or_hf_repo=\"/Users/jacklee/Library/Caches/mlx-whisper/whisper-medium-mlx\",\n    language=\"zh\",\n    verbose=True\n)\n\n# 获取文字内容\nprint(result[\"text\"])\n\n# 保存到文件\nwith open(\"/path/to/output.txt\", \"w\", encoding=\"utf-8\") as f:\n    f.write(result[\"text\"])\n```\n\n### 调用 Python 路径\n\n```bash\n/usr/bin/python3\n```\n\n---\n\n## 注意事项\n\n- **不要设置 `HF_ENDPOINT`**：指定本地路径后不会联网，不需要镜像源\n- **不要使用 `mlx-community/whisper-medium-mlx` 字符串**：会触发 HuggingFace 下载（XET 协议，国内网络不稳定）\n- **始终用绝对路径**：`/Users/jacklee/Library/Caches/mlx-whisper/whisper-medium-mlx`\n- 支持格式：MP4、MP3、WAV、M4A 等常见音视频格式\n- 高原/嘈杂环境录音建议加 `beam_size=5` 参数提升准确率\n\n---\n\n## 支持的语言参数\n\n| 参数 | 语言 |\n|------|------|\n| `language=\"zh\"` | 中文（普通话） |\n| `language=\"en\"` | 英文 |\n| 不填 | 自动检测 |\n\n---\n\n## 历史背景\n\n- 安装时间：2026-08-10\n- 安装方式：用户手动下载模型文件到 `~/Library/Caches/mlx-whisper/`\n- HuggingFace 直接下载失败原因：新版 XET 协议，国内网络不支持断点续传\n- 解决方案：用户通过其他方式下载模型后放置到本地路径\n\n---\n\n## 相关标签\n\n#工具 #AI #语音识别 #mlx-whisper #本地模型\n",
-      "summary": "mlx-whisper 本地模型调用指南"
     }
   ],
-  "lastSync": "2026-08-11T03:27:58.795Z"
+  "lastSync": "2026-08-12T03:58:34.677Z"
 }
