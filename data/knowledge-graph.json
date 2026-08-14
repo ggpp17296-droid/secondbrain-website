@@ -595,6 +595,12 @@
       ]
     },
     {
+      "id": "2025-08-13_川西格聂攻略优化记录",
+      "label": "2025-08-13_川西格聂攻略优化记录",
+      "type": "note",
+      "tags": []
+    },
+    {
       "id": "README",
       "label": "Knowledge Cards",
       "type": "note",
@@ -603,6 +609,12 @@
         "cards",
         "system"
       ]
+    },
+    {
+      "id": "workflow_bilibili视频转录优化流程",
+      "label": "workflow_bilibili视频转录优化流程",
+      "type": "note",
+      "tags": []
     }
   ],
   "edges": []
