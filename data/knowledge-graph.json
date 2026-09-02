@@ -1,6 +1,32 @@
 {
   "nodes": [
     {
+      "id": "insight_脚本化文档批改的工具降级与命中核验",
+      "label": "insight_脚本化文档批改的工具降级与命中核验",
+      "type": "card",
+      "tags": [
+        "card",
+        "insight",
+        "document-processing",
+        "docx",
+        "verification",
+        "tooling"
+      ]
+    },
+    {
+      "id": "tip_清理类任务的双向证据与保留项标注",
+      "label": "tip_清理类任务的双向证据与保留项标注",
+      "type": "card",
+      "tags": [
+        "card",
+        "tip",
+        "cleanup",
+        "verification",
+        "multi-device",
+        "storage"
+      ]
+    },
+    {
       "id": "how-to_FFmpeg视频合并的两种方式",
       "label": "how-to_FFmpeg视频合并的两种方式",
       "type": "card",
@@ -337,7 +363,8 @@
         "ssh",
         "infrastructure",
         "environment",
-        "multi-device"
+        "multi-device",
+        "credentials"
       ]
     },
     {
